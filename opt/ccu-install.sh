@@ -49,9 +49,8 @@ cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/* -R /e
 cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/crRFD.conf /etc/
 cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/bin/* -R /bin/
 cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/lib/* -R /lib/
+cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/etc/* -R /etc/
 cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/etc/config_templates/* -R /etc/config/
-cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/etc/config_templates/* -R /etc/config_templates/
-cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/etc/rega.conf /etc/config/
 cp /opt/occu/HMserver/etc/config_templates/log4j.xml /etc/config/
 cp /opt/occu/HMserver/opt/HMServer/* -R /opt/HMServer/
 cp /opt/occu/X86_32_Debian_Wheezy/packages/lighttpd/etc/lighttpd/* -R /etc/lighttpd/
