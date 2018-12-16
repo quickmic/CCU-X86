@@ -6,7 +6,7 @@ if [ "$HMIP" = "y" ]
 then
     echo "Is HmIP-RFUSB directly plugged to the CCU? (y/n):"
     read HMIPLOCAL
-    
+ 
     if [ "$HMIPLOCAL" = "y" ]
     then
         echo "/dev/ttyUSB0" > /var/status/HMIPlocaldevice
@@ -67,3 +67,5 @@ mkdir /etc/config/crRFD/
 mkdir /etc/config/crRFD/data
 
 git clone https://github.com/quickmic/occu.git /opt/occu/
+
+test
