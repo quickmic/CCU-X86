@@ -59,6 +59,8 @@ dpkg-reconfigure tzdata
 dpkg-reconfigure keyboard-configuration
 dpkg-reconfigure locales
 
+cp /opt/occu-x86/etc/apt/sources.list.d/linuxuprising-java.list /etc/apt/sources.list.d/linuxuprising-java.list
+
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 73C3DB2A
 apt-get update
 apt-get install oracle-java11-installer -y --allow-unauthenticated
