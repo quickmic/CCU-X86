@@ -23,7 +23,7 @@ if [ "$HMIP" = "y" ]
 then
     echo "Is HmIP-RFUSB directly plugged to the CCU? (y/n):"
     read HMIPLOCAL
- 
+
     if [ "$HMIPLOCAL" = "y" ]
     then
         echo "/dev/ttyUSB0" > /var/status/HMIPlocaldevice
@@ -39,7 +39,7 @@ read BIDCOS
 
 if [ "$BIDCOS" = "y" ]
 then
-    touch /var/status/HMIPlocaldevice
+    touch /var/status/BIDCOSenable
 fi
 
 echo "Enable cuxd? (y/n):"
@@ -96,5 +96,4 @@ cp /opt/occu/X86_32_Debian_Wheezy/packages/lighttpd/etc/lighttpd/* -R /etc/light
 cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI-Beta/bin/* -R /bin/
 cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI-Beta/lib/* -R /lib/
 cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/crRFD.conf /etc/config/crRFD.conf
-
-
+cp /opt/occu-x86/* -R /
