@@ -4,12 +4,26 @@ read HMIP
 
 if [ "$HMIP" = "y" ]
 then
-    echo "Enter IP Adress of the HmIP-USB-Stick Host (Usually Raspberry Pi):"
-    read IP
+    echo "Is HmIP-RFUSB directly plugged to the CCU? (y/n):"
+    read HMIPLOCAL
+    
+    if [ "$HMIPLOCAL" = "y" ]
+    then
+        echo "/dev/ttyUSB0> /var/status/HMIPlocaldevice
+    else
+        echo "Enter IP Adress of the HmIP-USB-Stick Host (Usually Raspberry Pi):"
+        read HMIPREMOTEIP
+        echo $HMIPREMOTEIP > /var/status/HMIPremserialhost
+    fi
 fi
 
 echo "Enable BidCos? (y/n):"
 read BIDCOS
+
+if [ "$BIDCOS" = "y" ]
+then
+    touch /var/status/HMIPlocal
+fi
 
 dpkg --add-architecture i386
 apt-get update
