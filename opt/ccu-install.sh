@@ -1,4 +1,21 @@
 #!/bin/bash
+cp /opt/occu-x86/etc/apt/sources.list.d/linuxuprising-java.list /etc/apt/sources.list.d/
+
+dpkg --add-architecture i386
+apt-get update
+apt-get dist-upgrade -y
+apt-get install dirmngr lighttpd git libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 libusb-1.0.0 curl psmisc socat keyboard-configuration libasound2 wget libasound2-data autoconf libusb-1.0 build-essential msmtp git net-tools usbutils -y
+/usr/sbin/update-usbids
+dpkg-reconfigure tzdata
+dpkg-reconfigure keyboard-configuration
+dpkg-reconfigure locales
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 73C3DB2A
+apt-get update
+apt-get install oracle-java11-installer -y --allow-unauthenticated
+apt-get remove postfix --purge -y
+apt-get remove x11-common --purge -y
+apt-get autoremove  --purge -y
+
 rm /usr/local/* -R
 rm /etc/lighttpd/* -R
 rm /var/www* -R
@@ -20,21 +37,6 @@ mkdir /usr/local/etc/
 mkdir /etc/config/crRFD/
 mkdir /etc/config/crRFD/data
 cp /opt/occu-x86/* -R /
-
-dpkg --add-architecture i386
-apt-get update
-apt-get dist-upgrade -y
-apt-get install dirmngr lighttpd git libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 libusb-1.0.0 curl psmisc socat keyboard-configuration libasound2 wget libasound2-data autoconf libusb-1.0 build-essential msmtp git net-tools usbutils -y
-/usr/sbin/update-usbids
-dpkg-reconfigure tzdata
-dpkg-reconfigure keyboard-configuration
-dpkg-reconfigure locales
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 73C3DB2A
-apt-get update
-apt-get install oracle-java11-installer -y --allow-unauthenticated
-apt-get remove postfix --purge -y
-apt-get remove x11-common --purge -y
-apt-get autoremove  --purge -y
 
 git clone https://github.com/quickmic/occu.git /opt/occu/
 cp /opt/occu/HMserver/opt/HMServer/HMIPServer.jar /opt/HMServer/
