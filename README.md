@@ -5,3 +5,6 @@ apt-get install git
 mkdir /opt/occu-x86
 
 git clone https://github.com/quickmic/CCU-X86.git /opt/occu-x86/
+
+/opt/occu-x86/opt/ccu-install.sh
+
