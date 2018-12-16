@@ -1,4 +1,21 @@
 #!/bin/bash
+mkdir /opt/occu/
+mkdir /opt/HMServer/
+mkdir /firmware/
+mkdir /opt/HmIP/
+mkdir /www/
+mkdir /etc/config/
+mkdir /etc/config_templates/
+mkdir /etc/config/rfd/
+mkdir /var/status/
+mkdir /etc/config/hs485d/
+mkdir /etc/config/addons/
+mkdir /www/addons/
+mkdir /etc/config/rc.d/
+mkdir /usr/local/etc/
+mkdir /etc/config/crRFD/
+mkdir /etc/config/crRFD/data
+
 echo "Enable HMIP? (y/n):"
 read HMIP
 
@@ -49,22 +66,6 @@ apt-get install oracle-java11-installer -y --allow-unauthenticated
 rm /usr/local/* -R
 rm /etc/lighttpd/* -R
 rm /var/www* -R
-mkdir /opt/occu/
-mkdir /opt/HMServer/
-mkdir /firmware/
-mkdir /opt/HmIP/
-mkdir /www/
-mkdir /etc/config/
-mkdir /etc/config_templates/
-mkdir /etc/config/rfd/
-mkdir /var/status/
-mkdir /etc/config/hs485d/
-mkdir /etc/config/addons/
-mkdir /www/addons/
-mkdir /etc/config/rc.d/
-mkdir /usr/local/etc/
-mkdir /etc/config/crRFD/
-mkdir /etc/config/crRFD/data
 
 git clone https://github.com/quickmic/occu.git /opt/occu/
 
