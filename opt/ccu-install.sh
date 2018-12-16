@@ -2,6 +2,7 @@
 rm /usr/local/* -R
 rm /etc/lighttpd/* -R
 rm /var/www* -R
+rm /var/status/* -R
 mkdir /opt/occu/
 mkdir /opt/HMServer/
 mkdir /firmware/
@@ -31,6 +32,9 @@ dpkg-reconfigure locales
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 73C3DB2A
 apt-get update
 apt-get install oracle-java11-installer -y --allow-unauthenticated
+apt-get remove postfix --purge -y
+apt-get remove x11-common --purge -y
+apt-get autoremove  --purge -y
 
 git clone https://github.com/quickmic/occu.git /opt/occu/
 cp /opt/occu/HMserver/opt/HMServer/HMIPServer.jar /opt/HMServer/
