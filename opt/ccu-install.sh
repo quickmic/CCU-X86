@@ -68,4 +68,3 @@ mkdir /etc/config/crRFD/data
 
 git clone https://github.com/quickmic/occu.git /opt/occu/
 
-test
