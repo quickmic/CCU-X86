@@ -22,7 +22,15 @@ read BIDCOS
 
 if [ "$BIDCOS" = "y" ]
 then
-    touch /var/status/HMIPlocal
+    touch /var/status/HMIPlocaldevice
+fi
+
+echo "Enable cuxd? (y/n):"
+read CUXD
+
+if [ "$CUXD" = "y" ]
+then
+    touch /var/status/CUXDenable
 fi
 
 dpkg --add-architecture i386
