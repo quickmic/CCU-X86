@@ -20,6 +20,20 @@ rm /usr/local/* -R
 rm /etc/lighttpd/* -R
 rm /var/www* -R
 rm /var/status/* -R
+mkdir /opt/occu/
+mkdir /opt/HMServer/
+mkdir /firmware/
+mkdir /opt/HmIP/
+mkdir /www/
+mkdir /etc/config/
+mkdir /etc/config_templates/
+mkdir /etc/config/rfd/
+mkdir /var/status/
+mkdir /etc/config/hs485d/
+mkdir /etc/config/rc.d/
+mkdir /usr/local/etc/
+mkdir /etc/config/crRFD/
+mkdir /etc/config/crRFD/data
 cp /opt/occu-x86/* -R /
 
 git clone https://github.com/quickmic/occu.git /opt/occu/
