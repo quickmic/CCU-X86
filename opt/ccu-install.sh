@@ -104,9 +104,10 @@ read CUXD
 if [ "$CUXD" = "y" ]
 then
     touch /var/status/CUXDenable
-    /bin/update_addon cuxd /etc/config/addons/www/cuxd/cuxd_addon.cfg
     rm /www/addons/cuxd/curl
     ln -s /usr/bin/curl /www/addons/cuxd/curl
+else
+    rm /opt/occu-x86/etc/config/rc.d/cuxdaemon
 fi
 
 echo "Install email? (y/n):"
@@ -116,7 +117,6 @@ if [ "$EMAIL" = "y" ]
 then
 	mkdir /opt/hm_email
 	git clone https://github.com/jens-maus/hm_email /opt/hm_email/
-	cp /opt/hm_email/rc.d/email /etc/config/rc.d/
 	chmod 777 /etc/config/rc.d/email
 	mkdir /www/addons/email
 	cp /opt/hm_email/www/* -R /www/addons/email/
@@ -132,8 +132,8 @@ then
 	cp /opt/hm_email/mails/cam.mail /etc/config/addons/email/mails/cam.mail
 	cp -af /opt/hm_email/ccurm/* /etc/config/addons/email/
 	cp /opt/hm_email/VERSION /etc/config/addons/email/
-	touch /etc/config/hm_addons.cfg
-	/bin/update_addon email /etc/config/addons/email/hm_email-addon.cfg
+else
+	rm /etc/config/rc.d/email
 fi
 
 echo "Install xml-api? (y/n):"
@@ -146,11 +146,10 @@ then
 	mkdir /www/addons/xmlapi/
 	cp -r /opt/xmlapi//xmlapi/* /www/addons/xmlapi/
 	cp /opt/xmlapi/VERSION /www/addons/xmlapi/
-	cp /opt/xmlapi/xml-api /etc/config/rc.d/
 	chmod 777 /etc/config/rc.d/xml-api
+else
+	rm /etc/config/rc.d/xml-api
 fi
-
-
 
 systemctl enable ccu
 

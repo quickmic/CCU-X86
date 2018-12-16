@@ -1,0 +1,13 @@
+#!/bin/sh
+case "$1" in
+  info)
+    echo "Info: <b>E-Mail CCU Addon</b><br>"
+    echo "Info: (c) 2010-2016 HMside, Jens Maus<br>"
+    echo "Info: <a href='https://github.com/jens-maus/hm_email' target='_blank'>https://github.com/jens-maus/hm_email</a>"
+    echo "Version: $(cat /usr/local/etc/config/addons/email/VERSION)"
+    echo "Name: E-Mail"
+    ;;
+
+esac
+
+exit $?

@@ -1,0 +1,11 @@
+#!/bin/sh
+case "$1" in
+  info)
+      VER=`/usr/local/addons/cuxd/cuxd -v`
+      echo "Info: <center><b>CUx-Daemon $VER</b><br><img src="../addons/cuxd/CUXD.PNG"></center>"
+      echo "Name: CUx-Daemon"
+      echo "Version: $VER"
+  ;;
+esac
+
+exit 0

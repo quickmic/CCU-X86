@@ -1,0 +1,10 @@
+#!/bin/sh
+case "$1" in
+info)
+  VER=`cat /etc/config/addons/www/xmlapi/VERSION`
+  echo "Info: <b>XML-API CCU Addon</b><br>"
+  echo "Info: <a href='https://github.com/hobbyquaker/XML-API'>https://github.com/hobbyquaker/XML-API</a>"
+  echo "Version: $VER"
+  echo "Name: XML-API"
+  ;;
+esac
