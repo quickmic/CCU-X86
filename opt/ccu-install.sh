@@ -20,22 +20,6 @@ rm /usr/local/* -R
 rm /etc/lighttpd/* -R
 rm /var/www* -R
 rm /var/status/* -R
-mkdir /opt/occu/
-mkdir /opt/HMServer/
-mkdir /firmware/
-mkdir /opt/HmIP/
-mkdir /www/
-mkdir /etc/config/
-mkdir /etc/config_templates/
-mkdir /etc/config/rfd/
-mkdir /var/status/
-mkdir /etc/config/hs485d/
-mkdir /etc/config/addons/
-mkdir /www/addons/
-mkdir /etc/config/rc.d/
-mkdir /usr/local/etc/
-mkdir /etc/config/crRFD/
-mkdir /etc/config/crRFD/data
 cp /opt/occu-x86/* -R /
 
 git clone https://github.com/quickmic/occu.git /opt/occu/
@@ -69,7 +53,7 @@ cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/crRFD.conf /etc/config/c
 
 version=`/usr/bin/git -C /opt/occu/ describe --tags`
 echo "VERSION="$version > /VERSION
-#/bin/sed -i -n '/WEBUI_VERSION = "/{:a;N;/;/!ba;N;s/.*\n/    WEBUI_VERSION = "'$version'";\n\n/};p' /www/rega/pages/index.htm
+/bin/sed -i -n '/WEBUI_VERSION = "/{:a;N;/;/!ba;N;s/.*\n/    WEBUI_VERSION = "'$version'";\n\n/};p' /www/rega/pages/index.htm
 
 
 echo "Enable HMIP? (y/n):"
