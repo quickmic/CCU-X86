@@ -66,4 +66,4 @@ mkdir /usr/local/etc/
 mkdir /etc/config/crRFD/
 mkdir /etc/config/crRFD/data
 
-git clone https://github.com/quickmic/CCU-X86.git /opt/occu/
+git clone https://github.com/quickmic/occu.git /opt/occu/
