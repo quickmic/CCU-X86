@@ -108,8 +108,6 @@ read CUXD
 if [ "$CUXD" = "y" ]
 then
 	touch /var/status/CUXDenable
-	rm /www/addons/cuxd/curl
-	ln -s /usr/bin/curl /www/addons/cuxd/curl
 	/bin/sed -i 's/<\/interfaces>//g' /etc/config/InterfacesList.xml
 	echo "        <ipc>" >> /etc/config/InterfacesList.xml
 	echo "                <name>CUxD</name>" >> /etc/config/InterfacesList.xml
