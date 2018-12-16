@@ -49,7 +49,7 @@ apt-get install oracle-java11-installer -y --allow-unauthenticated
 rm /usr/local/* -R
 rm /etc/lighttpd/* -R
 rm /var/www* -R
-mkdir /opt/CCU-X86/
+mkdir /opt/occu/
 mkdir /opt/HMServer/
 mkdir /firmware/
 mkdir /opt/HmIP/
@@ -65,3 +65,5 @@ mkdir /etc/config/rc.d/
 mkdir /usr/local/etc/
 mkdir /etc/config/crRFD/
 mkdir /etc/config/crRFD/data
+
+git clone https://github.com/quickmic/CCU-X86.git /opt/occu/
