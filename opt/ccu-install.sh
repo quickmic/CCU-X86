@@ -88,6 +88,8 @@ then
         echo $HMIPREMOTEIP > /var/status/HMIPremserialhost
 	/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/ttyS1000/g' /etc/config/crRFD.conf
     fi
+else
+	/bin/sed -i '/<ipc>/{:a;N;/<\/ipc>/!ba};/<name>HmIP-RF<\/name>/d' /etc/config/InterfacesList.xml
 fi
 
 echo "Enable BidCos? (y/n):"
@@ -95,7 +97,9 @@ read BIDCOS
 
 if [ "$BIDCOS" = "y" ]
 then
-    touch /var/status/BIDCOSenable
+	touch /var/status/BIDCOSenable
+else
+	/bin/sed -i '/<ipc>/{:a;N;/<\/ipc>/!ba};/<name>BidCos-RF<\/name>/d' /etc/config/InterfacesList.xml
 fi
 
 echo "Install cuxd? (y/n):"
@@ -103,11 +107,18 @@ read CUXD
 
 if [ "$CUXD" = "y" ]
 then
-    touch /var/status/CUXDenable
-    rm /www/addons/cuxd/curl
-    ln -s /usr/bin/curl /www/addons/cuxd/curl
+	touch /var/status/CUXDenable
+	rm /www/addons/cuxd/curl
+	ln -s /usr/bin/curl /www/addons/cuxd/curl
+	/bin/sed -i 's/<\/interfaces>//g' /etc/config/InterfacesList.xml
+	echo "        <ipc>" >> /etc/config/InterfacesList.xml
+	echo "                <name>CUxD</name>" >> /etc/config/InterfacesList.xml
+	echo "                <url>xmlrpc_bin://127.0.0.1:8701</url>" >> /etc/config/InterfacesList.xml
+	echo "                <info>CUxD</info>" >> /etc/config/InterfacesList.xml
+	echo "        </ipc>" >> /etc/config/InterfacesList.xml
+	echo "</interfaces>" >> /etc/config/InterfacesList.xml
 else
-    rm /opt/occu-x86/etc/config/rc.d/cuxdaemon
+	rm /opt/occu-x86/etc/config/rc.d/cuxdaemon
 fi
 
 echo "Install email? (y/n):"
