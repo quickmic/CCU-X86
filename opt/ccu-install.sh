@@ -1,4 +1,7 @@
 #!/bin/bash
+rm /usr/local/* -R
+rm /etc/lighttpd/* -R
+rm /var/www* -R
 mkdir /opt/occu/
 mkdir /opt/HMServer/
 mkdir /firmware/
@@ -15,40 +18,7 @@ mkdir /etc/config/rc.d/
 mkdir /usr/local/etc/
 mkdir /etc/config/crRFD/
 mkdir /etc/config/crRFD/data
-
-echo "Enable HMIP? (y/n):"
-read HMIP
-
-if [ "$HMIP" = "y" ]
-then
-    echo "Is HmIP-RFUSB directly plugged to the CCU? (y/n):"
-    read HMIPLOCAL
-
-    if [ "$HMIPLOCAL" = "y" ]
-    then
-        echo "/dev/ttyUSB0" > /var/status/HMIPlocaldevice
-    else
-        echo "Enter IP Adress of the HmIP-USB-Stick Host (Usually Raspberry Pi):"
-        read HMIPREMOTEIP
-        echo $HMIPREMOTEIP > /var/status/HMIPremserialhost
-    fi
-fi
-
-echo "Enable BidCos? (y/n):"
-read BIDCOS
-
-if [ "$BIDCOS" = "y" ]
-then
-    touch /var/status/BIDCOSenable
-fi
-
-echo "Enable cuxd? (y/n):"
-read CUXD
-
-if [ "$CUXD" = "y" ]
-then
-    touch /var/status/CUXDenable
-fi
+cp /opt/occu-x86/* -R /
 
 dpkg --add-architecture i386
 apt-get update
@@ -58,19 +28,11 @@ apt-get install dirmngr lighttpd git libc6-i386 lib32stdc++6 lib32gcc1 lib32ncur
 dpkg-reconfigure tzdata
 dpkg-reconfigure keyboard-configuration
 dpkg-reconfigure locales
-
-cp /opt/occu-x86/etc/apt/sources.list.d/linuxuprising-java.list /etc/apt/sources.list.d/linuxuprising-java.list
-
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 73C3DB2A
 apt-get update
 apt-get install oracle-java11-installer -y --allow-unauthenticated
 
-rm /usr/local/* -R
-rm /etc/lighttpd/* -R
-rm /var/www* -R
-
 git clone https://github.com/quickmic/occu.git /opt/occu/
-
 cp /opt/occu/HMserver/opt/HMServer/HMIPServer.jar /opt/HMServer/
 cp /opt/occu/HMserver/opt/HMServer/HMServer.jar /opt/HMServer/
 cp /opt/occu/WebUI/bin/* -R /bin/
@@ -96,4 +58,40 @@ cp /opt/occu/X86_32_Debian_Wheezy/packages/lighttpd/etc/lighttpd/* -R /etc/light
 cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI-Beta/bin/* -R /bin/
 cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI-Beta/lib/* -R /lib/
 cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/crRFD.conf /etc/config/crRFD.conf
-cp /opt/occu-x86/* -R /
+
+echo "Enable HMIP? (y/n):"
+read HMIP
+
+if [ "$HMIP" = "y" ]
+then
+    echo "Is HmIP-RFUSB directly plugged to the CCU? (y/n):"
+    read HMIPLOCAL
+
+    if [ "$HMIPLOCAL" = "y" ]
+    then
+        touch /var/status/HMIPlocaldevice
+	/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/ttyUSB0/g' /etc/config/crRFD.conf
+    else
+        echo "Enter IP Adress of the HmIP-USB-Stick Host (Usually Raspberry Pi):"
+        read HMIPREMOTEIP
+        echo $HMIPREMOTEIP > /var/status/HMIPremserialhost
+	/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/ttyS1000/g' /etc/config/crRFD.conf
+    fi
+fi
+
+echo "Enable BidCos? (y/n):"
+read BIDCOS
+
+if [ "$BIDCOS" = "y" ]
+then
+    touch /var/status/BIDCOSenable
+fi
+
+echo "Enable cuxd? (y/n):"
+read CUXD
+
+if [ "$CUXD" = "y" ]
+then
+    touch /var/status/CUXDenable
+fi
+
