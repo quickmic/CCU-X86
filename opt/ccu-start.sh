@@ -9,7 +9,7 @@ rm /var/status/HMServerStarted
 if [ -f /var/status/HMIPremserialhost ]
 then
 	value=`cat /var/status/HMIPremserialhost`
-	/usr/bin/remserial -d -r $value -p 23000 -l /dev/ttyS1000 /dev/ptmx &
+	/bin/remserial -d -r $value -p 23000 -l /dev/ttyS1000 /dev/ptmx &
 
 	for i in $(seq 1 60)
 	do
