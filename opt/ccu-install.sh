@@ -9,7 +9,7 @@ then
     
     if [ "$HMIPLOCAL" = "y" ]
     then
-        echo "/dev/ttyUSB0> /var/status/HMIPlocaldevice
+        echo "/dev/ttyUSB0" > /var/status/HMIPlocaldevice
     else
         echo "Enter IP Adress of the HmIP-USB-Stick Host (Usually Raspberry Pi):"
         read HMIPREMOTEIP
