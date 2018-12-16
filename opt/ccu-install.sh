@@ -95,3 +95,5 @@ then
     touch /var/status/CUXDenable
 fi
 
+systemctl enable ccu
+

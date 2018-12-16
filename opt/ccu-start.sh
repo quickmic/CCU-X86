@@ -6,46 +6,66 @@ rm /var/status/HMServerStarted
 
 
 
+if [ -f /var/status/HMIPremserialhost ]
+then
+	value=`cat /var/status/HMIPremserialhost`
+	/var/remserial/remserial -d -r $value -p 23000 -l /dev/ttyS1000 /dev/ptmx &
 
-/var/remserial/remserial -d -r 192.168.0.107 -p 23000 -l /dev/ttyUSB2 /dev/ptmx &
+	for i in $(seq 1 60)
+	do
+        	sleep 1
+	        PID=`pidof remserial`
+        	if [[ ${PID} != "" ]]
+	        then
+                	break
+        	fi
+	done
+fi
 
+if [ -f /var/status/HMIPlocaldevice ]
+then
+	modprobe cp210x
+	sh -c 'echo 1b1f c020 > /sys/bus/usb-serial/drivers/cp210x/new_id'
+fi
 
-
-
-for i in $(seq 1 60)
-do
-        sleep 1
-        PID=`pidof remserial`
-        if [[ ${PID} != "" ]]
-        then
-                break
-        fi
-done
 /bin/hs485dLoader -dw /etc/config/hs485d.conf &
-/bin/rfd -d -f /etc/config/rfd.conf -l 2 &
-for i in $(seq 1 60)
-do
-        sleep 1
-        PID=`pidof rfd`
-        if [[ ${PID} != "" ]]
-        then
-                break
-        fi
-done
-/www/addons/cuxd/cuxd &
-for i in $(seq 1 60)
-do
-        sleep 1
-        PID=`pidof cuxd`
-        if [[ ${PID} != "" ]]
-        then
-                break
-        fi
-done
-#sleep 10
-#/usr/bin/java -server -Xms1024m -Xmx1024m -Dlog4j.configuration=file:///etc/config/log4j.xml -Dfile.encoding=ISO-8859-1 -jar /opt/HMServer/HMIPServer.jar /etc/config/crRFD.conf &
 
-/usr/bin/java -Dlog4j.configuration=file:///etc/config/log4j.xml -jar /opt/HMServer/HMIPServer.jar /etc/config/crRFD.conf &
+if [ -f /var/status/BIDCOSenable ]
+then
+	/bin/rfd -d -f /etc/config/rfd.conf -l 2 &
+
+	for i in $(seq 1 60)
+	do
+        	sleep 1
+	        PID=`pidof rfd`
+        	if [[ ${PID} != "" ]]
+	        then
+                	break
+        	fi
+	done
+fi
+
+if [ -f /var/status/CUXDenable ]
+then
+	/www/addons/cuxd/cuxd &
+
+	for i in $(seq 1 60)
+	do
+        	sleep 1
+	        PID=`pidof cuxd`
+        	if [[ ${PID} != "" ]]
+	        then
+        	        break
+	        fi
+	done
+fi
+
+if [ -f /var/status/HMIPremserialhost ] || [ -f /var/status/HMIPlocaldevice ]
+then
+	/usr/bin/java -Xmx128m -Dlog4j.configuration=file:///etc/config/log4j.xml -jar /opt/HMServer/HMIPServer.jar /etc/config/crRFD.conf &
+else
+	/usr/bin/java -Xmx128m -Dlog4j.configuration=file:///etc/config/log4j.xml -Dfile.encoding=ISO-8859-1 -jar /opt/HMServer/HMServer.jar &
+fi
 
 for i in $(seq 1 120)
 do
