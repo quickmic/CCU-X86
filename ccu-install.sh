@@ -8,7 +8,8 @@ apt-get install dirmngr lighttpd git libc6-i386 lib32stdc++6 lib32gcc1 lib32ncur
 /usr/sbin/update-usbids
 dpkg-reconfigure tzdata
 dpkg-reconfigure keyboard-configuration
-dpkg-reconfigure locales
+#dpkg-reconfigure locales
+locale-gen
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 73C3DB2A
 apt-get update
 apt-get install oracle-java11-installer -y --allow-unauthenticated
@@ -164,6 +165,3 @@ fi
 
 systemctl enable ccu
 
-
-
-#test
