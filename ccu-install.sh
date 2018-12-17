@@ -98,6 +98,28 @@ read BIDCOS
 
 if [ "$BIDCOS" = "y" ]
 then
+	echo "Are you using a HM-CFG-USB-2? (y/n):"
+	read BIDCOSUSB
+
+	if [ "$BIDCOSUSB" = "y" ]
+	then
+		echo "Enter Serial Number (e.g. NEQ0369123):"
+	        read BIDCOSUSBSERIAL
+
+                echo "Enter Encryption key (if not in use leave empty):"
+                read BIDCOSUSBKEY
+
+
+
+
+#[Interface 0]
+#Type = USB Interface
+#Name = HM-CFG-USB2
+#Serial Number = NEQ0369123
+#Encryption Key =
+
+	fi
+
 	touch /var/status/BIDCOSenable
 else
 	/bin/sed -i '/<ipc>/{:a;N;/<\/ipc>/!ba};/<name>BidCos-RF<\/name>/d' /etc/config/InterfacesList.xml
