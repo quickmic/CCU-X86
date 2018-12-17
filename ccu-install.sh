@@ -1,5 +1,5 @@
 #!/bin/bash
-cp /opt/occu-x86/etc/apt/sources.list.d/linuxuprising-java.list /etc/apt/sources.list.d/
+cp /opt/occu-x86/root/etc/apt/sources.list.d/linuxuprising-java.list /etc/apt/sources.list.d/
 
 dpkg --add-architecture i386
 apt-get update
@@ -34,7 +34,7 @@ mkdir /etc/config/rc.d/
 mkdir /usr/local/etc/
 mkdir /etc/config/crRFD/
 mkdir /etc/config/crRFD/data
-cp /opt/occu-x86/* -R /
+cp /opt/occu-x86/root/* -R /
 
 git clone https://github.com/quickmic/occu.git /opt/occu/
 cp /opt/occu/HMserver/opt/HMServer/HMIPServer.jar /opt/HMServer/
@@ -115,8 +115,9 @@ then
 	echo "                <info>CUxD</info>" >> /etc/config/InterfacesList.xml
 	echo "        </ipc>" >> /etc/config/InterfacesList.xml
 	echo "</interfaces>" >> /etc/config/InterfacesList.xml
+	/bin/update_addon cuxd /etc/config/addons/www/cuxd/cuxd_addon.cfg
 else
-	rm /opt/occu-x86/etc/config/rc.d/cuxdaemon
+	rm /etc/config/rc.d/cuxdaemon
 fi
 
 echo "Install email? (y/n):"
@@ -141,6 +142,7 @@ then
 	cp /opt/hm_email/mails/cam.mail /etc/config/addons/email/mails/cam.mail
 	cp -af /opt/hm_email/ccurm/* /etc/config/addons/email/
 	cp /opt/hm_email/VERSION /etc/config/addons/email/
+	/bin/update_addon email /etc/config/addons/email/hm_email-addon.cfg
 else
 	rm /etc/config/rc.d/email
 fi
