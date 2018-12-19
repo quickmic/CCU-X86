@@ -1,0 +1,15 @@
+--- /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/rfd.conf	2018-12-19 14:39:55.007616982 +0100
++++ /etc/config/rfd.conf	2018-12-19 15:37:05.100045854 +0100
+@@ -19,9 +19,9 @@
+ Fire NACK Error Events = true
+ Improved Coprocessor Initialization = true
+ 
+-[Interface 0]
+-Type = CCU2
+-ComPortFile = /dev/mmd_bidcos
++#[Interface 0]
++#Type = CCU2
++#ComPortFile = /dev/mmd_bidcos
+ #AccessFile = /dev/null
+ #ResetFile = /dev/ccu2-ic200
+ 
