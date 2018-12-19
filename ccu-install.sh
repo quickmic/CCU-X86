@@ -184,3 +184,10 @@ fi
 
 systemctl enable ccu
 
+
+
+#Apply patches
+for f in /opt/occu-x86/patches/*
+do
+	patch -d / -p0 < $f
+done
