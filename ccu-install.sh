@@ -180,11 +180,7 @@ else
 	rm /etc/config/rc.d/xml-api
 fi
 
-
-
 systemctl enable ccu
-
-
 
 #Apply patches
 for f in /opt/occu-x86/patches/*

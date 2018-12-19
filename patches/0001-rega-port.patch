@@ -1,0 +1,28 @@
+diff -ru --no-dereference -x '*.lock' -x lib -x firmware -x home -x media -x mnt -x opt -x proc -x root -x run -x sbin -x srv -x sys -x tmp -x lib32 -x lib64 -x lost+found -x usr -x bin -x boot -x dev -x log -x .java /opt/backup/etc/lighttpd/conf.d/proxy.conf /etc/lighttpd/conf.d/proxy.conf
+--- /opt/backup/etc/lighttpd/conf.d/proxy.conf	2018-12-19 15:58:42.834914832 +0100
++++ /etc/lighttpd/conf.d/proxy.conf	2018-12-19 16:02:47.583223784 +0100
+@@ -1,5 +1,5 @@
+ $HTTP["url"] !~ "^/(config/)|(upnp/)|(webui/)|(ise/)|(api/)|(tools/)|(pda)|(pages/jpages)|(addons).*" {
+-  proxy.server = ("/" => (( "host" => "127.0.0.1", "port" => 8183 )))
++  proxy.server = ("/" => (( "host" => "127.0.0.1", "port" => 8181 )))
+ }
+ 
+ $HTTP["url"] =~ "^/(pages/jpages).*" {
+diff -ru --no-dereference -x '*.lock' -x lib -x firmware -x home -x media -x mnt -x opt -x proc -x root -x run -x sbin -x srv -x sys -x tmp -x lib32 -x lib64 -x lost+found -x usr -x bin -x boot -x dev -x log -x .java /opt/backup/etc/rega.conf /etc/rega.conf
+--- /opt/backup/etc/rega.conf	2018-12-19 15:58:42.842914974 +0100
++++ /etc/rega.conf	2018-12-19 16:02:16.126669953 +0100
+@@ -42,7 +42,7 @@
+ # HttpListenerPort
+ # Portnummer des WebServers
+ # Standardwert: 8181
+-HttpListenerPort=8183
++HttpListenerPort=8181
+ 
+ # VirtualPathInternalConfig
+ # Standard: /config/
+diff -ru --no-dereference -x '*.lock' -x lib -x firmware -x home -x media -x mnt -x opt -x proc -x root -x run -x sbin -x srv -x sys -x tmp -x lib32 -x lib64 -x lost+found -x usr -x bin -x boot -x dev -x log -x .java /opt/backup/etc/rega_http.port /etc/rega_http.port
+--- /opt/backup/etc/rega_http.port	2018-12-19 15:58:42.842914974 +0100
++++ /etc/rega_http.port	2018-12-19 16:02:26.182847003 +0100
+@@ -1 +1 @@
+-8183
++8181
