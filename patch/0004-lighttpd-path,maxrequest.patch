@@ -1,0 +1,21 @@
+--- /opt/occu/X86_32_Debian_Wheezy/packages/lighttpd/etc/lighttpd/lighttpd.conf	2018-12-17 18:31:26.604532509 +0100
++++ /etc/lighttpd/lighttpd.conf	2018-12-19 14:11:15.989356621 +0100
+@@ -14,10 +14,10 @@
+ ## chroot example aswell.
+ ##
+ var.log_root    = "/var/log"
+-var.server_root = "/opt/hm/www"
++var.server_root = "/www"
+ var.state_dir   = "/var/run"
+ var.home_dir    = "/var/lib/lighttpd"
+-var.conf_dir    = "/opt/hm/etc/lighttpd"
++var.conf_dir    = "/etc/lighttpd"
+ 
+ ## 
+ ## run the server chrooted.
+@@ -443,3 +443,5 @@
+ #include_shell "cat /etc/lighttpd/vhosts.d/*.conf"
+ ##
+ #######################################################################
++
++server.max-request-field-size = 65536
