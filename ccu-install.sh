@@ -8,7 +8,6 @@ apt-get install dirmngr lighttpd git libc6-i386 lib32stdc++6 lib32gcc1 lib32ncur
 /usr/sbin/update-usbids
 dpkg-reconfigure tzdata
 dpkg-reconfigure keyboard-configuration
-#dpkg-reconfigure locales
 locale-gen
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 73C3DB2A
 apt-get update
@@ -69,6 +68,12 @@ cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/crRFD.conf /etc/config/c
 version=`/usr/bin/git -C /opt/occu/ describe --tags`
 echo "VERSION="$version > /VERSION
 /bin/sed -i -n '/WEBUI_VERSION = "/{:a;N;/;/!ba;N;s/.*\n/    WEBUI_VERSION = "'$version'";\n\n/};p' /www/rega/pages/index.htm
+
+
+/bin/sed -i 's/\[Interface 0\]/\#\[Interface 0\]/g' /etc/config/rfd.conf
+/bin/sed -i 's/Type/\#Type/g' /etc/config/rfd.conf
+/bin/sed -i 's/ComPortFile/\#ComPortFile/g' /etc/config/rfd.conf
+
 
 
 echo "Enable HMIP? (y/n):"
@@ -184,6 +189,8 @@ then
 else
 	rm /etc/config/rc.d/xml-api
 fi
+
+
 
 systemctl enable ccu
 
