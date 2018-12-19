@@ -1,0 +1,9 @@
+--- /opt/occu/X86_32_Debian_Wheezy/packages/lighttpd/etc/lighttpd/conf.d/proxy.conf	2018-12-17 18:31:26.604532509 +0100
++++ /etc/lighttpd/conf.d/proxy.conf	2018-12-19 13:50:45.243642072 +0100
+@@ -1,5 +1,5 @@
+ $HTTP["url"] !~ "^/(config/)|(upnp/)|(webui/)|(ise/)|(api/)|(tools/)|(pda)|(pages/jpages)|(addons).*" {
+-  proxy.server = ("/" => (( "host" => "127.0.0.1", "port" => 8183 )))
++  proxy.server = ("/" => (( "host" => "127.0.0.1", "port" => 8181 )))
+ }
+ 
+ $HTTP["url"] =~ "^/(pages/jpages).*" {
