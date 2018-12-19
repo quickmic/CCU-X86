@@ -62,19 +62,9 @@ cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI-Beta/bin/* -R /bin/
 cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI-Beta/lib/* -R /lib/
 cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/crRFD.conf /etc/config/crRFD.conf
 
-
-
-
 version=`/usr/bin/git -C /opt/occu/ describe --tags`
 echo "VERSION="$version > /VERSION
 /bin/sed -i -n '/WEBUI_VERSION = "/{:a;N;/;/!ba;N;s/.*\n/    WEBUI_VERSION = "'$version'";\n\n/};p' /www/rega/pages/index.htm
-
-
-/bin/sed -i 's/\[Interface 0\]/\#\[Interface 0\]/g' /etc/config/rfd.conf
-/bin/sed -i 's/Type/\#Type/g' /etc/config/rfd.conf
-/bin/sed -i 's/ComPortFile/\#ComPortFile/g' /etc/config/rfd.conf
-
-
 
 echo "Enable HMIP? (y/n):"
 read HMIP
