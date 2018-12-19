@@ -1,6 +1,5 @@
-diff -ru --no-dereference -x '*.lock' -x lib -x firmware -x home -x media -x mnt -x opt -x proc -x root -x run -x sbin -x srv -x sys -x tmp -x lib32 -x lib64 -x lost+found -x usr -x bin -x boot -x dev -x log -x .java /opt/backup/etc/lighttpd/conf.d/cgi.conf /etc/lighttpd/conf.d/cgi.conf
---- /opt/backup/etc/lighttpd/conf.d/cgi.conf	2018-12-19 18:51:53.390272120 +0100
-+++ /etc/lighttpd/conf.d/cgi.conf	2018-12-19 18:54:18.864829090 +0100
+--- /opt/backup/etc/lighttpd/conf.d/cgi.conf
++++ /etc/lighttpd/conf.d/cgi.conf
 @@ -1,5 +1,5 @@
  #### CGI module
  cgi.assign = ( ".pl"  => "/usr/bin/perl",
@@ -8,9 +7,8 @@ diff -ru --no-dereference -x '*.lock' -x lib -x firmware -x home -x media -x mnt
 +                ".cgi" => "/bin/tclsh",
                  ".ccc" => ""
               )
-diff -ru --no-dereference -x '*.lock' -x lib -x firmware -x home -x media -x mnt -x opt -x proc -x root -x run -x sbin -x srv -x sys -x tmp -x lib32 -x lib64 -x lost+found -x usr -x bin -x boot -x dev -x log -x .java /opt/backup/etc/lighttpd/lighttpd.conf /etc/lighttpd/lighttpd.conf
---- /opt/backup/etc/lighttpd/lighttpd.conf	2018-12-19 18:51:53.390272120 +0100
-+++ /etc/lighttpd/lighttpd.conf	2018-12-19 18:52:13.630627858 +0100
+--- /opt/backup/etc/lighttpd/lighttpd.conf
++++ /etc/lighttpd/lighttpd.conf
 @@ -14,10 +14,10 @@
  ## chroot example aswell.
  ##

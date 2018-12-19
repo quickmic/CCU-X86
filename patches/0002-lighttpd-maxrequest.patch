@@ -1,6 +1,5 @@
-diff -ru --no-dereference -x '*.lock' -x lib -x firmware -x home -x media -x mnt -x opt -x proc -x root -x run -x sbin -x srv -x sys -x tmp -x lib32 -x lib64 -x lost+found -x usr -x bin -x boot -x dev -x log -x .java /opt/backup/etc/lighttpd/lighttpd.conf /etc/lighttpd/lighttpd.conf
---- /opt/backup/etc/lighttpd/lighttpd.conf	2018-12-19 18:45:17.607301145 +0100
-+++ /etc/lighttpd/lighttpd.conf	2018-12-19 18:47:48.389958375 +0100
+--- /opt/backup/etc/lighttpd/lighttpd.conf
++++ /etc/lighttpd/lighttpd.conf
 @@ -443,3 +443,6 @@
  #include_shell "cat /etc/lighttpd/vhosts.d/*.conf"
  ##
