@@ -8,3 +8,12 @@ git clone https://github.com/quickmic/CCU-X86.git /opt/occu-x86/
 
 /opt/occu-x86/ccu-install.sh
 
+
+
+
+Credits to:
+Jens Maus
+Uwe
+
+
+...for support, templates and modifications
