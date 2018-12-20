@@ -10,8 +10,6 @@ git clone https://github.com/quickmic/CCU-X86.git /opt/occu-x86/
 
 Credits:
 --------
-Jens Maus
-Uwe
-
+Jens Maus, Uwe
 ...for support, templates and modifications
 
