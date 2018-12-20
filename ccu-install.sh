@@ -50,7 +50,6 @@ cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/lib/* -R /lib/
 cp /opt/occu/HMserver/opt/HmIP/* -R /opt/HmIP/
 cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/rfd.conf -R /etc/config/rfd.conf
 cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/* -R /etc/config_templates/
-cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/crRFD.conf /etc/
 cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/bin/* -R /bin/
 cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/lib/* -R /lib/
 cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/etc/* -R /etc/
