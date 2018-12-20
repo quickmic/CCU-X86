@@ -1,0 +1,72 @@
+diff -ru --no-dereference -x homematic.regadom.bak -x homematic.regadom -x HMServerStarted -x SESSIONS.dat -x measurement -x eshlight -x webcamconfig.ini -x webcamconfig-default.ini -x '*.handlers' -x cache -x syslog -x log -x '*.lock' -x lib -x firmware -x home -x media -x mnt -x opt -x proc -x root -x run -x sbin -x srv -x sys -x tmp -x lib32 -x lib64 -x lost+found -x usr -x bin -x boot -x dev -x .java /opt/backup/www/config/cp_security.cgi /www/config/cp_security.cgi
+--- /opt/backup/www/config/cp_security.cgi	2018-12-20 08:40:59.626069788 +0100
++++ /www/config/cp_security.cgi	2018-12-20 08:54:36.184423010 +0100
+@@ -605,7 +605,7 @@
+         file delete -force /tmp/backup
+         file mkdir /tmp/backup
+         cd /tmp/backup
+-        if { [catch {exec tar xzf /tmp/usr_local.tar.gz} errorMessage] } {
++        if { [catch {exec tar xzfh /tmp/usr_local.tar.gz} errorMessage] } {
+           cgi_javascript {puts "MessageBox.close();"}
+           put_message "\${dialogSettingsSecurityMessageSysBackupErrorTitle}" "\${dialogSettingsSecurityMessageSysBackupErrorContent} $errorMessage"
+           file delete -force /tmp/firmware_version /tmp/signature /tmp/usr_local.tar.gz /tmp/backup
+@@ -630,16 +630,16 @@
+       if { "false" == $backuperror } { 
+         #if { [version_compare $system_version 3.0.0] < 0 } {
+         # Erase user file system
+-        exec umount /usr/local
+-        exec /usr/sbin/ubidetach -p /dev/mtd6
+-        exec /usr/sbin/ubiformat /dev/mtd6 -y
+-        exec /usr/sbin/ubiattach -p /dev/mtd6
+-        exec /usr/sbin/ubimkvol /dev/ubi1 -N user -m
+-        exec mount /usr/local
++#        exec umount /usr/local
++#        exec /usr/sbin/ubidetach -p /dev/mtd6
++#        exec /usr/sbin/ubiformat /dev/mtd6 -y
++#        exec /usr/sbin/ubiattach -p /dev/mtd6
++#        exec /usr/sbin/ubimkvol /dev/ubi1 -N user -m
++#        exec mount /usr/local
+         #} 
+         #Apply backup
+         cd /
+-        if { [catch {exec tar xzf /tmp/usr_local.tar.gz} errorMessage] } {
++        if { [catch {exec tar xzfh /tmp/usr_local.tar.gz} errorMessage] } {
+           # set msg "Beim Einspielen des Systembackups ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut. "
+           # append msg "Falls dieser Fehler wiederholt Auftritt, wenden Sie sich bitte mit der folgenden Fehlermeldung an den Kundenservice:\n<br>"
+           # append msg $errorMessage
+@@ -657,7 +657,7 @@
+     file delete -force /usr/local/eQ-3-Backup/restore
+     file mkdir /usr/local/eQ-3-Backup/restore
+     cd /usr/local/eQ-3-Backup/restore
+-      if { [catch {exec tar xzf /tmp/usr_local.tar.gz --strip 2} errorMessage] } {
++      if { [catch {exec tar xzfh /tmp/usr_local.tar.gz --strip 2} errorMessage] } {
+           # show message "Beim Einspielen des Systembackups ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut. "
+           cgi_javascript {puts "MessageBox.close();"}
+           put_message "\${dialogSettingsSecurityMessageSysBackupErrorTitle}" "\${dialogSettingsSecurityMessageSysBackupErrorContent} $errorMessage"
+@@ -674,7 +674,7 @@
+         file mkdir /tmp/backup
+ 
+         cd /tmp/backup
+-        if { [catch {exec tar xzf /tmp/usr_local.tar.gz} errorMessage] } {
++        if { [catch {exec tar xzfh /tmp/usr_local.tar.gz} errorMessage] } {
+           cgi_javascript {puts "MessageBox.close();"}
+           put_message "\${dialogSettingsSecurityMessageSysBackupErrorTitle}" "\${dialogSettingsSecurityMessageSysBackupErrorContent} $errorMessage"
+           set backuperror true
+@@ -729,7 +729,7 @@
+ 
+       file mkdir /tmp/backup
+       cd /tmp/backup
+-      if { [catch {exec tar xzf /tmp/usr_local.tar.gz} errorMessage] } {
++      if { [catch {exec tar xzfh /tmp/usr_local.tar.gz} errorMessage] } {
+         put_message "\${dialogSettingsSecurityMessageSysBackupErrorTitle}" "\${dialogSettingsSecurityMessageSysBackupErrorContent} $errorMessage"
+         set backuperror true
+       } else {
+@@ -1470,7 +1470,7 @@
+   #save DOM
+   rega system.Save()
+   cd /
+-  exec tar czf /tmp/usr_local.tar.gz usr/local
++  exec tar czfh /tmp/usr_local.tar.gz usr/local
+   cd /tmp/
+   #sign the configuration with the current key
+   exec crypttool -s -t 1 <usr_local.tar.gz >signature
