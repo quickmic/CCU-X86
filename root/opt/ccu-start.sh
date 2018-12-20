@@ -1,6 +1,14 @@
 #!/bin/bash
 rm /var/tmp/*
 rm /var/status/HMServerStarted
+
+#Check for Backup Restore
+if [ -d /usr/local/eQ-3-Backup/restore ]
+then
+        cp /usr/local/eQ-3-Backup/restore/* -R /
+        rm /usr/local/eQ-3-Backup/resto* -R
+fi
+
 #/bin/eq3configd &
 /bin/hs485dLoader -l 0 -ds -dd /etc/config/hs485d.conf -ilp /etc/config/InterfacesList.xml #Updates Wired Interfaces
 
