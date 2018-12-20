@@ -85,119 +85,141 @@ done
 version=${version:0:$chrlen}
 echo "VERSION="$version > /boot/VERSION
 
-echo "Enable HMIP? (y/n):"
-read HMIP
+while true
+do
+	read -r -p "Enable HMIP? (y/n): " HMIP
 
-if [ "$HMIP" = "y" ]
-then
-    echo "Is HmIP-RFUSB directly plugged to the CCU? (y/n):"
-    read HMIPLOCAL
-
-    if [ "$HMIPLOCAL" = "y" ]
-    then
-        touch /var/status/HMIPlocaldevice
-	/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/ttyUSB0/g' /etc/config/crRFD.conf
-    else
-        echo "Enter IP Adress of the HmIP-USB-Stick Host (Usually Raspberry Pi):"
-        read HMIPREMOTEIP
-        echo $HMIPREMOTEIP > /var/status/HMIPremserialhost
-	/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/ttyS1000/g' /etc/config/crRFD.conf
-    fi
-else
-	/bin/sed -i '/<ipc>/{:a;N;/<\/ipc>/!ba};/<name>HmIP-RF<\/name>/d' /etc/config/InterfacesList.xml
-fi
-
-echo "Enable BidCos? (y/n):"
-read BIDCOS
-
-if [ "$BIDCOS" = "y" ]
-then
-	echo "Are you using a HM-CFG-USB-2? (y/n):"
-	read BIDCOSUSB
-
-	if [ "$BIDCOSUSB" = "y" ]
+	if [ "$HMIP" = "y" ]
 	then
-		echo "Enter Serial Number (e.g. NEQ0369123):"
-	        read BIDCOSUSBSERIAL
+		echo "Is HmIP-RFUSB directly plugged to the CCU? (y/n):"
+		read HMIPLOCAL
 
-                echo "Enter Encryption key (if not in use leave empty):"
-                read BIDCOSUSBKEY
+		if [ "$HMIPLOCAL" = "y" ]
+		then
+			touch /var/status/HMIPlocaldevice
+			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/ttyUSB0/g' /etc/config/crRFD.conf
+		else
+			echo "Enter IP Adress of the HmIP-USB-Stick Host (Usually Raspberry Pi):"
+			read HMIPREMOTEIP
+			echo $HMIPREMOTEIP > /var/status/HMIPremserialhost
+			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/ttyS1000/g' /etc/config/crRFD.conf
+		fi
 
-
-
-
-#[Interface 0]
-#Type = USB Interface
-#Name = HM-CFG-USB2
-#Serial Number = NEQ0369123
-#Encryption Key =
-
+		break
+	elif [ "$HMIP" = "n" ]
+	then
+		/bin/sed -i '/<ipc>/{:a;N;/<\/ipc>/!ba};/<name>HmIP-RF<\/name>/d' /etc/config/InterfacesList.xml
+		break
 	fi
+done
 
-	touch /var/status/BIDCOSenable
-else
-	/bin/sed -i '/<ipc>/{:a;N;/<\/ipc>/!ba};/<name>BidCos-RF<\/name>/d' /etc/config/InterfacesList.xml
-fi
+while true
+do
+	read -r -p  "Enable BidCos? (y/n): " BIDCOS
 
-echo "Install cuxd? (y/n):"
-read CUXD
+	if [ "$BIDCOS" = "y" ]
+	then
+		echo "Are you using a HM-CFG-USB-2? (y/n):"
+		read BIDCOSUSB
 
-if [ "$CUXD" = "y" ]
-then
-	touch /var/status/CUXDenable
-	/bin/sed -i 's/<\/interfaces>//g' /etc/config/InterfacesList.xml
-	echo "        <ipc>" >> /etc/config/InterfacesList.xml
-	echo "                <name>CUxD</name>" >> /etc/config/InterfacesList.xml
-	echo "                <url>xmlrpc_bin://127.0.0.1:8701</url>" >> /etc/config/InterfacesList.xml
-	echo "                <info>CUxD</info>" >> /etc/config/InterfacesList.xml
-	echo "        </ipc>" >> /etc/config/InterfacesList.xml
-	echo "</interfaces>" >> /etc/config/InterfacesList.xml
-	/bin/update_addon cuxd /etc/config/addons/www/cuxd/cuxd_addon.cfg
-else
-	rm /etc/config/rc.d/cuxdaemon
-fi
+		if [ "$BIDCOSUSB" = "y" ]
+		then
+			echo "Enter Serial Number (e.g. NEQ0369123):"
+		        read BIDCOSUSBSERIAL
 
-echo "Install email? (y/n):"
-read EMAIL
+        	        echo "Enter Encryption key (if not in use leave empty):"
+                	read BIDCOSUSBKEY
 
-if [ "$EMAIL" = "y" ]
-then
-	mkdir /opt/hm_email
-	git clone https://github.com/jens-maus/hm_email /opt/hm_email/
-	chmod 777 /etc/config/rc.d/email
-	mkdir /www/addons/email
-	cp /opt/hm_email/www/* -R /www/addons/email/
-	chmod 755 /www/addons/email/
-	mkdir /etc/config/addons/email
-	cp /opt/hm_email/addon/* -R /etc/config/addons/email/
-	chmod 755 /etc/config/addons/email
-	cp /opt/hm_email/userscript.tcl /etc/config/addons/email/
-	cp /opt/hm_email/account.conf /etc/config/addons/email/
-	cp /opt/hm_email/msmtp.conf /etc/config/addons/email/
-	cp -af /opt/hm_email/mails /etc/config/addons/email/
-	cp /opt/hm_email/mails/log.mail /etc/config/addons/email/mails/log.mail
-	cp /opt/hm_email/mails/cam.mail /etc/config/addons/email/mails/cam.mail
-	cp -af /opt/hm_email/ccurm/* /etc/config/addons/email/
-	cp /opt/hm_email/VERSION /etc/config/addons/email/
-	/bin/update_addon email /etc/config/addons/email/hm_email-addon.cfg
-else
-	rm /etc/config/rc.d/email
-fi
+			echo "[Interface 0]" >> /etc/config/rfd.conf
+			echo "Type = USB Interface" >> /etc/config/rfd.conf
+			echo "Name = HM-CFG-USB2" >> /etc/config/rfd.conf
+			echo "Serial Number = "$BIDCOSUSBSERIAL >> /etc/config/rfd.conf
+			echo "Encryption Key = "$BIDCOSUSBKEY >> /etc/config/rfd.conf
+		fi
 
-echo "Install xml-api? (y/n):"
-read XMLAPI
+		touch /var/status/BIDCOSenable
+		break
+	elif [ "$BIDCOS" = "n" ]
+	then
+		/bin/sed -i '/<ipc>/{:a;N;/<\/ipc>/!ba};/<name>BidCos-RF<\/name>/d' /etc/config/InterfacesList.xml
+		break
+	fi
+done
 
-if [ "$XMLAPI" = "y" ]
-then
-	mkdir /opt/xmlapi/
-	git clone https://github.com/hobbyquaker/XML-API /opt/xmlapi/
-	mkdir /www/addons/xmlapi/
-	cp -r /opt/xmlapi//xmlapi/* /www/addons/xmlapi/
-	cp /opt/xmlapi/VERSION /www/addons/xmlapi/
-	chmod 777 /etc/config/rc.d/xml-api
-else
-	rm /etc/config/rc.d/xml-api
-fi
+while true
+do
+	read -r -p "Install cuxd? (y/n): " CUXD
+
+	if [ "$CUXD" = "y" ]
+	then
+		touch /var/status/CUXDenable
+		/bin/sed -i 's/<\/interfaces>//g' /etc/config/InterfacesList.xml
+		echo "        <ipc>" >> /etc/config/InterfacesList.xml
+		echo "                <name>CUxD</name>" >> /etc/config/InterfacesList.xml
+		echo "                <url>xmlrpc_bin://127.0.0.1:8701</url>" >> /etc/config/InterfacesList.xml
+		echo "                <info>CUxD</info>" >> /etc/config/InterfacesList.xml
+		echo "        </ipc>" >> /etc/config/InterfacesList.xml
+		echo "</interfaces>" >> /etc/config/InterfacesList.xml
+		/bin/update_addon cuxd /etc/config/addons/www/cuxd/cuxd_addon.cfg
+		break
+	elif [ "$CUXD" = "n" ]
+	then
+		rm /etc/config/rc.d/cuxdaemon
+		break
+	fi
+done
+
+while true
+do
+	read -r -p "Install email? (y/n): " EMAIL
+
+	if [ "$EMAIL" = "y" ]
+	then
+		mkdir /opt/hm_email
+		git clone https://github.com/jens-maus/hm_email /opt/hm_email/
+		chmod 777 /etc/config/rc.d/email
+		mkdir /www/addons/email
+		cp /opt/hm_email/www/* -R /www/addons/email/
+		chmod 755 /www/addons/email/
+		mkdir /etc/config/addons/email
+		cp /opt/hm_email/addon/* -R /etc/config/addons/email/
+		chmod 755 /etc/config/addons/email
+		cp /opt/hm_email/userscript.tcl /etc/config/addons/email/
+		cp /opt/hm_email/account.conf /etc/config/addons/email/
+		cp /opt/hm_email/msmtp.conf /etc/config/addons/email/
+		cp -af /opt/hm_email/mails /etc/config/addons/email/
+		cp /opt/hm_email/mails/log.mail /etc/config/addons/email/mails/log.mail
+		cp /opt/hm_email/mails/cam.mail /etc/config/addons/email/mails/cam.mail
+		cp -af /opt/hm_email/ccurm/* /etc/config/addons/email/
+		cp /opt/hm_email/VERSION /etc/config/addons/email/
+		/bin/update_addon email /etc/config/addons/email/hm_email-addon.cfg
+		break
+	elif [ "$EMAIL" = "n" ]
+	then
+		rm /etc/config/rc.d/email
+		break
+	fi
+done
+
+while true
+do
+	read -r -p  "Install xml-api? (y/n): " XMLAPI
+
+	if [ "$XMLAPI" = "y" ]
+	then
+		mkdir /opt/xmlapi/
+		git clone https://github.com/hobbyquaker/XML-API /opt/xmlapi/
+		mkdir /www/addons/xmlapi/
+		cp -r /opt/xmlapi//xmlapi/* /www/addons/xmlapi/
+		cp /opt/xmlapi/VERSION /www/addons/xmlapi/
+		chmod 777 /etc/config/rc.d/xml-api
+		break
+	elif [ "$XMLAPI" = "n" ]
+	then
+		rm /etc/config/rc.d/xml-api
+		break
+	fi
+done
 
 systemctl enable ccu
 
