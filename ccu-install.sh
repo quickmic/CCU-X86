@@ -73,9 +73,9 @@ while [ $counter -le $chrlen ]
 do
         temp=${version:$counter:1}
 
-        if [[ "$temp"  =~ [a-zA-Z] ]]
+        if [[ "$temp"  =~ [\-] ]]
         then
-                chrlen=$counter-1
+                chrlen=$counter
                 break
         fi
 
