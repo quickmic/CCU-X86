@@ -34,6 +34,37 @@ mkdir /etc/config/rc.d/
 mkdir /usr/local/etc/
 mkdir /etc/config/crRFD/
 mkdir /etc/config/crRFD/data
+
+chmod 775 /etc/config
+
+
+mkdir /var/tmp
+chmod 775 /var/tmp
+mkdir /var/rega
+chmod 775 /var/rega
+mkdir /var/run
+chmod 775 /var/run
+mkdir /var/spool
+chmod 775 /var/spool
+mkdir /var/lock
+chmod 775 /var/lock
+mkdir /var/cache
+chmod 775 /var/cache
+mkdir /var/lib
+chmod 775 /var/lib
+mkdir /var/lib/misc
+chmod 775 /var/lib/misc
+mkdir /var/lib/dbus
+chmod 775 /var/lib/dbus
+mkdir /var/empty
+chmod 600 /var/empty
+mkdir /var/etc
+chmod 775 /var/etc
+mkdir /var/status
+chmod 775 /var/status
+
+
+
 cp /opt/occu-x86/root/* -R /
 
 git clone https://github.com/quickmic/occu.git /opt/occu/
@@ -250,4 +281,4 @@ do
         fi
 done
 
-reboot
+#reboot

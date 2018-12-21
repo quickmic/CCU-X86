@@ -1,6 +1,7 @@
 #!/bin/bash
 rm /var/tmp/*
 rm /var/status/HMServerStarted
+rm -rf /usr/local/tmp/*
 
 #Check for Backup Restore
 if [ -d /usr/local/eQ-3-Backup/restore ]
