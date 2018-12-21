@@ -223,7 +223,28 @@ done
 systemctl enable ccu
 
 #Apply patches
-for f in /opt/occu-x86/patches/*
+for f in /opt/occu-x86/patches/0*
 do
 	patch -d / -p0 < $f
 done
+
+while true
+do
+        read -r -p  "Install extented features? (y/n): " EXTFEATURES
+
+        if [ "$EXTFEATURES" = "y" ]
+        then
+		for f in /opt/occu-x86/patches/1*
+		do
+		        patch -d / -p0 < $f
+		done
+
+
+		break
+        elif [ "$EXTFEATURES" = "n" ]
+        then
+                break
+        fi
+done
+
+reboot
