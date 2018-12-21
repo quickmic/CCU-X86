@@ -1,4 +1,4 @@
-CCU installation for x86 on Debian stretch amd64
+CCU installation for x86 on Debian amd64
 
 
 Installation:
