@@ -61,6 +61,9 @@ cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI-Beta/bin/* -R /bin/
 cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI-Beta/lib/* -R /lib/
 cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/crRFD.conf /etc/config/crRFD.conf
 
+
+mv /etc/rega.conf /etc/config/rega.conf
+
 version=`/usr/bin/git -C /opt/occu/ describe --tags`
 /bin/sed -i -n '/WEBUI_VERSION = "/{:a;N;/;/!ba;N;s/.*\n/    WEBUI_VERSION = "'$version'";\n\n/};p' /www/rega/pages/index.htm
 
