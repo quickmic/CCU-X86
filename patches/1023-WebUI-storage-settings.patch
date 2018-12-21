@@ -1,0 +1,100 @@
+--- /opt/backup/opt/HMServer/pages/StorageSettingsDialog.ftl
++++ /opt/HMServer/pages/StorageSettingsDialog.ftl
+@@ -195,71 +195,6 @@
+ <div class="CLASS21114 j_translate">
+ 	<table  class="popupTable" border=1 width="100%">
+ 
+-    <!-- Micro SD CARD -->
+-		<tr id="tdMicroSD" class="CLASS21115 hidden">
+-			<td class="CLASS21116">${"$"}{dialogSettingsSDCardSettings}</td>
+-			<td  align="center"  width="35%">
+-				<table>
+-					<tr>
+-						<td class="CLASS21112">${"$"}{dialogSettingsSDCardStatus}:</td>
+-						<td>${SDCardStatus}</td>
+-					</tr>
+-					<tr>
+-						<td align="center" class="CLASS21112" colspan="2" >
+-							<div class="popupControls CLASS21107">
+-								<table>
+-								<tr>
+-									<td align="right">
+-										<div id="initaliseSDCardButton" class="StdButton CLASS04907" onClick="OnInitaliseSDCard()">${"$"}{dialogSettingsStorageSettingsBtnInitaliseSDCard}</div>
+-									</td>
+-									<td align="right">
+-										<div name="backupSDCardButton" class="StdButton CLASS04907" onClick="OnBackupSDCard()">${"$"}{dialogSettingsStorageSettingsBtnBackup}</div>
+-									</td>
+-								</tr>
+-								</table>
+-							</div>
+-								<!--<div id="ejectSDCardButton" class="StdButton" onClick="OnEjectSDCard()">${"$"}{dialogSettingsStorageSettingsBtnEjectSDCard}</div> -->
+-						</td>
+-					</tr>
+-				</table>
+-			</td>
+-			<td class="CLASS21113" align="left">
+-				<p> ${"$"}{dialogSettingsStorageHintSDCardP1} </p>
+-				<p> ${"$"}{dialogSettingsStorageHintSDCardP2} </p>
+-			</td>
+-		</tr>
+-    <!-- END Micro SD CARD -->
+-
+-    <!-- USB Storage -->
+-		<tr id="tdUSBStorage" class="CLASS21115 hidden">
+-			<td class="CLASS21116">${"$"}{dialogSettingsUSBStorageSettings}</td>
+-			<td  align="center"  width="35%">
+-				<table>
+-					<tr>
+-						<td class="CLASS21112">${"$"}{dialogSettingsSDCardStatus}:</td>
+-						<td>${SDCardStatus}</td>
+-					</tr>
+-					<tr>
+-						<td align="center" class="CLASS21112" colspan="2" >
+-							<div class="popupControls CLASS21107">
+-								<table>
+-								<tr>
+-										<td align="right">
+-										<div name="backupSDCardButton" class="StdButton CLASS04907" onClick="OnBackupSDCard()">${"$"}{dialogSettingsStorageSettingsBtnBackup}</div>
+-									</td>
+-								</tr>
+-								</table>
+-							</div>
+-							</td>
+-					</tr>
+-				</table>
+-			</td>
+-			<td class="CLASS21113" align="left">
+-				<p> ${"$"}{dialogSettingsStorageHintUSBStorageP1} </p>
+-			</td>
+-		</tr>
+-    <!-- END USB Storage -->
+-
+ 		<tr class="CLASS21115">
+ 		  <td class="CLASS21116">
+        ${"$"}{tdPowerCost}
+@@ -334,25 +269,6 @@
+ 		</tr>
+ 
+ 
+-    <!-- Service- / Alarm LED -->
+-		<tr id="tdLEDS" class="CLASS21115 hidden">
+-			<td class="CLASS21116">${"$"}{dialogSettingsStorageTitleLEDS}</td>
+-			<td  align="left"  width="35%">
+-				<table>
+-					<tr>
+-						<td class="CLASS21112"><label class="CLASS04904">${"$"}{dialogSettingsStorageSettingsLblServiceLed}</label></td>
+-						<td><input id="inputServiceLed" type="checkbox" onClick="onInfoLedCheckChange()" /></td>
+-					</tr>
+-					<tr>
+-						<td class="CLASS21112"><label class="CLASS04904">${"$"}{dialogSettingsStorageSettingsLblAlarmLed}</label></td>
+-						<td><input id="inputAlarmLed" type="checkbox" onClick="onInfoLedCheckChange()" /></td>
+-					</tr>
+-				</table>
+-			</td>
+-			<td class="CLASS21113" align="left">
+-				<p> ${"$"}{dialogSettingsStorageHintLEDS} </p>
+-			</td>
+-		</tr>
+ 	</table>
+ </div>
+ 
