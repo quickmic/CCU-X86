@@ -1,0 +1,460 @@
+--- /opt/backup/www/config/cp_security.cgi
++++ /www/config/cp_security.cgi
+@@ -938,60 +938,60 @@
+   division {class="CLASS20815"} {
+     table {class="popupTable j_translate"} {border="1"} {
+       table_row {class="CLASS20806"} {
+-        table_data {class="CLASS20807"} {
+-          puts "\${dialogSettingsSecurityTDKey}"
+-        }
+-        table_data {class="CLASS20808"} {
+-          table {class="CLASS20810"} {
+-            table_row {
+-              table_data {colspan="3"} {style="text-align:left"} {
+-                puts "\${dialogSettingsSecurityLblEnterSecKey}"
+-              }
+-            }
+-            table_row {
+-              td {width="20"} {}
+-              table_data {align="left"} {
+-                puts "\${dialogSettingsSecurityLblSecKey}"
+-              }
+-              table_data {align="right"} {
+-                cgi_text key1= {size="16"} {id="text_key1"} {type="password"}
+-              }
+-            }
+-            table_row {
+-              td {width="20"} {}
+-              table_data {align="left"} {
+-                puts "\${dialogSettingsSecurityLblSecKeyRepeat}"
+-              }
+-              table_data {align="right"} {
+-                cgi_text key2= {size="16"} {id="text_key2"} {type="password"}
+-              }
+-            }
+-            table_row {
+-              table_data {align="right"} {class="CLASS20812"} {colspan="3"} {
+-                division {class="popupControls CLASS20811"} {
+-                  division {class="CLASS20813"} {onClick="OnChangeKey()"} {
+-                    puts "\${dialogSettingsSecurityBtnSaveKey}"
+-                  }
+-                }
+-              }
+-            }
+-          }
+-        }
+-        table_data {align="left"} {class="CLASS20816"} {
+-          puts "\${dialogSettingsSecurityHintSecKey1}"
+-          number_list {
+-            li {
+-              ${dialogSettingsSecurityHintSecKey2}
+-            }
+-            li {
+-              ${dialogSettingsSecurityHintSecKey3}
+-            }
+-            li {
+-              ${dialogSettingsSecurityHintSecKey4}
+-            }
+-          }
+-        }
+-      }
++#        table_data {class="CLASS20807"} {
++#          puts "\${dialogSettingsSecurityTDKey}"
++#        }
++#        table_data {class="CLASS20808"} {
++#          table {class="CLASS20810"} {
++#            table_row {
++#              table_data {colspan="3"} {style="text-align:left"} {
++#                puts "\${dialogSettingsSecurityLblEnterSecKey}"
++#              }
++#            }
++#            table_row {
++#              td {width="20"} {}
++#              table_data {align="left"} {
++#                puts "\${dialogSettingsSecurityLblSecKey}"
++#              }
++#              table_data {align="right"} {
++#                cgi_text key1= {size="16"} {id="text_key1"} {type="password"}
++#              }
++#            }
++#            table_row {
++#              td {width="20"} {}
++#              table_data {align="left"} {
++#                puts "\${dialogSettingsSecurityLblSecKeyRepeat}"
++#              }
++#              table_data {align="right"} {
++#                cgi_text key2= {size="16"} {id="text_key2"} {type="password"}
++#              }
++#            }
++#            table_row {
++#              table_data {align="right"} {class="CLASS20812"} {colspan="3"} {
++#                division {class="popupControls CLASS20811"} {
++#                  division {class="CLASS20813"} {onClick="OnChangeKey()"} {
++#                    puts "\${dialogSettingsSecurityBtnSaveKey}"
++#                  }
++#                }
++#              }
++#            }
++#          }
++#        }
++#        table_data {align="left"} {class="CLASS20816"} {
++#          puts "\${dialogSettingsSecurityHintSecKey1}"
++#          number_list {
++#            li {
++#              ${dialogSettingsSecurityHintSecKey2}
++#            }
++#            li {
++#              ${dialogSettingsSecurityHintSecKey3}
++#            }
++#            li {
++#              ${dialogSettingsSecurityHintSecKey4}
++#            }
++#          }
++#        }
++#      }
+       table_row {class="CLASS20806"} {
+         table_data {class="CLASS20807"} {
+           puts "\${dialogSettingsSecurityTDBackup}"
+@@ -1062,38 +1062,38 @@
+           }
+         }
+       }
+-      table_row {class="CLASS20806"} {
+-        table_data {class="CLASS20807"} {
+-          puts "\${dialogSettingsSecurityTDSysReset}"
+-        }
+-        table_data {class="CLASS20808"} {
+-          table {class="CLASS20810"} {width="100%"} {
+-            table_row {
+-              table_data {align="left"} {colspan="2"} {
+-                puts "\${dialogSettingsSecurityLblSysResetPerform}"
+-              }
+-              table_data {align="right"} {
+-                division {class="popupControls CLASS20811"} {
+-                  division {class="CLASS20818 colorGradient50px"} {onClick="OnFactoryReset()"} {
+-                    puts "\${dialogSettingsSecurityBtnSysReset}"
+-                  }
+-                }
+-              }
+-            }
+-          }
+-        }
+-        table_data {align="left"} {class="CLASS20816"} {
+-          puts "\${dialogSettingsSecurityHintSysReset1}"
+-          br
++#      table_row {class="CLASS20806"} {
++ #       table_data {class="CLASS20807"} {
++ #         puts "\${dialogSettingsSecurityTDSysReset}"
++ #       }
++#        table_data {class="CLASS20808"} {
++#          table {class="CLASS20810"} {width="100%"} {
++#            table_row {
++#              table_data {align="left"} {colspan="2"} {
++#                puts "\${dialogSettingsSecurityLblSysResetPerform}"
++#              }
++#              table_data {align="right"} {
++#                division {class="popupControls CLASS20811"} {
++#                  division {class="CLASS20818 colorGradient50px"} {onClick="OnFactoryReset()"} {
++#                    puts "\${dialogSettingsSecurityBtnSysReset}"
++#                  }
++#                }
++#              }
++#            }
++#          }
++#        }
++#        table_data {align="left"} {class="CLASS20816"} {
++#          puts "\${dialogSettingsSecurityHintSysReset1}"
++#          br
+           #puts "Die Zentrale wird in den Werkszustand zur&uuml;ckgesetzt. Alle angelernten Ger&auml;te und"
+           #puts "alle erstellten Programme werden gel&ouml;scht"
+-          puts "\${dialogSettingsSecurityHintSysReset2}"
+-          br
++#          puts "\${dialogSettingsSecurityHintSysReset2}"
++#          br
+           #puts "Alle Ger&auml;tekonfigurationen und alle mit &quot;Direkte Verkn&uuml;pfungen&quot; angelegten"
+           #puts "Ger&auml;teverkn&uuml;pfungen bleiben bestehen und sind funktionsf&auml;hig."
+-          puts "\${dialogSettingsSecurityHintSysReset3}"
+-        }
+-      }
++#          puts "\${dialogSettingsSecurityHintSysReset3}"
++#        }
++#      }
+       table_row {class="CLASS20806"} {
+       table_data {class="CLASS20807"} {
+         puts "\${dialogSettingsSecurityTDSessionTimeout}"
+@@ -1134,147 +1134,147 @@
+ 
+       # activate ssh
+       table_row {class="CLASS20806"} {
+-      table_data {class="CLASS20807"} {
+-        puts "\${dialogSettingsSecurityTDSSH}"
+-      }
++#      table_data {class="CLASS20807"} {
++#        puts "\${dialogSettingsSecurityTDSSH}"
++#      }
+ 
+-      table_data {class="CLASS20808"} {
+-        table {class="CLASS20817"} {width="100%"} {
+-        table_row {
+-          table_data {align="left"}  {
+-          puts "\${dialogSettingsSecurityLblActivateSSH}"
+-          }
+-          set checked ""
++#      table_data {class="CLASS20808"} {
++#        table {class="CLASS20817"} {width="100%"} {
++#        table_row {
++#          table_data {align="left"}  {
++#          puts "\${dialogSettingsSecurityLblActivateSSH}"
++#          }
++#          set checked ""
+           #set checked "checked=true"
+-          table_data {class="CLASS21112"} {align="left"}  {
+-            cgi_checkbox ssh=unknown {id="sshActive"} $checked
+-          }
+-        }
++#          table_data {class="CLASS21112"} {align="left"}  {
++#            cgi_checkbox ssh=unknown {id="sshActive"} $checked
++#          }
++#        }
+ 
+-        table_row {
+-          table_data {align="left"} {
+-          puts "\${dialogSettingsSecurityLblPassword}"
+-          }
++#        table_row {
++#          table_data {align="left"} {
++#          puts "\${dialogSettingsSecurityLblPassword}"
++#          }
+ 
+-          table_data {align="left"} {
+-            cgi_text key1= {size="16"} {id="sshPasswd0"} {type="password"}
+-          }
++#          table_data {align="left"} {
++#            cgi_text key1= {size="16"} {id="sshPasswd0"} {type="password"}
++#          }
+ 
+-        }
+-        table_row {
+-          table_data {align="left"} {
+-          puts "\${dialogSettingsSecurityLblPasswordRepeat}"
+-          }
+-          table_data {align="left"} {
+-            cgi_text key1= {size="16"} {id="sshPasswd1"} {type="password"}
+-          }
+-        }
++#        }
++#        table_row {
++#          table_data {align="left"} {
++#          puts "\${dialogSettingsSecurityLblPasswordRepeat}"
++#          }
++#          table_data {align="left"} {
++#            cgi_text key1= {size="16"} {id="sshPasswd1"} {type="password"}
++#          }
++#        }
+ 
+-        table_row {
+-          table_data {align="right"} {class="CLASS20812"} {colspan="3"} {
+-            division {class="popupControls CLASS20811"} {
+-              division {class="CLASS20813"} {onClick="saveSSHConfig()"} {
+-                puts "\${dialogSettingsSecuritySSHSaveConfig}"
+-              }
+-            }
+-          }
+-        }
+-        }
+-      }
++#        table_row {
++#          table_data {align="right"} {class="CLASS20812"} {colspan="3"} {
++#            division {class="popupControls CLASS20811"} {
++#              division {class="CLASS20813"} {onClick="saveSSHConfig()"} {
++#                puts "\${dialogSettingsSecuritySSHSaveConfig}"
++#              }
++#            }
++#          }
++#        }
++#        }
++#      }
+ 
+-      table_data {align="left"} {class="CLASS20808"} {
+-        puts "\${dialogSettingsSecuritySSHDescription}"
+-      }
+-      }
++#      table_data {align="left"} {class="CLASS20808"} {
++#        puts "\${dialogSettingsSecuritySSHDescription}"
++#      }
++#      }
+       # auth
+-      if { [getProduct]  >= 3 } {
+-        table_row {class="CLASS20806"} {
+-          table_data {class="CLASS20807"} {
+-            puts "\${dialogSettingsSecurityTDAuth}"
+-          }
+-          table_data {class="CLASS20808"} {
+-            division {} {
+-              table {
+-                table_row {
+-                  table_data {align="left"}  {
+-                    puts "\${dialogSettingsSecurityLblActivateAuthRemoteXML}"
+-                  }
+-                  set checked ""
++ #     if { [getProduct]  >= 3 } {
++ #       table_row {class="CLASS20806"} {
++ #         table_data {class="CLASS20807"} {
++ #           puts "\${dialogSettingsSecurityTDAuth}"
++ #         }
++ #         table_data {class="CLASS20808"} {
++ #           division {} {
++ #             table {
++ #               table_row {
++ #                 table_data {align="left"}  {
++ #                   puts "\${dialogSettingsSecurityLblActivateAuthRemoteXML}"
++ #                 }
++ #                 set checked ""
+                   #set checked "checked=true"
+-                  table_data {class="CLASS21112"} {align="left"}  {
+-                    cgi_checkbox authState=unknown {id="userAuthActive"} {onClick=setUserAuth();} $checked
+-                  }
+-                }
+-              }
+-            }
+-          }
+-          table_data {class="CLASS20808"} {
+-            puts "\${dialogSettingsSecurityTDExplanation}"
+-          }
+-        }
+-      }
++ #                 table_data {class="CLASS21112"} {align="left"}  {
++ #                   cgi_checkbox authState=unknown {id="userAuthActive"} {onClick=setUserAuth();} $checked
++ #                 }
++ #               }
++ #             }
++ #           }
++ #         }
++ #         table_data {class="CLASS20808"} {
++ #           puts "\${dialogSettingsSecurityTDExplanation}"
++ #         }
++ #       }
++ #     }
+       # SNMP <-- may if getProduct check if needed for ccu2 too
+-      if { [getProduct]  >= 3 } { 
+-        table_row {class="CLASS20806"} {
+-          table_data {class="CLASS20807"} {
+-            puts "\${dialogSettingsSecurityTDSNMP}"
+-          }
+-          table_data {class="CLASS20808"} {
+-            division {} {
+-              table {
+-                table_row {
+-                  table_data {align="left"}  {
+-                    puts "\${dialogSettingsSecurityLblActivateSNMP}"
+-                  }
+-                  set checked ""
++#      if { [getProduct]  >= 3 } { 
++#        table_row {class="CLASS20806"} {
++#          table_data {class="CLASS20807"} {
++#            puts "\${dialogSettingsSecurityTDSNMP}"
++#          }
++#          table_data {class="CLASS20808"} {
++#            division {} {
++#              table {
++#                table_row {
++#                  table_data {align="left"}  {
++#                    puts "\${dialogSettingsSecurityLblActivateSNMP}"
++#                  }
++#                  set checked ""
+                   #set checked "checked=true"
+-                  table_data {class="CLASS21112"} {align="left"}  {
+-                    cgi_checkbox snmpState=unknown {id="snmpEnabled"} $checked
+-                  }
+-                }
+-                table_row {
+-                  table_data {align="left"} {
+-                  puts "\${lblUserName}"
+-                  }
++#                  table_data {class="CLASS21112"} {align="left"}  {
++#                    cgi_checkbox snmpState=unknown {id="snmpEnabled"} $checked
++#                  }
++#                }
++#                table_row {
++#                  table_data {align="left"} {
++#                  puts "\${lblUserName}"
++#                  }
+ 
+-                  table_data {align="left"} {
+-                    cgi_text key1= {size="16"} {id="snmpUser"} {type="text"}
+-                  }
+-                }
+-                table_row {
+-                  table_data {align="left"} {
+-                  puts "\${dialogSettingsSecurityLblPassword}"
+-                  }
++#                  table_data {align="left"} {
++#                    cgi_text key1= {size="16"} {id="snmpUser"} {type="text"}
++#                  }
++#                }
++#                table_row {
++#                  table_data {align="left"} {
++#                  puts "\${dialogSettingsSecurityLblPassword}"
++#                  }
+ 
+-                  table_data {align="left"} {
+-                    cgi_text key1= {size="16"} {id="snmpPasswd0"} {type="password"}
+-                  }
+-                }
+-                table_row {
+-                  table_data {align="left"} {
+-                  puts "\${dialogSettingsSecurityLblPasswordRepeat}"
+-                  }
+-                  table_data {align="left"} {
+-                    cgi_text key1= {size="16"} {id="snmpPasswd1"} {type="password"}
+-                  }
+-                }
+-                table_row {
+-                  table_data {align="right"} {class="CLASS20812"} {colspan="3"} {
+-                    division {class="popupControls CLASS20811"} {
+-                      division {class="CLASS20813"} {onClick="onSNMPSaveBtn()"} {
+-                        puts "\${dialogSettingsSecuritySSHSaveConfig}"
+-                      }
+-                    }
+-                  }
+-                }
+-              }
+-            }
+-          }
+-          table_data {class="CLASS20808"} {
+-            puts "\${dialogSettingsSecurityTDSNMPExplanation}"
+-          }
+-        }
+-      }
++#                  table_data {align="left"} {
++#                    cgi_text key1= {size="16"} {id="snmpPasswd0"} {type="password"}
++#                  }
++#                }
++#                table_row {
++#                  table_data {align="left"} {
++#                  puts "\${dialogSettingsSecurityLblPasswordRepeat}"
++#                  }
++#                  table_data {align="left"} {
++#                    cgi_text key1= {size="16"} {id="snmpPasswd1"} {type="password"}
++#                  }
++#                }
++#                table_row {
++#                  table_data {align="right"} {class="CLASS20812"} {colspan="3"} {
++#                    division {class="popupControls CLASS20811"} {
++#                      division {class="CLASS20813"} {onClick="onSNMPSaveBtn()"} {
++#                        puts "\${dialogSettingsSecuritySSHSaveConfig}"
++#                      }
++#                    }
++#                  }
++#                }
++#              }
++#            }
++#          }
++#          table_data {class="CLASS20808"} {
++#            puts "\${dialogSettingsSecurityTDSNMPExplanation}"
++#          }
++#        }
++#      }
+     }
+   }
+   division {class="popupControls"} {
