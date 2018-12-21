@@ -1,0 +1,82 @@
+--- /opt/backup/www/config/control_panel.cgi
++++ /www/config/control_panel.cgi
+@@ -79,13 +79,6 @@
+       </div>
+     </td>
+ 
+-    <!-- Zeit- und Positionseinstellung -->
+-    <td>
+-      <div class="cpButton">
+-        <div  class="StdTableBtn CLASS21701" onclick="showTimeCP()">${btnSysConfTimePosSettings}</div>
+-        <div class="StdTableBtnHelp"><img id="showTimeCPHelp" src="/ise/img/help.png"></div>
+-      </div>
+-    </td>
+ }
+ if {[isOldCCU]} {
+   puts {
+@@ -102,15 +95,15 @@
+   }
+ }
+     
+-puts { 
+-    <!-- Netzwerkeinstellungen -->
+-    <td>
+-      <div class="cpButton">
+-        <div class="StdTableBtn CLASS21701" onclick="showNetworkCP()">${btnSysConfNetworkConfig}</div>
+-        <div class="StdTableBtnHelp"><img id="showNetworkCPHelp" src="/ise/img/help.png"></div>
+-      </div>
+-    </td>
+-}
++#puts { 
++#    <!-- Netzwerkeinstellungen -->
++#    <td>
++#      <div class="cpButton">
++#        <div class="StdTableBtn CLASS21701" onclick="showNetworkCP()">${btnSysConfNetworkConfig}</div>
++#        <div class="StdTableBtnHelp"><img id="showNetworkCPHelp" src="/ise/img/help.png"></div>
++#      </div>
++#    </td>
++#}
+ 
+ if {![isOldCCU]} {
+   puts {
+@@ -119,13 +112,6 @@
+   }
+ }
+ puts {
+-    <!-- Firewall Konfiguration -->
+-    <td>
+-      <div class="cpButton">
+-        <div class="StdTableBtn CLASS21701" onclick="new FirewallConfigDialog();">${btnSysConfFirewallConfig}</div>
+-        <div class="StdTableBtnHelp"><img id="newFirewallConfigDialogHelp" src="/ise/img/help.png"></div>
+-      </div>
+-    </td>
+ 
+     <!-- BidCoS-RF Konfiguration -->
+     <td>
+@@ -180,16 +166,16 @@
+     }
+   }
+ 
+-  if {[getProduct] >= 3} {
+-    puts {
+-      <!-- Button Security Wizard - slimmed down InstallWizard without the admin password dialog -->
+-
+-      <td>
+-        <div  class="StdTableBtn CLASS21701" onclick="new DialogChooseSecuritySettings();">${btnSecuritySettings}</div>
+-        <div class="StdTableBtnHelp"><img id="showSecuritySettingsCPHelp" src="/ise/img/help.png"></div>
+-      </td>
+-    }
+-  }
++#  if {[getProduct] >= 3} {
++#    puts {
++#      <!-- Button Security Wizard - slimmed down InstallWizard without the admin password dialog -->
++
++#      <td>
++#        <div  class="StdTableBtn CLASS21701" onclick="new DialogChooseSecuritySettings();">${btnSecuritySettings}</div>
++#        <div class="StdTableBtnHelp"><img id="showSecuritySettingsCPHelp" src="/ise/img/help.png"></div>
++#      </td>
++#    }
++#  }
+ 
+   puts {
+     <!-- Kopplungen -->
