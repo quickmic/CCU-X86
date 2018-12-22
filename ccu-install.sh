@@ -34,6 +34,7 @@ mkdir /etc/config/rc.d/
 mkdir /usr/local/etc/
 mkdir /etc/config/crRFD/
 mkdir /etc/config/crRFD/data
+mkdir /usr/local/tmp/
 
 chmod 775 /etc/config
 
