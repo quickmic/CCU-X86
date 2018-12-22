@@ -6,7 +6,7 @@ rm -rf /usr/local/tmp/*
 #Check for Backup Restore
 if [ -d /usr/local/eQ-3-Backup/restore ]
 then
-        cp /usr/local/eQ-3-Backup/restore/* -R /
+	rsync -av /usr/local/eQ-3-Backup/restore/ / --exclude='*/rega.conf'
         rm /usr/local/eQ-3-Backup/resto* -R
 fi
 
