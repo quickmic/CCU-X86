@@ -1,6 +1,22 @@
 #!/bin/bash
 rm /var/tmp/*
 rm /var/status/HMServerStarted
+
+#Check for Addon Installation
+if [[ -r /usr/local/.doAddonInstall ]]
+then
+        mkdir /tmp/addon
+        cd /tmp/addon
+        tar -C /tmp/addon --no-same-owner --no-same-permissions -xf /usr/local/tmp/new_addon.tar.gz
+        /bin/sed -i 's/usr\/local\/etc/\etc/g' /tmp/addon/update_script
+        /bin/sed -i 's/usr\/local\/addons/etc\/config\/addons/g' /tmp/addon/update_script
+        /tmp/addon/update_script HM-RASPBERRYMATIC
+        rm -f /usr/local/.doAddonInstall
+fi
+
+#Start Addons
+/bin/run-parts -a start /etc/config/rc.d
+
 rm -rf /usr/local/tmp/*
 
 #Check for Backup Restore
