@@ -75,7 +75,7 @@ fi
 
 if [ -f /var/status/CUXDenable ]
 then
-	/www/addons/cuxd/cuxd &
+	/etc/config/addons/cuxd/cuxd &
 
 	for i in $(seq 1 60)
 	do
