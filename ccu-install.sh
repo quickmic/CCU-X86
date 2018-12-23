@@ -35,7 +35,7 @@ mkdir /usr/local/etc/
 mkdir /etc/config/crRFD/
 mkdir /etc/config/crRFD/data
 mkdir /usr/local/tmp/
-
+mkdir /etc/config/addons/www/
 chmod 775 /etc/config
 
 
