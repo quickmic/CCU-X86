@@ -206,7 +206,7 @@ do
 
 		cp /opt/occu-x86/addon-mods/cuxd/cuxdaemon /etc/config/rc.d/
 
-		versionCUXD=`git -C /opt/cuxd/ describe --tags
+		versionCUXD=`git -C /opt/cuxd/ describe --tags`
 		echo $versionCUXD > /etc/config/addons/cuxd/VERSION
 
 
