@@ -152,24 +152,6 @@ do
 
 	if [ "$BIDCOS" = "y" ]
 	then
-		echo "Are you using a HM-CFG-USB-2? (y/n):"
-		read BIDCOSUSB
-
-		if [ "$BIDCOSUSB" = "y" ]
-		then
-			echo "Enter Serial Number (e.g. NEQ0369123):"
-		        read BIDCOSUSBSERIAL
-
-        	        echo "Enter Encryption key (if not in use leave empty):"
-                	read BIDCOSUSBKEY
-
-			echo "[Interface 0]" >> /etc/config/rfd.conf
-			echo "Type = USB Interface" >> /etc/config/rfd.conf
-			echo "Name = HM-CFG-USB2" >> /etc/config/rfd.conf
-			echo "Serial Number = "$BIDCOSUSBSERIAL >> /etc/config/rfd.conf
-			echo "Encryption Key = "$BIDCOSUSBKEY >> /etc/config/rfd.conf
-		fi
-
 		touch /var/status/BIDCOSenable
 		break
 	elif [ "$BIDCOS" = "n" ]
