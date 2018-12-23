@@ -1,6 +1,8 @@
 #!/bin/bash
 rm /var/tmp/*
 rm /var/status/HMServerStarted
+rm /opt/java/bin/java
+ln -s $(which java) /opt/java/bin/
 
 #Check CCU updates
 /opt/ccu-updateCheck.sh

@@ -41,7 +41,7 @@ mkdir /etc/config/addons/www/
 mkdir /opt/java/
 mkdir /opt/java/bin/
 
-ln -s readlink -f $(which java) /opt/java/bin/
+ln -s $(which java) /opt/java/bin/
 
 mkdir /var/tmp
 chmod 775 /var/tmp
