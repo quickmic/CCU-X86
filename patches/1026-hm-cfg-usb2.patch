@@ -1,0 +1,48 @@
+--- /opt/backup/www/webui/webui.js
++++ /www/webui/webui.js
+@@ -18084,7 +18084,7 @@
+ };
+ 
+ var globalLGWTypeMap = {};
+-var globalLGWTypes = {LANIF : "Lan Interface", HMWLGW : "HMWLGW", HMLGW2 : "HMLGW2"};
++var globalLGWTypes = {HMCFGUSB2 : "USB Interface", LANIF : "Lan Interface", HMWLGW : "HMWLGW", HMLGW2 : "HMLGW2"};
+ var globalGWClasses = {RF : "RF", Wired : "Wired"};
+ 
+ BidcosRfPage =
+@@ -18140,6 +18140,8 @@
+     globalLGWTypeMap[globalLGWTypes.HMWLGW] = "HomeMatic RS485 Gateway";
+     globalLGWTypeMap[globalLGWTypes.HMLGW2] = "HomeMatic RF-LAN Gateway";
+     globalLGWTypeMap[globalLGWTypes.LANIF] = "HM Configuration Tool LAN";
++    globalLGWTypeMap[globalLGWTypes.HMCFGUSB2] = "HM-CFG-USB2";
++
+         
+     /* Event-Handler */
+     this.m_onUpdateHandler = function() { BidcosRfPage.onUpdate(); };
+@@ -19668,6 +19670,7 @@
+ 
+     var previewHMLGW2 = "/ise/img/icons_lan_gateways/48/HMLGW2.png",
+       previewLANIF = "/ise/img/icons_lan_gateways/48/CFG_LAN.png",
++      previewHMCFGUSB2 = "/ise/img/icons_lan_gateways/48/CFG_USB.png",
+       previewHMWLGW = "/ise/img/icons_lan_gateways/48/HMWLGW.png";
+ 
+     this.m_layer = document.createElement("div");
+@@ -19686,6 +19689,8 @@
+       .setWidth(BidcosRfPage.AddGatewayDialog.CONTENT_WIDTH - 190)
+       .add({id:globalLGWTypes.HMLGW2, name: "RF: "+globalLGWTypeMap[globalLGWTypes.HMLGW2]})
+       .add({id:globalLGWTypes.LANIF, name: "RF: "+globalLGWTypeMap[globalLGWTypes.LANIF]})
++      .add({id:globalLGWTypes.HMCFGUSB2, name: "RF: "+globalLGWTypeMap[globalLGWTypes.HMCFGUSB2]})
++
+       .setOnChangeCallback(function() {
+         var gateWay = this.getSelectedItem(),
+           gateWayID = gateWay.id,
+@@ -19701,6 +19706,10 @@
+             jQuery(jElem).text(translateKey("dialogSettingsBidCosRFLblAccessCode"));
+              that.m_gatewayImg.setPath(previewLANIF);
+             break;
++          case globalLGWTypes.HMCFGUSB2:
++            jQuery(jElem).text(translateKey("dialogSettingsBidCosRFLblAccessCode"));
++             that.m_gatewayImg.setPath(previewHMCFGUSB2);
++            break;
+           case globalLGWTypes.HMWLGW:
+             jQuery(jElem).text(translateKey("dialogSettingsBidCosRFLblPassphrase"));
+             that.m_gatewayImg.setPath(previewHMWLGW);
