@@ -13,6 +13,7 @@ then
         tar -C /tmp/addon --no-same-owner --no-same-permissions -xf /usr/local/tmp/new_addon.tar.gz
         /bin/sed -i 's/usr\/local\/etc/\etc/g' /tmp/addon/update_script
         /bin/sed -i 's/usr\/local\/addons/etc\/config\/addons/g' /tmp/addon/update_script
+	/bin/sed -i 's/.\/update_addon/\/bin\/update_addon/g' /tmp/addon/update_script
         /tmp/addon/update_script HM-RASPBERRYMATIC
         rm -f /usr/local/.doAddonInstall
 fi
