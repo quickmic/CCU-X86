@@ -25,3 +25,11 @@ then
 	versionEMAIL=`git -C /opt/hm_email/ describe --tags`
         echo $versionEMAIL > /etc/config/addons/email/versionUpdate
 fi
+
+#CUXD
+if [ -d /opt/cuxd ]
+then
+        git -C /opt/cuxd/ pull
+        versionCUXD=`git -C /opt/cuxd/ describe --tags`
+        echo $versionCUXD > /etc/config/addons/cuxd/versionUpdate
+fi
