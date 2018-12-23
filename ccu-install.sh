@@ -202,10 +202,12 @@ do
 		cp /opt/hm_email/account.conf /etc/config/addons/email/
 		cp /opt/hm_email/msmtp.conf /etc/config/addons/email/
 		cp -af /opt/hm_email/mails /etc/config/addons/email/
-		cp /opt/hm_email/mails/log.mail /etc/config/addons/email/mails/log.mail
-		cp /opt/hm_email/mails/cam.mail /etc/config/addons/email/mails/cam.mail
+		cp /opt/hm_email/mails/log.mail /etc/config/addons/email/mails/
+		cp /opt/hm_email/mails/cam.mail /etc/config/addons/email/mails/
 		cp -af /opt/hm_email/ccurm/* /etc/config/addons/email/
 		cp /opt/hm_email/VERSION /etc/config/addons/email/
+		cp /opt/occu-x86/addon-mods/hm_email/email /etc/config/rc.d/
+		cp /opt/occu-x86/addon-mods/hm_email/update-check.cgi /etc/config/addons/www/email/
 		/bin/update_addon email /etc/config/addons/email/hm_email-addon.cfg
 		break
 	elif [ "$EMAIL" = "n" ]
