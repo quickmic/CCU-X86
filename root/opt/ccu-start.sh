@@ -2,6 +2,15 @@
 rm /var/tmp/*
 rm /var/status/HMServerStarted
 
+#Check CCU updates
+git -C /opt/occu/ pull
+git -C /opt/occu-x86/ pull
+
+version=`/usr/bin/git -C /opt/occu/ describe --tags`
+versionX86=`git -C /opt/occu-x86/ describe --tags`
+versionCombined=$version" / "$versionX86
+echo "homematic.com.setLatestVersion('"$versionCombined"', 'HM-CCU3');" > /www/ccuupdate.txt
+
 #Check for Addon Installation
 if [[ -r /usr/local/.doAddonInstall ]]
 then

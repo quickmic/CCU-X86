@@ -95,8 +95,7 @@ cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/crRFD.conf /etc/config/c
 
 version=`/usr/bin/git -C /opt/occu/ describe --tags`
 versionX86=`git -C /opt/occu-x86/ describe --tags`
-versionCombined=$version"\/"$versionX86
-/bin/sed -i -n '/WEBUI_VERSION = "/{:a;N;/;/!ba;N;s/.*\n/    WEBUI_VERSION = "'$versionCombined'";\n\n/};p' /www/rega/pages/index.htm
+/bin/sed -i -n '/WEBUI_VERSION = "/{:a;N;/;/!ba;N;s/.*\n/    WEBUI_VERSION = "'$version' \/ '$versionX86'";\n\n/};p' /www/rega/pages/index.htm
 
 #Remove buildID (char) from Version
 chrlen=${#version}
