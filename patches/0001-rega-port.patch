@@ -8,7 +8,7 @@
  
  $HTTP["url"] =~ "^/(pages/jpages).*" {
 --- /opt/backup/etc/config/rega.conf
-+++ /etc/config/rega.conf
++++ /etc/rega.conf
 @@ -42,7 +42,7 @@
  # HttpListenerPort
  # Portnummer des WebServers
