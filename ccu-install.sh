@@ -202,14 +202,13 @@ do
 		ln -s /usr/bin/socat /etc/config/addons/cuxd/extra/
 		ln -s /usr/sbin/etherwake /etc/config/addons/cuxd/extra/ether-wake
 		ln -s /usr/bin/digitemp_DS9097U /etc/config/addons/cuxd/extra/
-
-
-
 		cp /opt/occu-x86/addon-mods/cuxd/cuxdaemon /etc/config/rc.d/
-
+		cp /opt/occu-x86/addon-mods/cuxd/cuxd.ini /etc/config/addons/cuxd/cuxd.ini
 		versionCUXD=`git -C /opt/cuxd/ describe --tags`
 		echo $versionCUXD > /etc/config/addons/cuxd/VERSION
 
+
+		#update missing
 
 		/bin/update_addon cuxd /etc/config/addons/www/cuxd/cuxd_addon.cfg
 		break
