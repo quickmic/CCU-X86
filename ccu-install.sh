@@ -191,7 +191,6 @@ do
 	then
 		mkdir /opt/hm_email
 		git clone https://github.com/jens-maus/hm_email /opt/hm_email/
-		chmod 777 /etc/config/rc.d/email
 		mkdir /www/addons/email
 		cp /opt/hm_email/www/* -R /www/addons/email/
 		chmod 755 /www/addons/email/
