@@ -1,0 +1,16 @@
+--- /opt/backup/www/config/cp_security.cgi
++++ /www/config/cp_security.cgi
+@@ -575,10 +575,12 @@
+     }
+ 
+     after 5000
++    set migration_mode "invalid"
++
+     # backup for version >= 2/3
+     if { "false" == $ccu1_backup } {  
+ 
+-    set migration_mode "invalid"
++#    set migration_mode "invalid"
+       if { [version_compare $config_version 3.0.0] < 0 } {
+     # CCU2 Backup
+     if { [version_compare $system_version 3.0.0] < 0 } {
