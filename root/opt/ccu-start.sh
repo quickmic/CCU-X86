@@ -22,7 +22,7 @@ rm -rf /usr/local/tmp/*
 #Check for Backup Restore
 if [ -d /usr/local/eQ-3-Backup/restore ]
 then
-	rsync -av /usr/local/eQ-3-Backup/restore/ / --exclude='*/rega.conf'
+	rsync -av /usr/local/eQ-3-Backup/restore/ / --exclude='*/rega.conf' --exclude='*/InterfacesList.xml'
         rm /usr/local/eQ-3-Backup/resto* -R
 fi
 
