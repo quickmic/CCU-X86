@@ -1,0 +1,21 @@
+#!/bin/sh
+case "$1" in
+  info)
+    versionCurrent=$(cat /etc/config/addons/email/VERSION)
+    versionUpdate=$(cat /etc/config/addons/email/versionUpdate)
+#    versionUpdate="42"
+    echo "Info: <b>E-Mail CCU Addon</b><br>"
+    echo "Info: (c) 2010-2016 HMside, Jens Maus<br>"
+    echo "Info: <a href='https://github.com/jens-maus/hm_email' target='_blank'>https://github.com/jens-maus/hm_email</a>"
+    echo "Version: "$versionCurrent
+    echo "Name: E-Mail"
+
+    if [ "$versionCurrent" != "$versionUpdate" ]
+    then
+        echo "Update: /addons/email/update-check.cgi"
+    fi
+    ;;
+
+esac
+
+exit $?
