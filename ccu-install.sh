@@ -70,7 +70,7 @@ chmod 775 /var/status
 
 
 
-cp /opt/occu-x86/root/* -R /
+cp -rf /opt/occu-x86/root/* /
 
 git clone https://github.com/quickmic/occu.git /opt/occu/
 cp /opt/occu/HMserver/opt/HMServer/HMIPServer.jar /opt/HMServer/
@@ -215,39 +215,6 @@ do
 	elif [ "$CUXD" = "n" ]
 	then
 		rm /etc/config/rc.d/cuxdaemon
-		break
-	fi
-done
-
-while true
-do
-	read -r -p "Install email? (y/n): " EMAIL
-
-	if [ "$EMAIL" = "y" ]
-	then
-		mkdir /opt/hm_email
-		git clone https://github.com/jens-maus/hm_email /opt/hm_email/
-		mkdir /www/addons/email
-		cp /opt/hm_email/www/* -R /www/addons/email/
-		chmod 755 /www/addons/email/
-		mkdir /etc/config/addons/email
-		cp /opt/hm_email/addon/* -R /etc/config/addons/email/
-		chmod 755 /etc/config/addons/email
-		cp /opt/hm_email/userscript.tcl /etc/config/addons/email/
-		cp /opt/hm_email/account.conf /etc/config/addons/email/
-		cp /opt/hm_email/msmtp.conf /etc/config/addons/email/
-		cp -af /opt/hm_email/mails /etc/config/addons/email/
-		cp /opt/hm_email/mails/log.mail /etc/config/addons/email/mails/
-		cp /opt/hm_email/mails/cam.mail /etc/config/addons/email/mails/
-		cp -af /opt/hm_email/ccurm/* /etc/config/addons/email/
-		cp /opt/hm_email/VERSION /etc/config/addons/email/
-		cp /opt/occu-x86/addon-mods/hm_email/email /etc/config/rc.d/
-		cp /opt/occu-x86/addon-mods/hm_email/update-check.cgi /etc/config/addons/www/email/
-		/bin/update_addon email /etc/config/addons/email/hm_email-addon.cfg
-		break
-	elif [ "$EMAIL" = "n" ]
-	then
-		rm /etc/config/rc.d/email
 		break
 	fi
 done
