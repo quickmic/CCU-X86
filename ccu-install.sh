@@ -252,26 +252,6 @@ do
 	fi
 done
 
-while true
-do
-	read -r -p  "Install xml-api? (y/n): " XMLAPI
-
-	if [ "$XMLAPI" = "y" ]
-	then
-		mkdir /opt/xmlapi/
-		git clone https://github.com/hobbyquaker/XML-API /opt/xmlapi/
-		mkdir /www/addons/xmlapi/
-		cp -r /opt/xmlapi//xmlapi/* /www/addons/xmlapi/
-		cp /opt/xmlapi/VERSION /www/addons/xmlapi/
-		chmod 777 /etc/config/rc.d/xml-api
-		break
-	elif [ "$XMLAPI" = "n" ]
-	then
-		rm /etc/config/rc.d/xml-api
-		break
-	fi
-done
-
 systemctl enable ccu
 
 #Apply patches
