@@ -1,0 +1,13 @@
+--- /opt/backup/www/webui/webui.js
++++ /www/webui/webui.js
+@@ -37318,6 +37318,10 @@
+  {
+   CreateCPPopup("/config/cp_network.cgi");
+ };
++ccuUpdateCP = function()
++ {
++  CreateCPPopup("/config/cp_ccuupdate.cgi");
++};
+ showGeneralSettingsCP = function()
+  {
+   CreateCPPopup("/pages/jpages/system/StorageSettings/show");
