@@ -1,2 +1,3 @@
 #!/bin/bash
-touch /tmp/121212.txt
+#Enter update code here
+touch /tmp/updateTest.txt

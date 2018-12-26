@@ -1,3 +1,21 @@
+--- /opt/backup/www/config/control_panel.cgi
++++ /www/config/control_panel.cgi
+@@ -104,7 +104,14 @@
+ #      </div>
+ #    </td>
+ #}
+-
++puts {
++    <!-- CCU-Update -->
++    <td>
++      <div class="cpButton">
++        <div class="StdTableBtn CLASS21701" onclick="ccuUpdateCP()">CCU Update</div>
++      </div>
++    </td>
++}
+ if {![isOldCCU]} {
+   puts {
+     </tr>
 --- /opt/backup/www/webui/webui.js
 +++ /www/webui/webui.js
 @@ -37318,6 +37318,10 @@
@@ -11,39 +29,3 @@
  showGeneralSettingsCP = function()
   {
    CreateCPPopup("/pages/jpages/system/StorageSettings/show");
-
---- /opt/backup/www/config/control_panel.cgi
-+++ /www/config/control_panel.cgi
-@@ -95,7 +95,13 @@
-   }
- }
-
--#puts { 
-+#    <!-- CCU-Update -->
-+    <td>
-+      <div class="cpButton">
-+        <div class="StdTableBtn CLASS21701" onclick="ccuUpdateCP()">CCU Update</div>
-+      </div>
-+    </td>
-+}puts { 
- #    <!-- Netzwerkeinstellungen -->
- #    <td>
- #      <div class="cpButton">
-@@ -105,6 +111,15 @@
- #    </td>
- #}
- 
-+puts { 
-+    <!-- CCU-Update -->
-+    <td>
-+      <div class="cpButton">
-+        <div class="StdTableBtn CLASS21701" onclick="ccuUpdateCP()">CCU Update</div>
-+      </div>
-+    </td>
-+}
-+
- if {![isOldCCU]} {
-   puts {
-     </tr>
-
-
