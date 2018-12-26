@@ -25,6 +25,7 @@ mkdir /opt/HMServer/
 mkdir /firmware/
 mkdir /opt/HmIP/
 mkdir /www/
+mkdir /www/config/
 mkdir /etc/config/
 mkdir /etc/config_templates/
 mkdir /etc/config/rfd/
