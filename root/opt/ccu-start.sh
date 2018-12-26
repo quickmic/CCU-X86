@@ -97,7 +97,7 @@ do
         fi
 done
 
-/bin/ReGaHss.community -f /etc/rega.conf -l 2 &
+/bin/ReGaHss -f /etc/rega.conf -l 2 &
 for i in $(seq 1 60)
 do
         sleep 1
