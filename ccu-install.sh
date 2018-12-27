@@ -140,6 +140,12 @@ do
 			read HMIPREMOTEIP
 			echo $HMIPREMOTEIP > /var/status/HMIPremserialhost
 			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/ttyS1000/g' /etc/config/crRFD.conf
+
+			echo "Enter the ssh password for root user of your rmote device:"
+			openssl genrsa -out /etc/ssl/homematic-socat/client.key 4096
+			openssl req -new -key /etc/ssl/homematic-socat/client.key -x509 -days 100000 -subj /C=EN -out /etc/ssl/homematic-socat/client.crt
+			scp /etc/ssl/homematic-socat/client.crt root@192.168.0.107:/etc/ssl/homematic-socat/client.crt
+			scp root@192.168.0.107:/etc/ssl/homematic-socat/server.crt  /etc/ssl/homematic-socat/server.crt
 		fi
 
 		break

@@ -29,13 +29,13 @@ fi
 
 if [ -f /var/status/HMIPremserialhost ]
 then
-	value=`cat /var/status/HMIPremserialhost`
-	/bin/remserial -d -r $value -p 23000 -l /dev/ttyS1000 /dev/ptmx &
+	IP=`cat /var/status/HMIPremserialhost`
+	/usr/bin/socat -d pty,link=/dev/ttyS1000,raw openssl-connect:$IP:2000,cert=/etc/ssl/homematic-socat/client.crt,key=/etc/ssl/homematic-socat/client.key,cafile=/etc/ssl/homematic-socat/server.crt,forever,commonname= &
 
 	for i in $(seq 1 60)
 	do
         	sleep 1
-	        PID=`pidof remserial`
+	        PID=`pidof socat`
         	if [[ ${PID} != "" ]]
 	        then
                 	break
