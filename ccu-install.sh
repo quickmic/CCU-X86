@@ -165,61 +165,6 @@ do
 	fi
 done
 
-while true
-do
-	read -r -p "Install cuxd? (y/n): " CUXD
-
-	if [ "$CUXD" = "y" ]
-	then
-		touch /var/status/CUXDenable
-		/bin/sed -i 's/<\/interfaces>//g' /etc/config/InterfacesList.xml
-		echo "        <ipc>" >> /etc/config/InterfacesList.xml
-		echo "                <name>CUxD</name>" >> /etc/config/InterfacesList.xml
-		echo "                <url>xmlrpc_bin://127.0.0.1:8701</url>" >> /etc/config/InterfacesList.xml
-		echo "                <info>CUxD</info>" >> /etc/config/InterfacesList.xml
-		echo "        </ipc>" >> /etc/config/InterfacesList.xml
-		echo "</interfaces>" >> /etc/config/InterfacesList.xml
-
-		mkdir /opt/cuxd
-		git clone https://github.com/jens-maus/cuxd /opt/cuxd/
-		mkdir -p /etc/config/addons/cuxd
-		chmod 755 /etc/config/addons/cuxd
-		mkdir -p /etc/config/addons/cuxd
-		chmod 755 /etc/config/addons/cuxd
-		rm -f /etc/config/addons/cuxd/fw.tar.gz
-		rm -f /etc/config/addons/cuxd/*.ko
-		rm -f /etc/config/addons/cuxd/lib*.so*
-		rm -f /etc/config/addons/cuxd/*.ccc
-		rm -f /etc/config/addons/cuxd/hm_addons.cfg.*
-		rm -f /etc/config/addons/cuxd/cuxd_addon.cfg
-		rm -f /etc/config/addons/cuxd/extra/curl
-		rm -f /etc/config/addons/cuxd/extra/socat
-		rm -f /etc/config/addons/cuxd/libusb-1.0.*
-		rm -f /etc/config/addons/cuxd/cuxd
-		rm -f /etc/config/addons/cuxd/cuxd.dbg
-		ln -sf /etc/config/addons/cuxd /etc/config/addons/www/cuxd
-		cp -af /etc/config/addons/cuxd/cuxd.ps /etc/config/addons/cuxd/cuxd.ps.old
-		cp -af /opt/cuxd/ccu_x86_32/cuxd/* /etc/config/addons/cuxd/
-		cp -af /opt/cuxd/common/cuxd/* -R /etc/config/addons/cuxd/
-		ln -s /bin/dfu-programmer /etc/config/addons/cuxd/
-		ln -s /usr/bin/curl /etc/config/addons/cuxd/extra/
-		ln -s /usr/bin/socat /etc/config/addons/cuxd/extra/
-		ln -s /usr/sbin/etherwake /etc/config/addons/cuxd/extra/ether-wake
-		ln -s /usr/bin/digitemp_DS9097U /etc/config/addons/cuxd/extra/
-		cp /opt/occu-x86/addon-mods/cuxd/cuxdaemon /etc/config/rc.d/
-		cp /opt/occu-x86/addon-mods/cuxd/cuxd.ini /etc/config/addons/cuxd/cuxd.ini
-		cp /opt/occu-x86/addon-mods/cuxd/update-check.cgi /etc/config/addons/www/cuxd/update-check.cgi
-		versionCUXD=`git -C /opt/cuxd/ describe --tags`
-		echo $versionCUXD > /etc/config/addons/cuxd/VERSION
-		/bin/update_addon cuxd /etc/config/addons/www/cuxd/cuxd_addon.cfg
-		break
-	elif [ "$CUXD" = "n" ]
-	then
-		rm /etc/config/rc.d/cuxdaemon
-		break
-	fi
-done
-
 systemctl enable ccu
 
 #Apply patches

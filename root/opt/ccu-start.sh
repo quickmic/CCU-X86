@@ -66,21 +66,6 @@ then
 	done
 fi
 
-if [ -f /var/status/CUXDenable ]
-then
-	/etc/config/addons/cuxd/cuxd &
-
-	for i in $(seq 1 60)
-	do
-        	sleep 1
-	        PID=`pidof cuxd`
-        	if [[ ${PID} != "" ]]
-	        then
-        	        break
-	        fi
-	done
-fi
-
 if [ -f /var/status/HMIPremserialhost ] || [ -f /var/status/HMIPlocaldevice ]
 then
 	/usr/bin/java -Xmx128m -Dlog4j.configuration=file:///etc/config/log4j.xml -jar /opt/HMServer/HMIPServer.jar /etc/config/crRFD.conf &
