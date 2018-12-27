@@ -237,6 +237,7 @@ do
 		for f in /opt/occu-x86/patches/1*
 		do
 		        patch -d / -p0 < $f
+			touch /var/status/ExtendedFeatures
 		done
 
 
