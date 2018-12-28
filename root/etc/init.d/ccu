@@ -7,16 +7,42 @@
 # Default-Stop: 0 1 6
 # Description: homematic ccu
 ### END INIT INFO
+
+start()
+{
+	for i in /etc/init.d/S??*
+	do
+        	$i start
+	done
+}
+
+stop()
+{
+	for i in /etc/init.d/S??*
+	do
+        	$i stop
+	done
+}
+
+restart()
+{
+        stop
+        start
+}
+
 case "$1" in
-  'start')
-        /opt/ccu-start.sh
-    ;;
-  'stop')
-	/opt/ccu-stop.sh
-    ;;
+  start)
+    start
+  ;;
+  stop)
+    stop
+  ;;
+  restart|reload)
+    restart
+  ;;
   *)
-        echo "Usage: /etc/init.d/ccu {start|stop}"
-        exit 1
-    ;;
+    echo "Usage: $0 {stop}"
+    exit 1
 esac
+
 exit 0
