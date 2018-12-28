@@ -1,0 +1,35 @@
+#!/bin/bash
+
+start()
+{
+        /bin/hs485dLoader -l 0 -ds -dd /etc/config/hs485d.conf -ilp /etc/config/InterfacesList.xml #Updates Wired Interfaces
+}
+
+stop()
+{
+        killall hs485dLoader
+}
+
+restart()
+{
+        stop
+	start
+}
+
+case "$1" in
+  start)
+    start
+  ;;
+  stop)
+    stop
+  ;;
+  restart|reload)
+    restart
+  ;;
+  *)
+    echo "Usage: $0 {stop}"
+    exit 1
+esac
+
+exit $?
+

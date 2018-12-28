@@ -17,12 +17,6 @@ killall ReGaHss.normal
 killall ReGaHss.legacy
 killall cuxd
 
-find /etc/ -type f -name '*.rej' -delete
-find /etc/ -type f -name '*.orig' -delete
-find /www/ -type f -name '*.rej' -delete
-find /www/ -type f -name '*.orig' -delete
-
-
 cp -rf /opt/occu-x86/root/bin/* /bin/
 cp -rf /opt/occu-x86/root/opt/* /opt/
 cp -rf /opt/occu-x86/root/www/* /www/

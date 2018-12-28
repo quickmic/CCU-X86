@@ -1,0 +1,54 @@
+#!/bin/bash
+
+start()
+{
+        if [[ -r /usr/local/.doAddonInstall ]]
+        then
+                mkdir /tmp/addon
+                cd /tmp/addon
+                tar -C /tmp/addon --no-same-owner --no-same-permissions -xf /usr/local/tmp/new_addon.tar.gz
+                /bin/sed -i 's/usr\/local\/etc/\etc/g' /tmp/addon/update_script
+                /bin/sed -i 's/usr\/local\/addons/etc\/config\/addons/g' /tmp/addon/update_script
+                /bin/sed -i 's/\.\/update_addon/\/bin\/update_addon/g' /tmp/addon/update_script
+                /bin/sed -i 's/${ADDON_DIR}\/update_addon/\/bin\/update_addon/g' /tmp/addon/update_script
+                /tmp/addon/update_script HM-RASPBERRYMATIC
+
+                #Get latest rc.d file and patch it
+                rcdFile=`ls -1ct /etc/config/rc.d/ | head -1`
+                /bin/sed -i 's/usr\/local\/etc/\etc/g' /etc/config/rc.d/$rcdFile
+                /bin/sed -i 's/usr\/local\/addons/etc\/config\/addons/g' /etc/config/rc.d/$rcdFile
+                /bin/sed -i 's/\.\/update_addon/\/bin\/update_addon/g' /etc/config/rc.d/$rcdFile
+                /bin/sed -i 's/${ADDON_DIR}\/update_addon/\/bin\/update_addon/g' /etc/config/rc.d/$rcdFile
+
+                rm -f /usr/local/.doAddonInstall
+                rm /usr/local/tmp/new_addon.tar.gz
+        fi
+}
+
+stop()
+{
+	echo "nothing"
+}
+
+restart()
+{
+	stop
+	start
+}
+
+case "$1" in
+  start)
+    start
+  ;;
+  stop)
+    stop
+  ;;
+  restart|reload)
+    restart
+  ;;
+  *)
+    echo "Usage: $0 {stop}"
+    exit 1
+esac
+
+exit $?

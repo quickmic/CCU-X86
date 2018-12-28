@@ -1,0 +1,39 @@
+#!/bin/bash
+
+start()
+{
+        if [ -d /usr/local/eQ-3-Backup/restore ]
+        then
+                rsync -av /usr/local/eQ-3-Backup/restore/ / --exclude='*/rega.conf' --exclude='*/InterfacesList.xml'
+                rm /usr/local/eQ-3-Backup/resto* -R
+        fi
+}
+
+stop()
+{
+        echo "nothing"
+}
+
+restart()
+{
+        stop
+	start
+}
+
+case "$1" in
+  start)
+    start
+  ;;
+  stop)
+    stop
+  ;;
+  restart|reload)
+    restart
+  ;;
+  *)
+    echo "Usage: $0 {stop}"
+    exit 1
+esac
+
+exit $?
+

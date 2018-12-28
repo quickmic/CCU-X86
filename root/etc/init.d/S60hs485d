@@ -1,0 +1,36 @@
+#!/bin/bash
+
+start()
+{
+        /bin/hs485dLoader -dw /etc/config/hs485d.conf &
+}
+
+stop()
+{
+        killall hs485dLoader
+        killall hs485d
+}
+
+restart()
+{
+        stop
+	start
+}
+
+case "$1" in
+  start)
+    start
+  ;;
+  stop)
+    stop
+  ;;
+  restart|reload)
+    restart
+  ;;
+  *)
+    echo "Usage: $0 {stop}"
+    exit 1
+esac
+
+exit $?
+

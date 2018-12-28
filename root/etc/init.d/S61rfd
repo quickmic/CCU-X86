@@ -1,0 +1,48 @@
+#!/bin/bash
+
+start()
+{
+        if [ -f /var/status/BIDCOSenable ]
+        then
+                /bin/rfd -d -f /etc/config/rfd.conf -l 2 &
+
+                for i in $(seq 1 60)
+                do
+                        sleep 1
+                        PID=`pidof rfd`
+                        if [[ ${PID} != "" ]]
+                        then
+                                break
+                        fi
+                done
+        fi
+}
+
+stop()
+{
+        killall rfd
+}
+
+restart()
+{
+        stop
+        start
+}
+
+case "$1" in
+  start)
+    start
+  ;;
+  stop)
+    stop
+  ;;
+  restart|reload)
+    restart
+  ;;
+  *)
+    echo "Usage: $0 {stop}"
+    exit 1
+esac
+
+exit $?
+

@@ -200,4 +200,11 @@ do
         fi
 done
 
+
+find /etc/ -type f -name '*.rej' -delete
+find /etc/ -type f -name '*.orig' -delete
+find /www/ -type f -name '*.rej' -delete
+find /www/ -type f -name '*.orig' -delete
+
+
 #reboot

@@ -1,0 +1,70 @@
+#!/bin/bash
+
+start()
+{
+        if [ -f /var/status/HMIPremserialhost ]
+        then
+                IP=`cat /var/status/HMIPremserialhost`
+                /usr/bin/socat -d pty,link=/dev/ttyS1000,raw openssl-connect:$IP:2000,cert=/etc/ssl/homematic-socat/client.crt,key=/etc/ssl/homematic-socat/client.key,cafile=/etc/ssl/homematic-socat/server.crt,forever,commonname= &
+
+                for i in $(seq 1 60)
+                do
+                        sleep 1
+                        PID=`pidof socat`
+                        if [[ ${PID} != "" ]]
+                        then
+                                break
+                        fi
+                done
+        fi
+
+        if [ -f /var/status/HMIPlocaldevice ]
+        then
+                modprobe cp210x
+                sh -c 'echo 1b1f c020 > /sys/bus/usb-serial/drivers/cp210x/new_id'
+        fi
+
+	rm -rf /usr/local/tmp/*
+	rm /var/tmp/*
+	rm /var/status/HMServerStarted
+	rm /opt/java/bin/java
+	ln -s $(which java) /opt/java/bin/
+
+	#Check CCU updates
+	git -C /opt/occu/ pull
+	git -C /opt/occu-x86/ pull
+
+	versionOCCU=`git -C /opt/occu/ describe --tags`
+	versionX86=`git -C /opt/occu-x86/ describe --tags`
+	versionCombined=$versionOCCU" / "$versionX86
+	echo "homematic.com.setLatestVersion('"$versionCombined"', 'HM-CCU3');" > /www/ccuupdate.txt
+}
+
+stop()
+{
+        killall socat
+}
+
+restart()
+{
+        stop
+        start
+}
+
+case "$1" in
+  start)
+    start
+  ;;
+  stop)
+    stop
+  ;;
+  restart|reload)
+    restart
+  ;;
+  *)
+    echo "Usage: $0 {stop}"
+    exit 1
+esac
+
+exit $?
+

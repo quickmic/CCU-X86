@@ -1,0 +1,49 @@
+#!/bin/bash
+
+start()
+{
+        if [ -f /var/status/HMIPremserialhost ] || [ -f /var/status/HMIPlocaldevice ]
+        then
+                /usr/bin/java -Xmx128m -Dlog4j.configuration=file:///etc/config/log4j.xml -jar /opt/HMServer/HMIPServer.jar /etc/config/crRFD.conf &
+        else
+                /usr/bin/java -Xmx128m -Dlog4j.configuration=file:///etc/config/log4j.xml -Dfile.encoding=ISO-8859-1 -jar /opt/HMServer/HMServer.jar &
+        fi
+
+        for i in $(seq 1 120)
+        do
+                sleep 1
+                if [[ -e /var/status/HMServerStarted ]]
+                then
+                        break
+                fi
+        done
+}
+
+stop()
+{
+        killall java
+}
+
+restart()
+{
+        stop
+        start
+}
+
+case "$1" in
+  start)
+    start
+  ;;
+  stop)
+    stop
+  ;;
+  restart|reload)
+    restart
+  ;;
+  *)
+    echo "Usage: $0 {stop}"
+    exit 1
+esac
+
+exit $?
+
