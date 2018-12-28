@@ -22,6 +22,16 @@ start()
 stop()
 {
         killall java
+
+        for i in $(seq 1 60)
+        do
+                sleep 1
+                PID=`pidof java`
+                if [[ ${PID} = "" ]]
+                then
+                        break
+                fi
+        done
 }
 
 restart()

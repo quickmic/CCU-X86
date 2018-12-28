@@ -9,6 +9,26 @@ stop()
 {
         killall hs485dLoader
         killall hs485d
+
+        for i in $(seq 1 60)
+        do
+                sleep 1
+                PID=`pidof hs485dLoader`
+                if [[ ${PID} = "" ]]
+                then
+                        break
+                fi
+        done
+
+        for i in $(seq 1 60)
+        do
+                sleep 1
+                PID=`pidof hs485d`
+                if [[ ${PID} = "" ]]
+                then
+                        break
+                fi
+        done
 }
 
 restart()
