@@ -6,6 +6,7 @@ apt-get dist-upgrade -y
 apt-get clean
 
 #Kill processes
+killall socat
 killall hs485dLoader
 killall java
 killall hs485d
@@ -16,6 +17,10 @@ killall ReGaHss.normal
 killall ReGaHss.legacy
 killall cuxd
 
+find /etc/ -type f -name '*.rej' -delete
+find /etc/ -type f -name '*.orig' -delete
+find /www/ -type f -name '*.rej' -delete
+find /www/ -type f -name '*.orig' -delete
 
 
 cp -rf /opt/occu-x86/root/bin/* /bin/
@@ -71,11 +76,13 @@ done
 version=${versionOCCU:0:$chrlen}
 echo "VERSION="$version > /boot/VERSION
 
+echo "CCU Update Log:" > /var/log/ccuupdate.txt
 
 #Apply patches
 for f in /opt/occu-x86/patches/0*
 do
-        patch --forward -d / -p0 < $f
+	echo $f >> /var/log/ccuupdate.txt
+        patch --forward -d / -p0 < $f >> /var/log/ccuupdate.txt
 done
 
 
@@ -84,8 +91,15 @@ then
 
 	for f in /opt/occu-x86/patches/1*
 	do
-		patch --forward -d / -p0 < $f
+		echo $f >> /var/log/ccuupdate.txt
+		patch --forward -d / -p0 < $f >> /var/log/ccuupdate.txt
 	done
 fi
+
+find /etc/ -type f -name '*.rej' -delete
+find /etc/ -type f -name '*.orig' -delete
+find /www/ -type f -name '*.rej' -delete
+find /www/ -type f -name '*.orig' -delete
+
 
 /sbin/reboot
