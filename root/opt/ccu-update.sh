@@ -86,8 +86,6 @@ then
 	do
 		patch --forward -d / -p0 < $f
 	done
-
-	break
 fi
 
 /sbin/reboot
