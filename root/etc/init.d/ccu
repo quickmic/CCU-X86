@@ -12,7 +12,7 @@ case "$1" in
         /opt/ccu-start.sh
     ;;
   'stop')
-        echo "Stopping script ccu"
+	/opt/ccu-stop.sh
     ;;
   *)
         echo "Usage: /etc/init.d/ccu {start|stop}"
