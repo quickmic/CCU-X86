@@ -1,0 +1,11 @@
+--- /opt/backup/etc/lighttpd/lighttpd.conf
++++ /etc/lighttpd/lighttpd.conf
+@@ -446,3 +446,8 @@
+ 
+ server.max-request-field-size = 65536
+ 
++$SERVER["socket"] == ":443" {
++  ssl.engine = "enable"
++  ssl.pemfile = "/etc/ssl/homematic-webui/lighttpd.pem"
++}
++

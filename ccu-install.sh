@@ -69,6 +69,10 @@ chmod 775 /var/etc
 mkdir /var/status
 chmod 775 /var/status
 
+mkdir /etc/ssl/homematic-webui
+openssl genrsa -out /etc/ssl/homematic-webui/lighttpd.key 4096
+openssl req -new -key /etc/ssl/homematic-webui/lighttpd.key -x509 -days 100000 -subj /C=EN -out /etc/ssl/homematic-webui/lighttpd.crt
+cat /etc/ssl/homematic-webui/lighttpd.key /etc/ssl/homematic-webui/lighttpd.crt > /etc/ssl/homematic-webui/lighttpd.pem
 
 
 cp -rf /opt/occu-x86/root/* /
@@ -201,6 +205,7 @@ do
 done
 
 
+rm /etc/lighttpd/lighttpd_ssl.conf
 find /etc/ -type f -name '*.rej' -delete
 find /etc/ -type f -name '*.orig' -delete
 find /www/ -type f -name '*.rej' -delete
