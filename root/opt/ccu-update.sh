@@ -1,5 +1,7 @@
 #!/bin/bash
 
+rm /www/* -R
+
 #Debian update
 apt-get update
 apt-get dist-upgrade -y
