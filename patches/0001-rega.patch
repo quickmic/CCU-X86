@@ -1,0 +1,26 @@
+--- /opt/backup/etc/rega.conf
++++ /etc/rega.conf
+@@ -58,6 +58,23 @@
+ SessionTimeout=300
+ 
+ #*******************************************************************************
++# XmlRpc Server-Einstellungen
++#*******************************************************************************
++XmlRpcServerPort=1999
++
++
++#*******************************************************************************
++# Hilfsdienste
++#*******************************************************************************
++
++# AuthenticatorServiceEnabled
++# Aktiviert den Authentifizierungsdienst ueber UDP f  r die Authentifizierung
++#   ber lighttpd
++# Default Wert: false
++AuthenticatorServiceEnabled = true
++
++
++#*******************************************************************************
+ # Ereignisse
+ #*******************************************************************************
+ 
