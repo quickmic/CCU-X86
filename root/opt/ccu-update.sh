@@ -22,6 +22,7 @@ killall cuxd
 cp -rf /opt/occu-x86/root/bin/* /bin/
 cp -rf /opt/occu-x86/root/opt/* /opt/
 cp -rf /opt/occu-x86/root/www/* /www/
+cp -rf /opt/occu-x86/root/etc/init.d/* /etc/init.d/
 
 #git clone https://github.com/quickmic/occu.git /opt/occu/
 cp /opt/occu/HMserver/opt/HMServer/HMIPServer.jar /opt/HMServer/
