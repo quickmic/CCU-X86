@@ -36,6 +36,7 @@ start()
 
 	versionOCCU=`git -C /opt/occu/ describe --tags`
 	versionX86=`git -C /opt/occu-x86/ describe --tags`
+	/bin/sed -i -n '/WEBUI_VERSION = "/{:a;N;/;/!ba;N;s/.*\n/    WEBUI_VERSION = "'$versionOCCU' \/ '$versionX86'";\n\n/};p' /www/rega/pages/index.htm
 	versionCombined=$versionOCCU" / "$versionX86
 	echo "homematic.com.setLatestVersion('"$versionCombined"', 'HM-CCU3');" > /www/ccuupdate.txt
 }
