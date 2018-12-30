@@ -1,21 +1,156 @@
---- /opt/backup/www/config/control_panel.cgi
-+++ /www/config/control_panel.cgi
-@@ -104,7 +104,14 @@
- #      </div>
- #    </td>
- #}
+--- /opt/backup/www/config/cp_maintenance.cgi
++++ /www/config/cp_maintenance.cgi
+@@ -389,58 +389,58 @@
+                 # The available version will be set further down with "jQuery('#availableSWVersion').html(homematic.com.getLatestVersion());"
+               }
+             }
+-            table_row {
+-              table_data {align="left"} {colspan="3"} {
+-                #puts "[bold "Software-Update durchführen"]"
+-                puts "<b>\${dialogSettingsCMLblPerformSoftwareUpdate}</b>"
+-              }
+-            }
+-            table_row {
+-              td {width="20"} {}
+-              table_data {align="left"} {
+-                puts "\${dialogSettingsCMLblPerformSoftwareUpdateStep1}"
+-              }
+-              table_data {
+-                division {class="popupControls CLASS20905"} {
+-                  table {
+-                    table_row {
+-                      table_data {
+-                        division {class="CLASS20908" style="display: none"} {id="btnFwDownload"} {} "onClick=\"window.location.href='$REMOTE_FIRMWARE_SCRIPT?cmd=download&version=$cur_version&serial=$serial&lang=de&product=HM-CCU3';\"" {}
+-                        division {class="CLASS20908"}  "onClick=\"showCCULicense();\"" {puts "\${dialogSettingsCMBtnPerformSoftwareUpdateDownload}"}
+-                      }
+-                    }
+-                  }
+-                }
+-              }
+-            }
+-            table_row {
+-              td {width="20"} {}
+-              table_data {align="left"} {colspan="2"} {
+-                puts "\${dialogSettingsCMLblPerformSoftwareUpdateStep2}"
+-              }
+-            }
+-            table_row {
+-              td {width="20"} {}
+-              table_data {colspan="2"} {
+-                form "$env(SCRIPT_NAME)?sid=$sid" name=firmware_form {target=firmware_upload_iframe} enctype=multipart/form-data method=post {
+-                  export action=firmware_upload
+-                  export downloadOnly=$downloadOnly
+-                  file_button firmware_file size=30 maxlength=1000000
+-                }
+-                puts {<iframe name="firmware_upload_iframe" style="display: none;"></iframe>}
+-              }
+-            }
+-            table_row {
+-              td {width="20"} {}
+-              table_data {align="left"} {
+-                puts "\${dialogSettingsCMLblPerformSoftwareUpdateStep3}"
+-              }
++#            table_row {
++#              table_data {align="left"} {colspan="3"} {
++#                #puts "[bold "Software-Update durchführen"]"
++#                puts "<b>\${dialogSettingsCMLblPerformSoftwareUpdate}</b>"
++#              }
++#            }
++#            table_row {
++#              td {width="20"} {}
++#              table_data {align="left"} {
++#                puts "\${dialogSettingsCMLblPerformSoftwareUpdateStep1}"
++#              }
++#              table_data {
++#                division {class="popupControls CLASS20905"} {
++#                  table {
++#                    table_row {
++#                      table_data {
++#                        division {class="CLASS20908" style="display: none"} {id="btnFwDownload"} {} "onClick=\"window.location.href='$REMOTE_FIRMWARE_SCRIPT?cmd=download&version=$cur_version&serial=$serial&lang=de&product=HM-CCU3';\"" {}
++#                        division {class="CLASS20908"}  "onClick=\"showCCULicense();\"" {puts "\${dialogSettingsCMBtnPerformSoftwareUpdateDownload}"}
++#                      }
++#                    }
++#                  }
++#                }
++#              }
++#            }
++#            table_row {
++#              td {width="20"} {}
++#              table_data {align="left"} {colspan="2"} {
++#                puts "\${dialogSettingsCMLblPerformSoftwareUpdateStep2}"
++#              }
++#            }
++#            table_row {
++#              td {width="20"} {}
++#              table_data {colspan="2"} {
++#                form "$env(SCRIPT_NAME)?sid=$sid" name=firmware_form {target=firmware_upload_iframe} enctype=multipart/form-data method=post {
++#                  export action=firmware_upload
++#                  export downloadOnly=$downloadOnly
++#                  file_button firmware_file size=30 maxlength=1000000
++#                }
++#                puts {<iframe name="firmware_upload_iframe" style="display: none;"></iframe>}
++#              }
++#            }
++            table_row {
++#              td {width="20"} {}
++#              table_data {align="left"} {
++#                puts "\${dialogSettingsCMLblPerformSoftwareUpdateStep3}"
++#              }
+               table_data {
+                 division {class="popupControls CLASS20905"} {
+                   table {
+                     table_row {
+                       table_data {
+-                        division {class="CLASS20919"} {onClick="document.firmware_form.submit();showUserHint();"} {
++                        division {class="CLASS20919"} {onClick="ccuUpdateCP();"} {
+                           puts "\${dialogSettingsCMBtnPerformSoftwareUpdateUpload}"
+                         }
+                       }
+@@ -449,12 +449,12 @@
+                 }
+               }
+             }
+-            table_row {
+-              td {width="20"} {}
+-              table_data {align="left"} {colspan="2"} {class="CLASS20920"} {
+-                puts "\${dialogSettingsCMLblPerformSoftwareUpdateStep4}"
+-              }
+-            }
++#            table_row {
++#              td {width="20"} {}
++#              table_data {align="left"} {colspan="2"} {class="CLASS20920"} {
++#                puts "\${dialogSettingsCMLblPerformSoftwareUpdateStep4}"
++#              }
++#            }
+           }
+         }
+         table_data {align="left"} {class="CLASS20921"} {
+@@ -518,25 +518,6 @@
+         }
+       }
+ 
+-      # Abgesicherter Modus
+-      table_row {class="CLASS20902 j_noForcedUpdate j_fwUpdateOnly"} {
+-        table_data {class="CLASS20903"} $styleMaxWidth {
+-          #puts "Abgesicherter<br>"
+-          #puts "Modus"
+-          puts "\${dialogSettingsCMTDCCUSafeMode}"
+-        }
+-        table_data {class="CLASS20904"} {
+-          division {class="popupControls CLASS20905"} {
+-            division {class="CLASS20910 colorGradient50px"} {onClick="OnEnterSafeMode();"} {
+-              puts "\${dialogSettingsCMBtnCCURestartSafe}"
+-            }
+-          }
+-        }
+-        table_data {align="left"} {class="CLASS20904"} {
+-          puts "\${dialogSettingsCMHintRestartSafeMode}"
+-        }
+-      }
 -
-+puts {
-+    <!-- CCU-Update -->
-+    <td>
-+      <div class="cpButton">
-+        <div class="StdTableBtn CLASS21701" onclick="ccuUpdateCP()">CCU Update</div>
-+      </div>
-+    </td>
-+}
- if {![isOldCCU]} {
-   puts {
-     </tr>
+       table_row {class="CLASS20902 j_noForcedUpdate j_fwUpdateOnly"} {
+         table_data {class="CLASS20903"} $styleMaxWidth  {
+           #puts "Fehler-<br>"
 --- /opt/backup/www/webui/webui.js
 +++ /www/webui/webui.js
 @@ -37318,6 +37318,10 @@
