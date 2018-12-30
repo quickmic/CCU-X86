@@ -2,75 +2,78 @@
 cp /opt/occu-x86/root/etc/apt/sources.list.d/linuxuprising-java.list /etc/apt/sources.list.d/
 
 dpkg --add-architecture i386
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 73C3DB2A
 apt-get update
 apt-get dist-upgrade -y
-apt-get install etherwake digitemp u-boot-tools dirmngr lighttpd git libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 libusb-1.0.0:i386 libusb-1.0.0 curl psmisc socat keyboard-configuration libasound2 wget libasound2-data autoconf libusb-1.0 build-essential msmtp git net-tools usbutils -y
+apt-get install oracle-java11-installer etherwake digitemp u-boot-tools dirmngr lighttpd git libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 libusb-1.0.0:i386 libusb-1.0.0 curl psmisc socat keyboard-configuration libasound2 wget libasound2-data autoconf libusb-1.0 build-essential msmtp git net-tools usbutils -y --allow-unauthenticated
 /usr/sbin/update-usbids
 dpkg-reconfigure tzdata
 dpkg-reconfigure keyboard-configuration
 locale-gen
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 73C3DB2A
-apt-get update
-apt-get install oracle-java11-installer -y --allow-unauthenticated
+#apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 73C3DB2A
+#apt-get update
+
+
+
 apt-get remove postfix --purge -y
 apt-get remove x11-common --purge -y
 apt-get autoremove  --purge -y
 
-rm /usr/local/* -R
-rm /etc/lighttpd/* -R
-rm /var/www* -R
-rm /var/status/* -R
-mkdir /opt/occu/
-mkdir /opt/HMServer/
-mkdir /firmware/
-mkdir /opt/HmIP/
-mkdir /www/
-mkdir /www/config/
-mkdir /etc/config/
-mkdir /etc/config/firmware/
-mkdir /etc/config_templates/
-mkdir /etc/config/rfd/
-mkdir /var/status/
-mkdir /etc/config/hs485d/
-mkdir /etc/config/rc.d/
-mkdir /usr/local/etc/
-mkdir /etc/config/crRFD/
-mkdir /etc/config/crRFD/data
-mkdir /usr/local/tmp/
+rm -rf /usr/local/*
+rm -rf /etc/lighttpd/*
+rm -rf /var/www*
+rm -rf /var/status/*
+mkdir -p /opt/occu/
+mkdir -p /opt/HMServer/
+mkdir -p /firmware/
+mkdir -p /opt/HmIP/
+#mkdir /www/
+mkdir -p /www/config/
+mkdir -p /etc/config/
+mkdir -p /etc/config/firmware/
+mkdir -p /etc/config_templates/
+mkdir -p /etc/config/rfd/
+mkdir -p /var/status/
+mkdir -p /etc/config/hs485d/
+mkdir -p /etc/config/rc.d/
+mkdir -p /usr/local/etc/
+#mkdir /etc/config/crRFD/
+mkdir -p /etc/config/crRFD/data
+mkdir -p /usr/local/tmp/
 chmod 775 /etc/config
-mkdir /etc/config/addons/
-mkdir /etc/config/addons/www/
-mkdir /opt/java/
-mkdir /opt/java/bin/
+#mkdir /etc/config/addons/
+mkdir -p /etc/config/addons/www/
+#mkdir /opt/java/
+mkdir -p /opt/java/bin/
 
 ln -s $(which java) /opt/java/bin/
 
-mkdir /var/tmp
+mkdir -p /var/tmp
 chmod 775 /var/tmp
-mkdir /var/rega
+mkdir -p /var/rega
 chmod 775 /var/rega
-mkdir /var/run
+mkdir -p /var/run
 chmod 775 /var/run
-mkdir /var/spool
+mkdir -p /var/spool
 chmod 775 /var/spool
-mkdir /var/lock
+mkdir -p /var/lock
 chmod 775 /var/lock
-mkdir /var/cache
+mkdir -p /var/cache
 chmod 775 /var/cache
-mkdir /var/lib
+mkdir -p /var/lib
 chmod 775 /var/lib
-mkdir /var/lib/misc
+mkdir -p /var/lib/misc
 chmod 775 /var/lib/misc
-mkdir /var/lib/dbus
+mkdir -p /var/lib/dbus
 chmod 775 /var/lib/dbus
-mkdir /var/empty
+mkdir -p /var/empty
 chmod 600 /var/empty
-mkdir /var/etc
+mkdir -p /var/etc
 chmod 775 /var/etc
-mkdir /var/status
+mkdir -p /var/status
 chmod 775 /var/status
 
-mkdir /etc/ssl/homematic-webui
+mkdir -p /etc/ssl/homematic-webui
 openssl genrsa -out /etc/ssl/homematic-webui/lighttpd.key 4096
 openssl req -new -key /etc/ssl/homematic-webui/lighttpd.key -x509 -days 100000 -subj /C=EN -out /etc/ssl/homematic-webui/lighttpd.crt
 cat /etc/ssl/homematic-webui/lighttpd.key /etc/ssl/homematic-webui/lighttpd.crt > /etc/ssl/homematic-webui/lighttpd.pem
@@ -146,8 +149,8 @@ do
 			echo $HMIPREMOTEIP > /var/status/HMIPremserialhost
 			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/ttyS1000/g' /etc/config/crRFD.conf
 
-			echo "Enter the ssh password for root user of your rmote device:"
-			mkdir /etc/ssl/homematic-socat
+			echo "Enter the ssh password for root user of your remote device:"
+			mkdir -p /etc/ssl/homematic-socat
 			openssl genrsa -out /etc/ssl/homematic-socat/client.key 4096
 			openssl req -new -key /etc/ssl/homematic-socat/client.key -x509 -days 100000 -subj /C=EN -out /etc/ssl/homematic-socat/client.crt
 			scp /etc/ssl/homematic-socat/client.crt root@$HMIPREMOTEIP:/etc/ssl/homematic-socat/client.crt
@@ -206,11 +209,11 @@ do
 done
 
 
-rm /etc/lighttpd/lighttpd_ssl.conf
-find /etc/ -type f -name '*.rej' -delete
-find /etc/ -type f -name '*.orig' -delete
-find /www/ -type f -name '*.rej' -delete
-find /www/ -type f -name '*.orig' -delete
+rm -f /etc/lighttpd/lighttpd_ssl.conf
+#find /etc/ -type f -name '*.rej' -delete
+#find /etc/ -type f -name '*.orig' -delete
+#find /www/ -type f -name '*.rej' -delete
+#find /www/ -type f -name '*.orig' -delete
 
 
 #reboot

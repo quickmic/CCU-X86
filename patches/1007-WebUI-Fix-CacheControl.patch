@@ -179,14 +179,6 @@
    
      /**
       * Flags
-@@ -202,6 +202,6 @@
-       </div>
-     </div>
-   </div>
--  <script type="text/javascript" src="/webui/webui.js?_version_=2.0pre1" ></script>
-+  <script type="text/javascript" src="/webui/webui.js?_version_=XXX-WEBUI-VERSION-XXX" ></script>
- </body>
- </html>
 --- occu/WebUI/www/webui/js/lang/loadTextResource.js.orig
 +++ /www/webui/js/lang/loadTextResource.js
 @@ -120,11 +120,12 @@

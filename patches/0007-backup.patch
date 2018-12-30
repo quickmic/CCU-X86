@@ -1,6 +1,5 @@
-diff -ru --no-dereference -x VERSION -x homematic.regadom.bak -x homematic.regadom -x HMServerStarted -x SESSIONS.dat -x measurement -x eshlight -x webcamconfig.ini -x webcamconfig-default.ini -x '*.handlers' -x cache -x syslog -x log -x '*.lock' -x lib -x firmware -x home -x media -x mnt -x opt -x proc -x root -x run -x sbin -x srv -x sys -x tmp -x lib32 -x lib64 -x lost+found -x usr -x bin -x boot -x dev -x .java /opt/backup/www/config/cp_security.cgi /www/config/cp_security.cgi
---- /opt/backup/www/config/cp_security.cgi	2018-12-20 08:40:59.626069788 +0100
-+++ /www/config/cp_security.cgi	2018-12-20 10:15:35.757398536 +0100
+--- /opt/backup/www/config/cp_security.cgi
++++ /www/config/cp_security.cgi
 @@ -605,7 +605,7 @@
          file delete -force /tmp/backup
          file mkdir /tmp/backup
