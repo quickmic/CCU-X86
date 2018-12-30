@@ -4,9 +4,9 @@ start()
 {
         if [ -f /var/status/HMIPremserialhost ] || [ -f /var/status/HMIPlocaldevice ]
         then
-                /usr/bin/java -Xmx128m -Dlog4j.configuration=file:///etc/config/log4j.xml -jar /opt/HMServer/HMIPServer.jar /etc/config/crRFD.conf &
+                /usr/bin/java -server -Xms1024m -Xmx1024m -Dlog4j.configuration=file:///etc/config/log4j.xml -jar /opt/HMServer/HMIPServer.jar /etc/config/crRFD.conf &
         else
-                /usr/bin/java -Xmx128m -Dlog4j.configuration=file:///etc/config/log4j.xml -Dfile.encoding=ISO-8859-1 -jar /opt/HMServer/HMServer.jar &
+                /usr/bin/java -server -Xms1024m -Xmx1024m -Dlog4j.configuration=file:///etc/config/log4j.xml -Dfile.encoding=ISO-8859-1 -jar /opt/HMServer/HMServer.jar &
         fi
 
         for i in $(seq 1 120)
