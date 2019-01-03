@@ -80,6 +80,9 @@ openssl genrsa -out /etc/ssl/homematic-webui/lighttpd.key 4096
 openssl req -new -key /etc/ssl/homematic-webui/lighttpd.key -x509 -days 100000 -subj /C=EN -out /etc/ssl/homematic-webui/lighttpd.crt
 cat /etc/ssl/homematic-webui/lighttpd.key /etc/ssl/homematic-webui/lighttpd.crt > /etc/ssl/homematic-webui/lighttpd.pem
 
+mkdir -p /etc/ssl/homematic-socat
+openssl genrsa -out /etc/ssl/homematic-socat/client.key 4096
+openssl req -new -key /etc/ssl/homematic-socat/client.key -x509 -days 100000 -subj /C=EN -out /etc/ssl/homematic-socat/client.crt
 
 cp -rf /opt/occu-x86/root/* /
 
@@ -138,27 +141,7 @@ do
 
 	if [ "$HMIP" = "y" ]
 	then
-		echo "Is HmIP-RFUSB directly plugged to the CCU? (y/n):"
-		read HMIPLOCAL
-
-		if [ "$HMIPLOCAL" = "y" ]
-		then
-			touch /var/status/HMIPlocaldevice
-			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/ttyUSB0/g' /etc/config/crRFD.conf
-		else
-			echo "Enter IP Adress of the HmIP-USB-Stick Host (Usually Raspberry Pi):"
-			read HMIPREMOTEIP
-			echo $HMIPREMOTEIP > /var/status/HMIPremserialhost
-			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/ttyS1000/g' /etc/config/crRFD.conf
-
-			echo "Enter the ssh password for root user of your remote device:"
-			mkdir -p /etc/ssl/homematic-socat
-			openssl genrsa -out /etc/ssl/homematic-socat/client.key 4096
-			openssl req -new -key /etc/ssl/homematic-socat/client.key -x509 -days 100000 -subj /C=EN -out /etc/ssl/homematic-socat/client.crt
-			scp /etc/ssl/homematic-socat/client.crt root@$HMIPREMOTEIP:/etc/ssl/homematic-socat/client.crt
-			scp root@$HMIPREMOTEIP:/etc/ssl/homematic-socat/server.crt  /etc/ssl/homematic-socat/server.crt
-		fi
-
+		echo "ttyUSB0" > /var/status/HMIPenabled
 		break
 	elif [ "$HMIP" = "n" ]
 	then
