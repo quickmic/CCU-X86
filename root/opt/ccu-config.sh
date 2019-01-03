@@ -3,6 +3,8 @@ rm -f /var/status/BIDCOSenable
 rm -f /var/status/HMIPlocaldevice
 rm -f /var/status/HMIPremserialhost
 
+cp -f /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/etc/config_templates/InterfacesList.xml /etc/config/InterfacesList.xml
+
 while true
 do
         read -r -p "Enable HMIP? (y/n): " HMIP
