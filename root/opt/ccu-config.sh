@@ -2,6 +2,7 @@
 rm -f /var/status/BIDCOSenable
 rm -f /var/status/HMIPlocaldevice
 rm -f /var/status/HMIPremserialhost
+rm -f /var/status/HMIPenabled
 
 cp -f /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/etc/config_templates/InterfacesList.xml /etc/config/InterfacesList.xml
 
