@@ -1,5 +1,4 @@
 #!/bin/bash
-#cp /opt/occu-x86/root/etc/apt/sources.list.d/linuxuprising-java.list /etc/apt/sources.list.d/
 
 dpkg --add-architecture i386
 apt-get update
@@ -10,12 +9,10 @@ dpkg-reconfigure tzdata
 dpkg-reconfigure keyboard-configuration
 locale-gen
 
-
 cp /opt/occu-x86/root/etc/apt/sources.list.d/linuxuprising-java.list /etc/apt/sources.list.d/
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 73C3DB2A
 apt-get update
 apt-get install oracle-java11-installer -y --allow-unauthenticated
-
 
 apt-get remove postfix --purge -y
 apt-get remove x11-common --purge -y
