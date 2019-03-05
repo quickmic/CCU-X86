@@ -1,0 +1,57 @@
+start()
+{
+	echo 1 >/sys/class/raw-uart/raw-uart/reset_radio_module
+        modprobe hb_rf_usb
+        modprobe eq3_char_loop
+        modprobe generic_raw_uart
+
+        /bin/multimacd -f /etc/config/multimacd.conf -l 0 &
+
+        for i in $(seq 1 60)
+        do
+                sleep 1
+                PID=`pidof multimacd`
+                if [[ ${PID} != "" ]]
+                then
+                        break
+                fi
+        done
+}
+
+stop()
+{
+        killall multimacd
+
+        for i in $(seq 1 60)
+        do
+                sleep 1
+                PID=`pidof multimacd`
+                if [[ ${PID} = "" ]]
+                then
+                        break
+                fi
+        done
+}
+
+restart()
+{
+        stop
+        start
+}
+
+case "$1" in
+  start)
+    start
+  ;;
+  stop)
+    stop
+  ;;
+  restart|reload)
+    restart
+  ;;
+  *)
+    echo "Usage: $0 {stop}"
+    exit 1
+esac
+
+exit $?

@@ -9,7 +9,7 @@ dpkg-reconfigure tzdata
 dpkg-reconfigure keyboard-configuration
 locale-gen
 
-cp /opt/occu-x86/root/etc/apt/sources.list.d/linuxuprising-java.list /etc/apt/sources.list.d/
+cp /opt/occu-x86/root/etc/apt/sources.list.d/* /etc/apt/sources.list.d/
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 73C3DB2A
 apt-get update
 apt-get install oracle-java11-installer -y --allow-unauthenticated
@@ -30,7 +30,7 @@ mkdir -p /opt/HmIP/
 mkdir -p /www/config/
 mkdir -p /etc/config/
 mkdir -p /etc/config/firmware/
-mkdir -p /etc/config_templates/
+#mkdir -p /etc/config_templates/
 mkdir -p /etc/config/rfd/
 mkdir -p /var/status/
 mkdir -p /etc/config/hs485d/
@@ -95,8 +95,9 @@ cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/LinuxBasis/* /
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/bin/* /bin/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/lib/* /lib/
 cp -rf /opt/occu/HMserver/opt/HmIP/* /opt/HmIP/
-cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/rfd.conf /etc/config/rfd.conf
-cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/* /etc/config_templates/
+cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/rfd.conf /etc/config/
+cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/multimacd.conf /etc/config/
+#cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/* /etc/config_templates/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/bin/* /bin/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/lib/* /lib/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/etc/* /etc/
@@ -132,13 +133,69 @@ done
 version=${versionOCCU:0:$chrlen}
 echo "VERSION="$version > /boot/VERSION
 
+
+
+#Check if running in lxc container
+if ! grep lxc /proc/1/environ -qa
+then
+	while true
+	do
+	        read -r -p "Are you using a HB-RF-USB interface? (y/n): " HBRFUSB
+
+        	if [ "$HBRFUSB" = "y" ]
+	        then
+			cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/multimacd.conf /etc/config/
+			apt-get install linux-headers-amd64
+			apt-get -t stretch-backports install linux-image-amd64
+			apt-get -t stretch-backports install linux-headers-amd64
+
+			#compile modules
+#cp ./*.ko /lib/modules/4.19.0-0.bpo.1-amd64/
+#depmod -A
+#modprobe hb_rf_usb
+#modprobe generic_raw_uart
+#insmod eq3_char_loop
+
+
+
+
+                	break
+        	elif [ "$HBRFUSB" = "n" ]
+	        then
+			rm /etc/config/multimacd.conf
+			rm /etc/init.d/S60multimacd
+        	        break
+	        fi
+	done
+fi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 while true
 do
 	read -r -p "Enable HMIP? (y/n): " HMIP
 
 	if [ "$HMIP" = "y" ]
 	then
-		echo "ttyUSB0" > /var/status/HMIPenabled
+		if [ "$HBRFUSB" = "y" ]
+		then
+			echo "mmd_hmip" > /var/status/HMIPenabled
+		else
+			echo "ttyUSB0" > /var/status/HMIPenabled
+		fi
+
 		break
 	elif [ "$HMIP" = "n" ]
 	then
@@ -153,7 +210,13 @@ do
 
 	if [ "$BIDCOS" = "y" ]
 	then
-		touch /var/status/BIDCOSenable
+                if [ "$HBRFUSB" = "y" ]
+                then
+			echo "mmd_bidcos" > /var/status/BIDCOSenable
+		else
+			echo "use gateways" > /var/status/BIDCOSenable
+		fi
+
 		break
 	elif [ "$BIDCOS" = "n" ]
 	then
@@ -161,6 +224,23 @@ do
 		break
 	fi
 done
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 systemctl enable ccu
 
