@@ -148,17 +148,7 @@ then
 			apt-get install build-essential -y
 			apt-get -t stretch-backports install linux-image-amd64 -y
 			apt-get -t stretch-backports install linux-headers-amd64 -y
-
-			#compile modules
-#cp ./*.ko /lib/modules/4.19.0-0.bpo.1-amd64/
-#depmod -A
-#modprobe hb_rf_usb
-#modprobe generic_raw_uart
-#insmod eq3_char_loop
-
-
-
-
+			/opt/occu-x86/kernel-modules/compile.sh
                 	break
         	elif [ "$HBRFUSB" = "n" ]
 	        then
@@ -192,8 +182,10 @@ do
 		if [ "$HBRFUSB" = "y" ]
 		then
 			echo "mmd_hmip" > /var/status/HMIPenabled
+			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/mmd_hmip/g' /etc/config/crRFD.conf
 		else
 			echo "ttyUSB0" > /var/status/HMIPenabled
+			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyUSB0/Adapter.1.Port=\/dev\/ttyUSB0/g' /etc/config/crRFD.conf
 		fi
 
 		break
@@ -213,8 +205,13 @@ do
                 if [ "$HBRFUSB" = "y" ]
                 then
 			echo "mmd_bidcos" > /var/status/BIDCOSenable
+			echo "[Interface 0]" >> /etc/config/rfd.conf
+			echo "Type = CCU2" >> /etc/config/rfd.conf
+			echo "ComPortFile = /dev/mmd_bidcos" >> /etc/config/rfd.conf
+			echo "AccessFile = /dev/null" >> /etc/config/rfd.conf
+			echo "ResetFile = /dev/null" >> /etc/config/rfd.conf
 		else
-			echo "use gateways" > /var/status/BIDCOSenable
+			echo "gateways" > /var/status/BIDCOSenable
 		fi
 
 		break

@@ -6,17 +6,21 @@ start()
 	then
 		hmipdevice=`cat /var/status/HMIPenabled`
 
-		if [[ $hmipdevice == *"tty"* ]]; then
+		if [[ $hmipdevice == *"tty"* ]]
+		then
 			modprobe cp210x
 			sh -c 'echo 1b1f c020 > /sys/bus/usb-serial/drivers/cp210x/new_id'
-			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/'$hmipdevice'/g' /etc/config/crRFD.conf
-			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyUSB0/Adapter.1.Port=\/dev\/'$hmipdevice'/g' /etc/config/crRFD.conf
-			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyUSB1/Adapter.1.Port=\/dev\/'$hmipdevice'/g' /etc/config/crRFD.conf
-			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS1000/Adapter.1.Port=\/dev\/'$hmipdevice'/g' /etc/config/crRFD.conf
-		else
-			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/ttyS1000/g' /etc/config/crRFD.conf
-			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyUSB0/Adapter.1.Port=\/dev\/ttyS1000/g' /etc/config/crRFD.conf
-			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyUSB1/Adapter.1.Port=\/dev\/ttyS1000/g' /etc/config/crRFD.conf
+#			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/'$hmipdevice'/g' /etc/config/crRFD.conf
+#			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyUSB0/Adapter.1.Port=\/dev\/'$hmipdevice'/g' /etc/config/crRFD.conf
+#			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyUSB1/Adapter.1.Port=\/dev\/'$hmipdevice'/g' /etc/config/crRFD.conf
+#			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS1000/Adapter.1.Port=\/dev\/'$hmipdevice'/g' /etc/config/crRFD.conf
+#			/bin/sed -i 's/Adapter.1.Port=\/dev\/mmd_hmip/Adapter.1.Port=\/dev\/'$hmipdevice'/g' /etc/config/crRFD.conf
+		elif [[ $hmipdevice != "mmd_hmip" ]]
+#			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/ttyS1000/g' /etc/config/crRFD.conf
+#			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyUSB0/Adapter.1.Port=\/dev\/ttyS1000/g' /etc/config/crRFD.conf
+#			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyUSB1/Adapter.1.Port=\/dev\/ttyS1000/g' /etc/config/crRFD.conf
+#			/bin/sed -i 's/Adapter.1.Port=\/dev\/mmd_hmip/Adapter.1.Port=\/dev\/ttyS1000/g' /etc/config/crRFD.conf
+
 			/usr/bin/socat -d pty,link=/dev/ttyS1000,raw openssl-connect:$hmipdevice:2000,cert=/etc/ssl/homematic-socat/client.crt,key=/etc/ssl/homematic-socat/client.key,cafile=/etc/ssl/homematic-socat/server.crt,forever,commonname= &
 
         	        for i in $(seq 1 60)
@@ -30,7 +34,6 @@ start()
 	                done
 		fi
 	fi
-
 	rm -rf /usr/local/tmp/*
 	rm -f /var/tmp/*
 	rm -f /var/status/HMServerStarted
