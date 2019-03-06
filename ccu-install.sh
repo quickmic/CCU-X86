@@ -238,6 +238,8 @@ done
 
 
 
+exit 0
+
 
 systemctl enable ccu
 
