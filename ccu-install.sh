@@ -145,9 +145,9 @@ then
         	if [ "$HBRFUSB" = "y" ]
 	        then
 			cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/multimacd.conf /etc/config/
-			apt-get install linux-headers-amd64
-			apt-get -t stretch-backports install linux-image-amd64
-			apt-get -t stretch-backports install linux-headers-amd64
+			apt-get install build-essential -y
+			apt-get -t stretch-backports install linux-image-amd64 -y
+			apt-get -t stretch-backports install linux-headers-amd64 -y
 
 			#compile modules
 #cp ./*.ko /lib/modules/4.19.0-0.bpo.1-amd64/
