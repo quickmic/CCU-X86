@@ -12,7 +12,7 @@ obj-m += hb_rf_usb.o
 obj-m += rtc-rx8130.o
 
 ifeq ($(KERNELRELEASE),)
-  KERNELRELEASE := $(shell uname -r)
+   KERNELRELEASE := $(shell cat /tmp/kernel.txt)
 endif
 
 ifeq ($(KERNEL_DIR),)
