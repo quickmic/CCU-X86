@@ -1,5 +1,5 @@
---- /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/rfd.conf	2019-03-06 15:04:37.776771816 +0100
-+++ /etc/config/rfd.conf	2019-03-07 14:25:47.708653488 +0100
+--- /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/rfd.conf
++++ /etc/config/rfd.conf
 @@ -19,9 +19,3 @@
  Fire NACK Error Events = true
  Improved Coprocessor Initialization = true
