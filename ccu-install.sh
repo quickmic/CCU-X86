@@ -26,23 +26,18 @@ mkdir -p /opt/occu/
 mkdir -p /opt/HMServer/
 mkdir -p /firmware/
 mkdir -p /opt/HmIP/
-#mkdir /www/
 mkdir -p /www/config/
 mkdir -p /etc/config/
 mkdir -p /etc/config/firmware/
-#mkdir -p /etc/config_templates/
 mkdir -p /etc/config/rfd/
 mkdir -p /var/status/
 mkdir -p /etc/config/hs485d/
 mkdir -p /etc/config/rc.d/
 mkdir -p /usr/local/etc/
-#mkdir /etc/config/crRFD/
 mkdir -p /etc/config/crRFD/data
 mkdir -p /usr/local/tmp/
 chmod 775 /etc/config
-#mkdir /etc/config/addons/
 mkdir -p /etc/config/addons/www/
-#mkdir /opt/java/
 mkdir -p /opt/java/bin/
 
 ln -s $(which java) /opt/java/bin/
@@ -97,10 +92,10 @@ cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/lib/* /lib/
 cp -rf /opt/occu/HMserver/opt/HmIP/* /opt/HmIP/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/rfd.conf /etc/config/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/multimacd.conf /etc/config/
-#cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/* /etc/config_templates/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/bin/* /bin/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/lib/* /lib/
-cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/etc/* /etc/
+cp -f /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/etc/* /etc/
+cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/etc/config/* /etc/config/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/etc/config_templates/* /etc/config/
 cp /opt/occu/HMserver/etc/config_templates/log4j.xml /etc/config/
 cp -rf /opt/occu/HMserver/opt/HMServer/* /opt/HMServer/
@@ -133,7 +128,14 @@ done
 version=${versionOCCU:0:$chrlen}
 echo "VERSION="$version > /boot/VERSION
 
+#Apply patches
+for f in /opt/occu-x86/patches/*
+do
+        patch -d / -p0 < $f
+done
 
+rm -f /etc/lighttpd/lighttpd_ssl.conf
+systemctl enable ccu
 
 #Check if running in lxc container
 if ! grep lxc /proc/1/environ -qa
@@ -207,41 +209,5 @@ do
 		break
 	fi
 done
-
-systemctl enable ccu
-
-#Apply patches
-for f in /opt/occu-x86/patches/0*
-do
-	patch -d / -p0 < $f
-done
-
-while true
-do
-        read -r -p  "Install extented features? (y/n): " EXTFEATURES
-
-        if [ "$EXTFEATURES" = "y" ]
-        then
-		for f in /opt/occu-x86/patches/1*
-		do
-		        patch -d / -p0 < $f
-			touch /var/status/ExtendedFeatures
-		done
-
-
-		break
-        elif [ "$EXTFEATURES" = "n" ]
-        then
-                break
-        fi
-done
-
-
-rm -f /etc/lighttpd/lighttpd_ssl.conf
-#find /etc/ -type f -name '*.rej' -delete
-#find /etc/ -type f -name '*.orig' -delete
-#find /www/ -type f -name '*.rej' -delete
-#find /www/ -type f -name '*.orig' -delete
-
 
 #reboot
