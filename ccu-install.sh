@@ -159,20 +159,6 @@ then
 	done
 fi
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 while true
 do
 	read -r -p "Enable HMIP? (y/n): " HMIP
@@ -221,25 +207,6 @@ do
 		break
 	fi
 done
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-exit 0
-
 
 systemctl enable ccu
 

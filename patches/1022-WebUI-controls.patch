@@ -32,10 +32,11 @@
      <!-- BidCoS-RF Konfiguration -->
      <td>
  }
-@@ -179,17 +161,6 @@
+@@ -181,18 +163,6 @@
        </td>
      }
-   }
+     incr i
+-  }
 -
 -  if {[getProduct] >= 3} {
 -    puts {
@@ -46,7 +47,7 @@
 -        <div class="StdTableBtnHelp"><img id="showSecuritySettingsCPHelp" src="/ise/img/help.png"></div>
 -      </td>
 -    }
--  }
+-    incr i
+   }
  
    puts {
-     <!-- Kopplungen -->
