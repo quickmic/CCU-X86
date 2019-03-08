@@ -11,4 +11,4 @@ rmdir /opt/occu-x86/kernel-modules/.tmp_versions/
 rm /opt/occu-x86/kernel-modules/.*
 KernelVersion=`cat /tmp/kernel.txt`
 mv /opt/occu-x86/kernel-modules/*.ko /lib/modules/$KernelVersion/
-#depmod -A
+depmod $KernelVersion
