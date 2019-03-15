@@ -1,19 +1,4 @@
 #!/bin/bash
-
-#Legacy Migration
-if [[ -e /var/status/HMIPlocaldevice ]]
-then
-	rm /var/status/HMIPlocaldevice
-	echo "ttyUSB0" > /var/status/HMIPenabled
-fi
-
-
-if [[ -e /var/status/HMIPremserialhost ]]
-then
-	mv /var/status/HMIPremserialhost /var/status/HMIPenabled
-fi
-
-
 rm /www/* -R
 
 #Debian update
