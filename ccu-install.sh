@@ -74,8 +74,8 @@ openssl req -new -key /etc/ssl/homematic-socat/client.key -x509 -days 100000 -su
 cp -rf /opt/occu-x86/root/* /
 
 git clone https://github.com/quickmic/occu.git /opt/occu/
-cp /opt/occu/HMserver/opt/HMServer/HMIPServer.jar /opt/HMServer/
-cp /opt/occu/HMserver/opt/HMServer/HMServer.jar /opt/HMServer/
+cp -f /opt/occu/HMserver/opt/HMServer/HMIPServer.jar /opt/HMServer/
+cp -f /opt/occu/HMserver/opt/HMServer/HMServer.jar /opt/HMServer/
 cp -rf /opt/occu/WebUI/bin/* /bin/
 cp -rf /opt/occu/WebUI/www/* /www/
 cp -rf /opt/occu/firmware/* /firmware/
@@ -85,19 +85,19 @@ cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/LinuxBasis/* /
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/bin/* /bin/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/lib/* /lib/
 cp -rf /opt/occu/HMserver/opt/HmIP/* /opt/HmIP/
-cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/rfd.conf /etc/config/
-cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/multimacd.conf /etc/config/
+cp -f /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/rfd.conf /etc/config/
+cp -f /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/multimacd.conf /etc/config/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/bin/* /bin/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/lib/* /lib/
 cp -f /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/etc/* /etc/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/etc/config/* /etc/config/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/etc/config_templates/* /etc/config/
-cp /opt/occu/HMserver/etc/config_templates/log4j.xml /etc/config/
+cp -f /opt/occu/HMserver/etc/config_templates/log4j.xml /etc/config/
 cp -rf /opt/occu/HMserver/opt/HMServer/* /opt/HMServer/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages/lighttpd/etc/lighttpd/* /etc/lighttpd/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI-Beta/bin/* /bin/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI-Beta/lib/* /lib/
-cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/crRFD.conf /etc/config/crRFD.conf
+cp -f /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/crRFD.conf /etc/config/crRFD.conf
 
 versionOCCU=`/usr/bin/git -C /opt/occu/ describe --tags`
 versionX86=`git -C /opt/occu-x86/ describe --tags`
@@ -141,7 +141,6 @@ then
 
         	if [ "$HBRFUSB" = "y" ]
 	        then
-			cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/multimacd.conf /etc/config/
 			apt-get install build-essential -y
 			apt-get -t stretch-backports install linux-image-amd64 -y
 			apt-get -t stretch-backports install linux-headers-amd64 -y
@@ -166,7 +165,8 @@ do
 		then
 			echo "mmd_hmip" > /var/status/HMIPenabled
 			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/mmd_hmip/g' /etc/config/crRFD.conf
-		else
+		elif [ "$HBRFUSB" = "n" ]
+		then
 			echo "ttyUSB0" > /var/status/HMIPenabled
 			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyUSB0/Adapter.1.Port=\/dev\/ttyUSB0/g' /etc/config/crRFD.conf
 		fi
