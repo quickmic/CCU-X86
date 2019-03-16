@@ -4,10 +4,10 @@ start()
 {
         if [[ -e /var/status/HMIPenabled ]]
         then
-                /usr/bin/java -server -Xms1024m -Xmx1024m -Dlog4j.configuration=file:///etc/config/log4j.xml -jar /opt/HMServer/HMIPServer.jar /etc/config/crRFD.conf &
-        else
 		HMIPDevice=`cat /var/status/HMIPenabled`
-                /usr/bin/java -server -Xms1024m -Xmx1024m -Dgnu.io.rxtx.SerialPorts=/dev/$HMIPDevice -Dlog4j.configuration=file:///etc/config/log4j.xml -Dfile.encoding=ISO-8859-1 -jar /opt/HMServer/HMServer.jar &
+                /usr/bin/java -server -Xms1024m -Xmx1024m -Dgnu.io.rxtx.SerialPorts=/dev/$HMIPDevice -Dlog4j.configuration=file:///etc/config/log4j.xml -jar /opt/HMServer/HMIPServer.jar /etc/config/crRFD.conf &
+        else
+                /usr/bin/java -server -Xms1024m -Xmx1024m -Dlog4j.configuration=file:///etc/config/log4j.xml -Dfile.encoding=ISO-8859-1 -jar /opt/HMServer/HMServer.jar &
         fi
 
         for i in $(seq 1 120)
