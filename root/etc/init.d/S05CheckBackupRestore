@@ -4,6 +4,10 @@ start()
 {
         if [ -d /usr/local/eQ-3-Backup/restore ]
         then
+		rm /etc/config/crRFD/data/*
+		rm /etc/config/hs485d/*
+		rm /etc/config/rfd/*
+		rm /etc/config/homematic.*
                 rsync -av /usr/local/eQ-3-Backup/restore/ / --exclude='*/rega.conf' --exclude='*/InterfacesList.xml' --exclude='*/firmware/*'
                 rm /usr/local/eQ-3-Backup/resto* -R
         fi
