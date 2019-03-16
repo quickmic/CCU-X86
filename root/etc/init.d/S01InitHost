@@ -16,6 +16,7 @@ start()
 #			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS1000/Adapter.1.Port=\/dev\/'$hmipdevice'/g' /etc/config/crRFD.conf
 #			/bin/sed -i 's/Adapter.1.Port=\/dev\/mmd_hmip/Adapter.1.Port=\/dev\/'$hmipdevice'/g' /etc/config/crRFD.conf
 		elif [[ $hmipdevice != "mmd_hmip" ]]
+		then
 #			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/ttyS1000/g' /etc/config/crRFD.conf
 #			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyUSB0/Adapter.1.Port=\/dev\/ttyS1000/g' /etc/config/crRFD.conf
 #			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyUSB1/Adapter.1.Port=\/dev\/ttyS1000/g' /etc/config/crRFD.conf
