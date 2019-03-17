@@ -168,7 +168,7 @@ do
 		elif [ "$HBRFUSB" = "n" ]
 		then
 			echo "ttyUSB0" > /var/status/HMIPenabled
-			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyUSB0/Adapter.1.Port=\/dev\/ttyUSB0/g' /etc/config/crRFD.conf
+			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/ttyUSB0/g' /etc/config/crRFD.conf
 		fi
 
 		break

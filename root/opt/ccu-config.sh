@@ -7,9 +7,10 @@ rm -f /var/status/HMIPenabled
 cp -f /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/etc/config_templates/InterfacesList.xml /etc/config/
 cp -f /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/rfd.conf /etc/config/
 cp -f /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/multimacd.conf /etc/config/
+cp -f /opt/occu-x86/root/etc/init.d/S60multimacd /etc/init.d/
 
-patch --forward -d / -p0 < /opt/occu-x86/patches/0012-multimacd.patch
-patch --forward -d / -p0 < /opt/occu-x86/patches/0003-rfd-interface.patch
+patch --forward -d / -p0 < /opt/occu-x86/patches/1017-multimacd.patch
+patch --forward -d / -p0 < /opt/occu-x86/patches/1002-rfd-interface.patch
 
 #Check if running in lxc container
 if ! grep lxc /proc/1/environ -qa
@@ -20,7 +21,6 @@ then
 
                 if [ "$HBRFUSB" = "y" ]
                 then
-                        cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/multimacd.conf /etc/config/
                         apt-get install build-essential -y
                         apt-get -t stretch-backports install linux-image-amd64 -y
                         apt-get -t stretch-backports install linux-headers-amd64 -y
@@ -47,7 +47,7 @@ do
                         /bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/mmd_hmip/g' /etc/config/crRFD.conf
                 else
                         echo "ttyUSB0" > /var/status/HMIPenabled
-                        /bin/sed -i 's/Adapter.1.Port=\/dev\/ttyUSB0/Adapter.1.Port=\/dev\/ttyUSB0/g' /etc/config/crRFD.conf
+                        /bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/ttyUSB0/g' /etc/config/crRFD.conf
                 fi
 
                 break
