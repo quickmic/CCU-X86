@@ -2,45 +2,21 @@
 
 start()
 {
-        if [[ -e /var/status/HMIPenabled ]]
+        if [[ -e /etc/config/crRFD.conf ]]
         then
-                hmipdevice=`cat /var/status/HMIPenabled`
+                hmipdevice=`cat /etc/config/crRFD.conf`
 
                 if [[ $hmipdevice == *"tty"* ]]
                 then
-
-
                         if [[ $hmipdevice == *"S1000"* ]]
                         then
                                 sleep 20
                                 /usr/bin/socat -d pty,link=/dev/ttyS1000,raw tcp-connect:192.168.0.4:2200 &
-#                               /usr/bin/socat -d pty,link=/dev/ttyS1000,raw openssl-connect:$hmipdevice:2000,cert=/etc/ssl/homematic-socat/client.crt,key=/etc/ssl/homematic-socat/client.key,cafile=/etc/ssl/homematic-socat/server.crt,forever,commonname= &
+#                               /usr/bin/socat -d pty,link=/dev/ttyS1000,raw openssl-connect:192.168.0.107:2000,cert=/etc/ssl/homematic-socat/client.crt,key=/etc/ssl/homematic-socat/client.key,cafile=/etc/ssl/homematic-socat/server.crt,forever,commonname= &
                         else
                                 modprobe cp210x
                                 sh -c 'echo 1b1f c020 > /sys/bus/usb-serial/drivers/cp210x/new_id'
                         fi
-
-#                       /bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/'$hmipdevice'/g' /etc/config/crRFD.conf
-#                       /bin/sed -i 's/Adapter.1.Port=\/dev\/ttyUSB0/Adapter.1.Port=\/dev\/'$hmipdevice'/g' /etc/config/crRFD.conf
-#                       /bin/sed -i 's/Adapter.1.Port=\/dev\/ttyUSB1/Adapter.1.Port=\/dev\/'$hmipdevice'/g' /etc/config/crRFD.conf
-#                       /bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS1000/Adapter.1.Port=\/dev\/'$hmipdevice'/g' /etc/config/crRFD.conf
-#                       /bin/sed -i 's/Adapter.1.Port=\/dev\/mmd_hmip/Adapter.1.Port=\/dev\/'$hmipdevice'/g' /etc/config/crRFD.conf
-                elif [[ $hmipdevice != "mmd_hmip" ]]
-                then
-#                       /bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/ttyS1000/g' /etc/config/crRFD.conf
-#                       /bin/sed -i 's/Adapter.1.Port=\/dev\/ttyUSB0/Adapter.1.Port=\/dev\/ttyS1000/g' /etc/config/crRFD.conf
-#                       /bin/sed -i 's/Adapter.1.Port=\/dev\/ttyUSB1/Adapter.1.Port=\/dev\/ttyS1000/g' /etc/config/crRFD.conf
-#                       /bin/sed -i 's/Adapter.1.Port=\/dev\/mmd_hmip/Adapter.1.Port=\/dev\/ttyS1000/g' /etc/config/crRFD.conf
-
-                        for i in $(seq 1 60)
-                        do
-                                sleep 1
-                                PID=`pidof socat`
-                                if [[ ${PID} != "" ]]
-                                then
-                                        break
-                                fi
-                        done
                 fi
         fi
 
@@ -65,7 +41,7 @@ stop()
 {
         killall socat
 
-        for i in $(seq 1 60)
+        for i in $(seq 1 20)
         do
                 sleep 1
                 PID=`pidof socat`

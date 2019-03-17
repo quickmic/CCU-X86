@@ -3,7 +3,7 @@
 dpkg --add-architecture i386
 cp /opt/occu-x86/root/etc/apt/sources.list.d/* /etc/apt/sources.list.d/
 apt-get update
-apt-get dist-upgrade -y
+apt-get -t stretch-backports dist-upgrade -y
 apt-get install etherwake digitemp u-boot-tools dirmngr lighttpd git libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 libusb-1.0.0:i386 libusb-1.0.0 curl psmisc socat keyboard-configuration libasound2 wget libasound2-data autoconf libusb-1.0 build-essential msmtp git net-tools usbutils openjdk-11-jre-headless -y
 /usr/sbin/update-usbids
 dpkg-reconfigure tzdata
@@ -132,76 +132,5 @@ done
 rm -f /etc/lighttpd/lighttpd_ssl.conf
 systemctl enable ccu
 
-#Check if running in lxc container
-if ! grep lxc /proc/1/environ -qa
-then
-	while true
-	do
-	        read -r -p "Are you using a HB-RF-USB interface? (y/n): " HBRFUSB
-
-        	if [ "$HBRFUSB" = "y" ]
-	        then
-			apt-get install build-essential -y
-			apt-get -t stretch-backports install linux-image-amd64 -y
-			apt-get -t stretch-backports install linux-headers-amd64 -y
-			/opt/occu-x86/kernel-modules/compile.sh
-                	break
-        	elif [ "$HBRFUSB" = "n" ]
-	        then
-			rm /etc/config/multimacd.conf
-			rm /etc/init.d/S60multimacd
-        	        break
-	        fi
-	done
-fi
-
-while true
-do
-	read -r -p "Enable HMIP? (y/n): " HMIP
-
-	if [ "$HMIP" = "y" ]
-	then
-		if [ "$HBRFUSB" = "y" ]
-		then
-			echo "mmd_hmip" > /var/status/HMIPenabled
-			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/mmd_hmip/g' /etc/config/crRFD.conf
-		elif [ "$HBRFUSB" = "n" ]
-		then
-			echo "ttyUSB0" > /var/status/HMIPenabled
-			/bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/ttyUSB0/g' /etc/config/crRFD.conf
-		fi
-
-		break
-	elif [ "$HMIP" = "n" ]
-	then
-		/bin/sed -i '/<ipc>/{:a;N;/<\/ipc>/!ba};/<name>HmIP-RF<\/name>/d' /etc/config/InterfacesList.xml
-		break
-	fi
-done
-
-while true
-do
-	read -r -p  "Enable BidCos? (y/n): " BIDCOS
-
-	if [ "$BIDCOS" = "y" ]
-	then
-                if [ "$HBRFUSB" = "y" ]
-                then
-			echo "mmd_bidcos" > /var/status/BIDCOSenable
-			echo "[Interface 0]" >> /etc/config/rfd.conf
-			echo "Type = CCU2" >> /etc/config/rfd.conf
-			echo "ComPortFile = /dev/mmd_bidcos" >> /etc/config/rfd.conf
-			echo "AccessFile = /dev/null" >> /etc/config/rfd.conf
-			echo "ResetFile = /dev/null" >> /etc/config/rfd.conf
-		else
-			echo "gateways" > /var/status/BIDCOSenable
-		fi
-
-		break
-	elif [ "$BIDCOS" = "n" ]
-	then
-		/bin/sed -i '/<ipc>/{:a;N;/<\/ipc>/!ba};/<name>BidCos-RF<\/name>/d' /etc/config/InterfacesList.xml
-		break
-	fi
-done
+/opt/ccu-config.sh
 

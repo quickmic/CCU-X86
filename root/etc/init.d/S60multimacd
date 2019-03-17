@@ -1,3 +1,4 @@
+#!/bin/bash
 start()
 {
 	echo 1 >/sys/class/raw-uart/raw-uart/reset_radio_module
@@ -5,9 +6,9 @@ start()
         modprobe eq3_char_loop
         modprobe generic_raw_uart
 
-        /bin/multimacd -f /etc/config/multimacd.conf -l 0 &
+        /bin/multimacd -f /etc/config/multimacd.conf -l 2 &
 
-        for i in $(seq 1 60)
+        for i in $(seq 1 20)
         do
                 sleep 1
                 PID=`pidof multimacd`
@@ -22,7 +23,7 @@ stop()
 {
         killall multimacd
 
-        for i in $(seq 1 60)
+        for i in $(seq 1 20)
         do
                 sleep 1
                 PID=`pidof multimacd`
