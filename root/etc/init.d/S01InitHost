@@ -11,8 +11,8 @@ start()
                         if [[ $hmipdevice == *"S1000"* ]]
                         then
                                 sleep 20
-                                /usr/bin/socat -d pty,link=/dev/ttyS1000,raw tcp-connect:192.168.0.4:2200 &
-#                               /usr/bin/socat -d pty,link=/dev/ttyS1000,raw openssl-connect:192.168.0.107:2000,cert=/etc/ssl/homematic-socat/client.crt,key=/etc/ssl/homematic-socat/client.key,cafile=/etc/ssl/homematic-socat/server.crt,forever,commonname= &
+#                                /usr/bin/socat -d pty,link=/dev/ttyS1000,raw tcp-connect:192.168.0.4:2200 &
+                               /usr/bin/socat -d pty,link=/dev/ttyS1000,raw openssl-connect:192.168.0.107:2000,cert=/etc/ssl/homematic-socat/client.crt,key=/etc/ssl/homematic-socat/client.key,cafile=/etc/ssl/homematic-socat/server.crt,forever,commonname= &
                         else
                                 modprobe cp210x
                                 sh -c 'echo 1b1f c020 > /sys/bus/usb-serial/drivers/cp210x/new_id'
