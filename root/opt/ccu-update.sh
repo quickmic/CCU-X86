@@ -1,8 +1,5 @@
 #!/bin/bash
 
-
-rm /www/* -R
-
 #Debian update
 #apt-get update
 #apt-get dist-upgrade -y
@@ -20,6 +17,21 @@ killall ReGaHss.community
 killall ReGaHss.normal
 killall ReGaHss.legacy
 killall cuxd
+
+rm /www/* -R
+rm -f /etc/init.d/S01InitHost
+rm -f /etc/init.d/S49hs485d
+rm -f /etc/init.d/S62HMServer
+rm -f /etc/init.d/S99CustomStartscript
+rm -f /etc/init.d/S05CheckBackupRestore
+rm -f /etc/init.d/S60hs485d
+rm -f /etc/init.d/S70ReGaHss
+rm -f /etc/init.d/S00InstallAddon
+rm -f /etc/init.d/S07logging
+rm -f /etc/init.d/S61rfd
+rm -f /etc/init.d/S98StartAddons
+rm -f /etc/init.d/S01CheckBackupRestore
+rm -f /etc/init.d/S02InitHost
 
 cp -rf /opt/occu-x86/root/bin/* /bin/
 cp -rf /opt/occu-x86/root/opt/ccu* /opt/
