@@ -22,7 +22,7 @@ killall ReGaHss.legacy
 killall cuxd
 
 cp -rf /opt/occu-x86/root/bin/* /bin/
-cp -rf /opt/occu-x86/root/opt/* /opt/
+cp -rf /opt/occu-x86/root/opt/ccu* /opt/
 cp -rf /opt/occu-x86/root/www/* /www/
 cp -rf /opt/occu-x86/root/etc/init.d/* /etc/init.d/
 
