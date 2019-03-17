@@ -9,6 +9,7 @@ rm /www/* -R
 #apt-get clean
 
 #Kill processes
+/etc/init.d/ccu stop
 killall socat
 killall hs485dLoader
 killall java
