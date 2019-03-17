@@ -1,4 +1,6 @@
 #!/bin/bash
+
+
 rm /www/* -R
 
 #Debian update
@@ -73,10 +75,21 @@ do
         patch --forward -d / -p0 < $f >> /var/log/ccuupdate.txt
 done
 
-find /etc/ -type f -name '*.rej' -delete
-find /etc/ -type f -name '*.orig' -delete
-find /www/ -type f -name '*.rej' -delete
-find /www/ -type f -name '*.orig' -delete
+#Legacy mods
 
+if [[ -e /etc/config/crRFD.conf ]]
+then
+        hmipdevice=`cat /etc/config/crRFD.conf`
+
+        if [[ $hmipdevice != *"mmd"* ]]
+        then
+                rm -f /etc/init.d/S60multimacd
+        fi
+fi
+
+rm -f /var/status/BIDCOSenable
+rm -f /var/status/HMIPlocaldevice
+rm -f /var/status/HMIPremserialhost
+rm -f /var/status/HMIPenabled
 
 /sbin/reboot
