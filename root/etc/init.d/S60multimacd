@@ -1,13 +1,17 @@
 #!/bin/bash
-
 start()
 {
-	/bin/rfd -d -f /etc/config/rfd.conf -l 2 &
+	echo 1 >/sys/class/raw-uart/raw-uart/reset_radio_module
+        modprobe hb_rf_usb
+        modprobe eq3_char_loop
+        modprobe generic_raw_uart
+
+        /bin/multimacd -f /etc/config/multimacd.conf -l 2 &
 
         for i in $(seq 1 20)
         do
                 sleep 1
-                PID=`pidof rfd`
+                PID=`pidof multimacd`
                 if [[ ${PID} != "" ]]
                 then
                         break
@@ -17,12 +21,12 @@ start()
 
 stop()
 {
-        killall rfd
+        killall multimacd
 
         for i in $(seq 1 20)
         do
                 sleep 1
-                PID=`pidof rfd`
+                PID=`pidof multimacd`
                 if [[ ${PID} = "" ]]
                 then
                         break
@@ -52,4 +56,3 @@ case "$1" in
 esac
 
 exit $?
-

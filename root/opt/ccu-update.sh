@@ -1,27 +1,12 @@
 #!/bin/bash
 
-#Legacy Migration
-if [[ -e /var/status/HMIPlocaldevice ]]
-then
-	rm /var/status/HMIPlocaldevice
-	echo "ttyUSB0" > /var/status/HMIPenabled
-fi
-
-
-if [[ -e /var/status/HMIPremserialhost ]]
-then
-	mv /var/status/HMIPremserialhost /var/status/HMIPenabled
-fi
-
-
-rm /www/* -R
-
 #Debian update
-apt-get update
-apt-get dist-upgrade -y
-apt-get clean
+#apt-get update
+#apt-get dist-upgrade -y
+#apt-get clean
 
 #Kill processes
+/etc/init.d/ccu stop
 killall socat
 killall hs485dLoader
 killall java
@@ -33,12 +18,26 @@ killall ReGaHss.normal
 killall ReGaHss.legacy
 killall cuxd
 
+rm /www/* -R
+rm -f /etc/init.d/S01InitHost
+rm -f /etc/init.d/S49hs485d
+rm -f /etc/init.d/S62HMServer
+rm -f /etc/init.d/S99CustomStartscript
+rm -f /etc/init.d/S05CheckBackupRestore
+rm -f /etc/init.d/S60hs485d
+rm -f /etc/init.d/S70ReGaHss
+rm -f /etc/init.d/S00InstallAddon
+rm -f /etc/init.d/S07logging
+rm -f /etc/init.d/S61rfd
+rm -f /etc/init.d/S98StartAddons
+rm -f /etc/init.d/S01CheckBackupRestore
+rm -f /etc/init.d/S02InitHost
+
 cp -rf /opt/occu-x86/root/bin/* /bin/
-cp -rf /opt/occu-x86/root/opt/* /opt/
+cp -rf /opt/occu-x86/root/opt/ccu* /opt/
 cp -rf /opt/occu-x86/root/www/* /www/
 cp -rf /opt/occu-x86/root/etc/init.d/* /etc/init.d/
 
-#git clone https://github.com/quickmic/occu.git /opt/occu/
 cp /opt/occu/HMserver/opt/HMServer/HMIPServer.jar /opt/HMServer/
 cp /opt/occu/HMserver/opt/HMServer/HMServer.jar /opt/HMServer/
 cp -rf /opt/occu/WebUI/bin/* /bin/
@@ -50,18 +49,11 @@ cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/LinuxBasis/* /
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/bin/* /bin/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/lib/* /lib/
 cp -rf /opt/occu/HMserver/opt/HmIP/* /opt/HmIP/
-#cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/rfd.conf /etc/config/rfd.conf
-#cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/* /etc/config_templates/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/bin/* /bin/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/lib/* /lib/
-#cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/etc/* /etc/
-#cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/etc/config_templates/* /etc/config/
-#cp /opt/occu/HMserver/etc/config_templates/log4j.xml /etc/config/
 cp -rf /opt/occu/HMserver/opt/HMServer/* /opt/HMServer/
-#cp -rf /opt/occu/X86_32_Debian_Wheezy/packages/lighttpd/etc/lighttpd/* /etc/lighttpd/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI-Beta/bin/* /bin/
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI-Beta/lib/* /lib/
-#cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/crRFD.conf /etc/config/crRFD.conf
 
 versionOCCU=`git -C /opt/occu/ describe --tags`
 versionX86=`git -C /opt/occu-x86/ describe --tags`
@@ -90,27 +82,27 @@ echo "VERSION="$version > /boot/VERSION
 echo "CCU Update Log:" > /var/log/ccuupdate.txt
 
 #Apply patches
-for f in /opt/occu-x86/patches/0*
+for f in /opt/occu-x86/patches/*
 do
 	echo $f >> /var/log/ccuupdate.txt
         patch --forward -d / -p0 < $f >> /var/log/ccuupdate.txt
 done
 
+#Legacy mods
 
-if [ -f /var/status/ExtendedFeatures ]
+if [[ -e /etc/config/crRFD.conf ]]
 then
+        hmipdevice=`cat /etc/config/crRFD.conf`
 
-	for f in /opt/occu-x86/patches/1*
-	do
-		echo $f >> /var/log/ccuupdate.txt
-		patch --forward -d / -p0 < $f >> /var/log/ccuupdate.txt
-	done
+        if [[ $hmipdevice != *"mmd"* ]]
+        then
+                rm -f /etc/init.d/S60multimacd
+        fi
 fi
 
-find /etc/ -type f -name '*.rej' -delete
-find /etc/ -type f -name '*.orig' -delete
-find /www/ -type f -name '*.rej' -delete
-find /www/ -type f -name '*.orig' -delete
-
+rm -f /var/status/BIDCOSenable
+rm -f /var/status/HMIPlocaldevice
+rm -f /var/status/HMIPremserialhost
+rm -f /var/status/HMIPenabled
 
 /sbin/reboot
