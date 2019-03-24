@@ -5,6 +5,8 @@ cp /opt/occu-x86/root/etc/apt/sources.list.d/* /etc/apt/sources.list.d/
 apt-get update
 apt-get dist-upgrade -y
 apt-get install etherwake digitemp u-boot-tools dirmngr lighttpd git libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 libusb-1.0.0:i386 libusb-1.0.0 curl psmisc socat keyboard-configuration libasound2 wget libasound2-data autoconf libusb-1.0 build-essential msmtp git net-tools usbutils openjdk-11-jre-headless rsync -y
+apt-get install etherwake digitemp u-boot-tools dirmngr lighttpd git libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 libusb-1.0.0 curl psmisc socat keyboard-configuration libasound2 wget libasound2-data autoconf libusb-1.0 build-essential msmtp git net-tools usbutils openjdk-11-jre-headless rsync -y
+
 /usr/sbin/update-usbids
 dpkg-reconfigure tzdata
 dpkg-reconfigure keyboard-configuration
