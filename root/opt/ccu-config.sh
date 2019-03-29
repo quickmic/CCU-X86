@@ -16,6 +16,10 @@ cp -f /opt/occu-x86/root/etc/init.d/S60hs485d /etc/init.d/
 patch --forward -d / -p0 < /opt/occu-x86/patches/1017-multimacd.patch
 patch --forward -d / -p0 < /opt/occu-x86/patches/1002-rfd-interface.patch
 
+
+
+
+
 #Check if running in lxc container
 if ! grep lxc /proc/1/environ -qa
 then
