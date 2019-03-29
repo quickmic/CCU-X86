@@ -18,6 +18,8 @@ patch --forward -d / -p0 < /opt/occu-x86/patches/1002-rfd-interface.patch
 patch --forward -d / -p0 < /opt/occu-x86/patches/1004-hmip-port.patch
 
 #Check if running in lxc container
+HBRFUSB="n"
+
 if ! grep lxc /proc/1/environ -qa
 then
         while true
