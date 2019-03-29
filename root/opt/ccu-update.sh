@@ -105,4 +105,30 @@ rm -f /var/status/HMIPlocaldevice
 rm -f /var/status/HMIPremserialhost
 rm -f /var/status/HMIPenabled
 
+#crRfr.conf mods
+crRFDMod=`cat /etc/config/crRFD.conf|grep Legacy.Port`
+
+if [ -z "$crRFDMod" ]
+then
+
+        echo "Legacy.Port=2010" >> /etc/config/crRFD.conf
+fi
+
+crRFDMod=`cat /etc/config/crRFD.conf|grep Legacy.VirtualRemoteControl.Enabled`
+
+if [ -z "$crRFDMod" ]
+then
+
+        echo "Legacy.VirtualRemoteControl.Enabled=true" >> /etc/config/crRFD.conf
+fi
+
+crRFDMod=`cat /etc/config/crRFD.conf|grep Legacy.CallDeleteDevicesForChangedDevices`
+
+if [ -z "$crRFDMod" ]
+then
+
+        echo "Legacy.CallDeleteDevicesForChangedDevices=false" >> /etc/config/crRFD.conf
+fi
+
+
 /sbin/reboot
