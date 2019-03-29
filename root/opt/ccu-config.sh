@@ -46,11 +46,9 @@ do
 
         if [ "$HMIP" = "y" ]
         then
-                if [ "$HBRFUSB" = "y" ]
+                if [ "$HBRFUSB" = "n" ]
                 then
-                        /bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/mmd_hmip/g' /etc/config/crRFD.conf
-                else
-                        /bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/ttyUSB0/g' /etc/config/crRFD.conf
+                        /bin/sed -i 's/Adapter.1.Port=\/dev\/mmd_hmip/Adapter.1.Port=\/dev\/ttyUSB0/g' /etc/config/crRFD.conf
 			rm -f /etc/init.d/S60multimacd
                 fi
 
