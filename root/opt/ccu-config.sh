@@ -15,8 +15,11 @@ cp -f /opt/occu-x86/root/etc/init.d/S60hs485d /etc/init.d/
 
 patch --forward -d / -p0 < /opt/occu-x86/patches/1017-multimacd.patch
 patch --forward -d / -p0 < /opt/occu-x86/patches/1002-rfd-interface.patch
+patch --forward -d / -p0 < /opt/occu-x86/patches/1004-hmip-port.patch
 
 #Check if running in lxc container
+HBRFUSB="n"
+
 if ! grep lxc /proc/1/environ -qa
 then
         while true
@@ -45,11 +48,9 @@ do
 
         if [ "$HMIP" = "y" ]
         then
-                if [ "$HBRFUSB" = "y" ]
+                if [ "$HBRFUSB" = "n" ]
                 then
-                        /bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/mmd_hmip/g' /etc/config/crRFD.conf
-                else
-                        /bin/sed -i 's/Adapter.1.Port=\/dev\/ttyS0/Adapter.1.Port=\/dev\/ttyUSB0/g' /etc/config/crRFD.conf
+                        /bin/sed -i 's/Adapter.1.Port=\/dev\/mmd_hmip/Adapter.1.Port=\/dev\/ttyUSB0/g' /etc/config/crRFD.conf
 			rm -f /etc/init.d/S60multimacd
                 fi
 

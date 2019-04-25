@@ -38,6 +38,13 @@ cp -rf /opt/occu-x86/root/opt/ccu* /opt/
 cp -rf /opt/occu-x86/root/www/* /www/
 cp -rf /opt/occu-x86/root/etc/init.d/* /etc/init.d/
 
+rm -rf /etc/lighttpd/*
+cp -rf /opt/occu/X86_32_Debian_Wheezy/packages/lighttpd/etc/lighttpd/* /etc/lighttpd/
+rm -f /etc/lighttpd/lighttpd_ssl.conf
+
+cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/config_templates/multimacd.conf /etc/config/
+cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/etc/rega_http.port /etc/
+cp /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI/etc/rega.conf /etc/
 cp /opt/occu/HMserver/opt/HMServer/HMIPServer.jar /opt/HMServer/
 cp /opt/occu/HMserver/opt/HMServer/HMServer.jar /opt/HMServer/
 cp -rf /opt/occu/WebUI/bin/* /bin/
@@ -104,5 +111,31 @@ rm -f /var/status/BIDCOSenable
 rm -f /var/status/HMIPlocaldevice
 rm -f /var/status/HMIPremserialhost
 rm -f /var/status/HMIPenabled
+
+#crRfr.conf mods
+crRFDMod=`cat /etc/config/crRFD.conf|grep Legacy.Port`
+
+if [ -z "$crRFDMod" ]
+then
+
+        echo "Legacy.Port=2010" >> /etc/config/crRFD.conf
+fi
+
+crRFDMod=`cat /etc/config/crRFD.conf|grep Legacy.VirtualRemoteControl.Enabled`
+
+if [ -z "$crRFDMod" ]
+then
+
+        echo "Legacy.VirtualRemoteControl.Enabled=true" >> /etc/config/crRFD.conf
+fi
+
+crRFDMod=`cat /etc/config/crRFD.conf|grep Legacy.CallDeleteDevicesForChangedDevices`
+
+if [ -z "$crRFDMod" ]
+then
+
+        echo "Legacy.CallDeleteDevicesForChangedDevices=false" >> /etc/config/crRFD.conf
+fi
+
 
 /sbin/reboot

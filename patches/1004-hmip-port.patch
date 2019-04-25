@@ -1,0 +1,11 @@
+--- /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/RFD/etc/crRFD.conf
++++ /etc/config/crRFD.conf
+@@ -22,7 +22,7 @@
+ Legacy.HandlersFilename=/var/LegacyService.handlers
+ Legacy.DiscardDutyCycleEvents=true
+ Legacy.SendUDPServiceMessages=true
+-Legacy.Port=32010
++Legacy.Port=2010
+ Legacy.VirtualRemoteControl.Enabled=true
+ Legacy.CallDeleteDevicesForChangedDevices=false
+ 
