@@ -31,6 +31,7 @@ apt-get install net-tools -y
 apt-get install usbutils -y
 apt-get install openjdk-11-jre-headless -y
 apt-get install rsync -y
+apt-get install cron -y
 
 /usr/sbin/update-usbids
 dpkg-reconfigure tzdata
