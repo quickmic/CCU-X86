@@ -37,6 +37,7 @@ cp -rf /opt/occu-x86/root/bin/* /bin/
 cp -rf /opt/occu-x86/root/opt/ccu* /opt/
 cp -rf /opt/occu-x86/root/www/* /www/
 cp -rf /opt/occu-x86/root/etc/init.d/* /etc/init.d/
+cp -rf /opt/occu-x86/root/etc/cron.daily/* /etc/cron.daily/
 
 rm -rf /etc/lighttpd/*
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages/lighttpd/etc/lighttpd/* /etc/lighttpd/
