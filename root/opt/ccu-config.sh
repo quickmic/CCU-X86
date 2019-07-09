@@ -15,7 +15,7 @@ cp -f /opt/occu-x86/root/etc/init.d/S60hs485d /etc/init.d/
 
 patch --forward -d / -p0 < /opt/occu-x86/patches/1017-multimacd.patch
 patch --forward -d / -p0 < /opt/occu-x86/patches/1002-rfd-interface.patch
-patch --forward -d / -p0 < /opt/occu-x86/patches/1004-hmip-port.patch
+patch --forward -d / -p0 < /opt/occu-x86/patches/1004-hmip-config.patch
 
 #Check if running in lxc container
 HBRFUSB="n"

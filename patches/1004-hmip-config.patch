@@ -1,5 +1,5 @@
 --- /crRFD.conf
-+++ /etc/config/crRFD.conf2 +0200
++++ /etc/config/crRFD.conf
 @@ -1,6 +1,6 @@
  # USB HM/IP TRX Adapter Configuration
  Adapter.1.Type=HMIP_CCU2
