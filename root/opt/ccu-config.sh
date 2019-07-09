@@ -50,7 +50,7 @@ do
         then
                 if [ "$HBRFUSB" = "n" ]
                 then
-                        /bin/sed -i 's/Adapter.1.Port=\/dev\/mmd_hmip/Adapter.1.Port=\/dev\/ttyUSB0/g' /etc/config/crRFD.conf
+                        /bin/sed -i 's/Adapter.1.Port=\/dev\/multimac\/mmd_hmip/Adapter.1.Port=\/dev\/ttyUSB0/g' /etc/config/crRFD.conf
 			rm -f /etc/init.d/S60multimacd
                 fi
 
@@ -73,7 +73,7 @@ do
                 then
                         echo "[Interface 0]" >> /etc/config/rfd.conf
                         echo "Type = CCU2" >> /etc/config/rfd.conf
-                        echo "ComPortFile = /dev/mmd_bidcos" >> /etc/config/rfd.conf
+                        echo "ComPortFile = /dev/multimac/mmd_bidcos" >> /etc/config/rfd.conf
                         echo "AccessFile = /dev/null" >> /etc/config/rfd.conf
                         echo "ResetFile = /dev/null" >> /etc/config/rfd.conf
                 fi
