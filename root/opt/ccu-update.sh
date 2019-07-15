@@ -37,6 +37,7 @@ cp -rf /opt/occu-x86/root/bin/* /bin/
 cp -rf /opt/occu-x86/root/opt/ccu* /opt/
 cp -rf /opt/occu-x86/root/www/* /www/
 cp -rf /opt/occu-x86/root/etc/init.d/* /etc/init.d/
+cp -rf /opt/occu-x86/root/etc/cron.daily/* /etc/cron.daily/
 
 rm -rf /etc/lighttpd/*
 cp -rf /opt/occu/X86_32_Debian_Wheezy/packages/lighttpd/etc/lighttpd/* /etc/lighttpd/
@@ -64,7 +65,6 @@ cp -rf /opt/occu/X86_32_Debian_Wheezy/packages-eQ-3/WebUI-Beta/lib/* /lib/
 
 versionOCCU=`git -C /opt/occu/ describe --tags`
 versionX86=`git -C /opt/occu-x86/ describe --tags`
-/bin/sed -i -n '/WEBUI_VERSION = "/{:a;N;/;/!ba;N;s/.*\n/    WEBUI_VERSION = "'$versionOCCU' \/ '$versionX86'";\n\n/};p' /www/rega/pages/index.htm
 
 #Remove buildID (char) from Version
 chrlen=${#versionOCCU}
@@ -95,8 +95,10 @@ do
         patch --forward -d / -p0 < $f >> /var/log/ccuupdate.txt
 done
 
-#Legacy mods
+#Update version ID
+/bin/sed -i -n '/WEBUI_VERSION = "/{:a;N;/;/!ba;N;s/.*\n/    WEBUI_VERSION = "'$versionOCCU' \/ '$versionX86'";\n\n/};p' /www/rega/pages/index.htm
 
+#Legacy mods
 if [[ -e /etc/config/crRFD.conf ]]
 then
         hmipdevice=`cat /etc/config/crRFD.conf`

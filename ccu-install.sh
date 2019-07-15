@@ -4,8 +4,34 @@ dpkg --add-architecture i386
 cp /opt/occu-x86/root/etc/apt/sources.list.d/* /etc/apt/sources.list.d/
 apt-get update
 apt-get dist-upgrade -y
-apt-get install etherwake digitemp u-boot-tools dirmngr lighttpd git libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 libusb-1.0.0:i386 libusb-1.0.0 curl psmisc socat keyboard-configuration libasound2 wget libasound2-data autoconf libusb-1.0 build-essential msmtp git net-tools usbutils openjdk-11-jre-headless rsync -y
-apt-get install etherwake digitemp u-boot-tools dirmngr lighttpd git libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 libusb-1.0.0 curl psmisc socat keyboard-configuration libasound2 wget libasound2-data autoconf libusb-1.0 build-essential msmtp git net-tools usbutils openjdk-11-jre-headless rsync -y
+apt-get install etherwake -y
+apt-get install digitemp -y
+apt-get install u-boot-tools -y
+apt-get install dirmngr -y
+apt-get install lighttpd -y
+apt-get install git -y
+apt-get install libc6-i386 -y
+apt-get install lib32stdc++6 -y
+apt-get install lib32gcc1 -y
+apt-get install lib32ncurses5 -y
+apt-get install libusb-1.0.0:i386 -y
+apt-get install libusb-1.0.0 -y
+apt-get install curl -y
+apt-get install psmisc -y
+apt-get install socat -y
+apt-get install keyboard-configuration -y
+apt-get install libasound2 -y
+apt-get install wget -y
+apt-get install libasound2-data -y
+apt-get install autoconf -y
+apt-get install libusb-1.0 -y
+apt-get install build-essential -y
+apt-get install msmtp -y
+apt-get install net-tools -y
+apt-get install usbutils -y
+apt-get install openjdk-11-jre-headless -y
+apt-get install rsync -y
+apt-get install cron -y
 
 /usr/sbin/update-usbids
 dpkg-reconfigure tzdata
@@ -135,4 +161,4 @@ rm -f /etc/lighttpd/lighttpd_ssl.conf
 systemctl enable ccu
 
 /opt/ccu-config.sh
-
+reboot

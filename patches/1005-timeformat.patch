@@ -1,7 +1,6 @@
-diff -ru --no-dereference -x '*.lock' -x lib -x firmware -x home -x media -x mnt -x opt -x proc -x root -x run -x sbin -x srv -x sys -x tmp -x lib32 -x lib64 -x lost+found -x usr -x bin -x boot -x dev -x .java /opt/backup/www/config/cp_maintenance.cgi /www/config/cp_maintenance.cgi
---- /opt/backup/www/config/cp_maintenance.cgi	2018-12-20 08:24:36.236850822 +0100
-+++ /www/config/cp_maintenance.cgi	2018-12-20 08:27:30.583900286 +0100
-@@ -1203,7 +1203,7 @@
+--- /opt/backup/www/config/cp_maintenance.cgi
++++ /www/config/cp_maintenance.cgi
+@@ -1125,7 +1125,7 @@
  
  proc action_download_logfile {} {
    set HOSTNAME [exec hostname]
@@ -10,9 +9,8 @@ diff -ru --no-dereference -x '*.lock' -x lib -x firmware -x home -x media -x mnt
    regexp {^(\d+)-(\d+)-(\d+)T(\d+):(\d+):(\d+)([+-]\d+)$} $iso8601_date dummy year month day hour minute second zone
    
    puts "Content-Type:application/x-download"
-diff -ru --no-dereference -x '*.lock' -x lib -x firmware -x home -x media -x mnt -x opt -x proc -x root -x run -x sbin -x srv -x sys -x tmp -x lib32 -x lib64 -x lost+found -x usr -x bin -x boot -x dev -x .java /opt/backup/www/config/cp_security.cgi /www/config/cp_security.cgi
---- /opt/backup/www/config/cp_security.cgi	2018-12-20 08:24:36.236850822 +0100
-+++ /www/config/cp_security.cgi	2018-12-20 08:27:46.304175115 +0100
+--- /opt/backup/www/config/cp_security.cgi
++++ /www/config/cp_security.cgi
 @@ -1465,7 +1465,7 @@
  
  proc action_create_backup {} {
@@ -22,15 +20,14 @@ diff -ru --no-dereference -x '*.lock' -x lib -x firmware -x home -x media -x mnt
    regexp {^(\d+)-(\d+)-(\d+)T(\d+):(\d+):(\d+)([+-]\d+)$} $iso8601_date dummy year month day hour minute second zone
    #save DOM
    rega system.Save()
-diff -ru --no-dereference -x '*.lock' -x lib -x firmware -x home -x media -x mnt -x opt -x proc -x root -x run -x sbin -x srv -x sys -x tmp -x lib32 -x lib64 -x lost+found -x usr -x bin -x boot -x dev -x .java /opt/backup/www/config/cp_time.cgi /www/config/cp_time.cgi
---- /opt/backup/www/config/cp_time.cgi	2018-12-20 08:24:36.236850822 +0100
-+++ /www/config/cp_time.cgi	2018-12-20 08:28:02.292454608 +0100
-@@ -143,7 +143,7 @@
+--- /opt/backup/www/config/cp_time.cgi
++++ /www/config/cp_time.cgi
+@@ -741,7 +741,7 @@
  proc action_put_page {} {
-     global env LOCATIONS TIMEZONES
-     
--    set iso8601_date [exec date -Iseconds]
-+    set iso8601_date [exec date +%Y-%m-%dT%H:%M:%S%z]
-     regexp {^(\d+)-(\d+)-(\d+)T(\d+):(\d+):(\d+)([+-]\d+)$} $iso8601_date dummy year month day hour minute second zone
- 	
- 	puts "<div id=\"dragTime\">"
+   global env LOCATIONS TIMEZONES
+   
+-  set iso8601_date [exec date -Iseconds]
++  set iso8601_date [exec date +%Y-%m-%dT%H:%M:%S%z]
+   regexp {^(\d+)-(\d+)-(\d+)T(\d+):(\d+):(\d+)([+-]\d+)$} $iso8601_date dummy year month day hour minute second zone
+   
+   puts "<div id=\"dragTime\">"
