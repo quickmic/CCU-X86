@@ -1,7 +1,92 @@
 #!/bin/bash
-
 start()
 {
+        lxc=`cat /proc/1/environ|grep lxc`
+
+        if ! [[ -z $lxc ]]
+        then
+
+        for file in `find /sys/dev/char/*`
+                do
+                        data=`udevadm info $file -a`
+                        data=`echo -n $data`
+
+                        if [[ $data =~ 'ATTR{idVendor}=="1b1f"' ]] && [[ $data =~ 'ATTR{idProduct}=="c00f"' ]]
+                        then
+                                datatemp=`udevadm info $file`
+                                datatemp=`echo -n $datatemp`
+                                temp=${file##*/}
+                                major=${temp%:*}
+                                minor=${temp#*:}
+                                temp=${datatemp#*DEVNAME=}
+                                temp=${temp%% *}
+                                path=${temp%/*}
+                                mkdir -p $path
+                                mknod $temp c $major $minor
+                        fi
+
+                        if [[ $data =~ 'ATTR{idVendor}=="1b1f"' ]] && [[ $data =~ 'ATTR{idProduct}=="c020"' ]]
+                        then
+                                datatemp=`udevadm info $file`
+                                datatemp=`echo -n $datatemp`
+                                temp=${file##*/}
+                                major=${temp%:*}
+                                minor=${temp#*:}
+                                temp=${datatemp#*DEVNAME=}
+                                temp=${temp%% *}
+                                path=${temp%/*}
+                                mkdir -p $path
+                                mknod $temp c $major $minor
+
+                                for file2 in `find -H /sys/bus/usb-serial/drivers/cp210x/* -type d`
+                                do
+                                        data2=`udevadm info $file2 -a`
+                                        data2=`echo -n $data2`
+
+                                        if [[ $data2 =~ 'ATTRS{interface}=="eQ-3 HmIP-RFUSB"' ]] && [[ $file2 =~ '/tty/' ]]
+                                        then
+                                                data2=`udevadm info $file2`
+                                                data2=`echo -n $data2`
+                                                temp=${data2##*MAJOR=}
+                                                major=${temp%% *}
+                                                temp=${data2##*MINOR=}
+                                                minor=${temp%% *}
+                                                temp=${data2#*DEVNAME=}
+                                                temp=${temp%% *}
+                                                path=${temp%/*}
+                                                mkdir -p $path
+                                                mknod $temp c $major $minor
+                                                break
+                                        fi
+                                done
+                        fi
+                done
+
+                data=`udevadm info -q property /sys/devices/virtual/eq3loop/eq3loop`
+                data=`echo -n $data`
+                temp=${data#*MAJOR=}
+                major=${temp%% *}
+                temp=${data#*MINOR=}
+                minor=${temp%% *}
+                temp=${data#*DEVNAME=}
+                device=${temp%% *}
+                path=${device%/*}
+                mkdir -p $path
+                mknod $device c $major $minor
+
+                data=`udevadm info -q property /sys/devices/virtual/raw-uart/raw-uart`
+                data=`echo -n $data`
+                temp=${data#*MAJOR=}
+                major=${temp%% *}
+                temp=${data#*MINOR=}
+                minor=${temp%% *}
+                temp=${data#*DEVNAME=}
+                device=${temp%% *}
+                path=${device%/*}
+                mkdir -p $path
+                mknod $device c $major $minor
+        fi
+
         if [[ -e /etc/config/crRFD.conf ]]
         then
                 hmipdevice=`cat /etc/config/crRFD.conf`
@@ -11,7 +96,6 @@ start()
                         if [[ $hmipdevice == *"S1000"* ]]
                         then
                                 sleep 20
-#                                /usr/bin/socat -d pty,link=/dev/ttyS1000,raw tcp-connect:192.168.0.4:2200 &
                                /usr/bin/socat -d pty,link=/dev/ttyS1000,raw openssl-connect:192.168.0.107:2000,cert=/etc/ssl/homematic-socat/client.crt,key=/etc/ssl/homematic-socat/client.key,cafile=/etc/ssl/homematic-socat/server.crt,forever,commonname= &
                         else
                                 modprobe cp210x

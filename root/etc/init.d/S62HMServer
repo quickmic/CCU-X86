@@ -8,8 +8,8 @@ start()
         then
                 Data=`cat /etc/config/crRFD.conf`
                 DataCut=${Data#*Adapter.1.Port=}
-                HMIPDevice="${DataCut%%C*}"
-                /usr/bin/java -server -Xms1024m -Xmx1024m -Dgnu.io.rxtx.SerialPorts=$HMIPDevice -Dlog4j.configuration=file:///etc/config/log4j.xml -jar /opt/HMServer/HMIPServer.jar /etc/config/crRFD.conf &
+                HMIPDevice="${DataCut%%$'\n*'}"
+                /bin/su -s /bin/bash -c "/usr/bin/java -server -Xms1024m -Xmx1024m -Dgnu.io.rxtx.SerialPorts=$HMIPDevice -Dlog4j.configuration=file:///etc/config/log4j.xml -jar /opt/HMServer/HMIPServer.jar /etc/config/crRFD.conf &"
         else
                 /usr/bin/java -server -Xms1024m -Xmx1024m -Dlog4j.configuration=file:///etc/config/log4j.xml -Dfile.encoding=ISO-8859-1 -jar /opt/HMServer/HMServer.jar &
         fi

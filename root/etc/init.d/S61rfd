@@ -2,7 +2,7 @@
 
 start()
 {
-	/bin/rfd -d -f /etc/config/rfd.conf -l 2 &
+	/bin/su -s /bin/bash -c "/bin/rfd -d -f /etc/config/rfd.conf -l 2 &"
 
         for i in $(seq 1 20)
         do

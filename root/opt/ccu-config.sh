@@ -20,27 +20,29 @@ patch --forward -d / -p0 < /opt/occu-x86/patches/1004-hmip-config.patch
 #Check if running in lxc container
 HBRFUSB="n"
 
-if ! grep lxc /proc/1/environ -qa
-then
-        while true
-        do
-                read -r -p "Are you using a HB-RF-USB interface? (y/n): " HBRFUSB
+while true
+do
+        read -r -p "Are you using a HB-RF-USB interface? (y/n): " HBRFUSB
 
-                if [ "$HBRFUSB" = "y" ]
+        if [ "$HBRFUSB" = "y" ]
+        then
+                if ! grep lxc /proc/1/environ -qa
                 then
-                        apt-get install build-essential -y
-                        apt-get -t stretch-backports install linux-image-amd64 -y
-                        apt-get -t stretch-backports install linux-headers-amd64 -y
-                        /opt/occu-x86/kernel-modules/compile.sh
-                        break
-                elif [ "$HBRFUSB" = "n" ]
-                then
-                        rm -f /etc/config/multimacd.conf
-                        rm -f /etc/init.d/S60multimacd
-                        break
-                fi
-        done
-fi
+#                        apt-get install build-essential -y
+#                        apt-get -t stretch-backports install linux-image-amd64 -y
+#                        apt-get -t stretch-backports install linux-headers-amd64 -y
+#                        /opt/occu-x86/kernel-modules/compile.sh
+			apt install pivccu-modules-dkms -y
+		fi
+
+                break
+        elif [ "$HBRFUSB" = "n" ]
+        then
+                rm -f /etc/config/multimacd.conf
+                rm -f /etc/init.d/S60multimacd
+                break
+        fi
+done
 
 while true
 do
