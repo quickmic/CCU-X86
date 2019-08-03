@@ -2,7 +2,7 @@
 
 start()
 {
-        /bin/ReGaHss -f /etc/rega.conf -l 2 &
+        /bin/su -s /bin/bash -c "/bin/ReGaHss -f /etc/rega.conf -l 2 &"
 
         for i in $(seq 1 60)
         do

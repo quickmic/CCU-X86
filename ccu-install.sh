@@ -3,6 +3,11 @@
 dpkg --add-architecture i386
 cp /opt/occu-x86/root/etc/apt/sources.list.d/* /etc/apt/sources.list.d/
 apt-get update
+apt-get install apt-transport-https -y
+apt-get install gnupg -y
+wget https://www.debmatic.de/debmatic/public.key -O /tmp/debmatic-public.key
+apt-key add /tmp/debmatic-public.key
+apt-get update
 apt-get dist-upgrade -y
 apt-get install etherwake -y
 apt-get install digitemp -y
