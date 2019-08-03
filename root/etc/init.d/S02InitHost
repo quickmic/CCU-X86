@@ -1,9 +1,7 @@
 #!/bin/bash
 start()
 {
-        lxc=`cat /proc/1/environ|grep lxc`
-
-        if ! [[ -z $lxc ]]
+        if grep lxc /proc/1/environ -qa
         then
 
         for file in `find /sys/dev/char/*`
