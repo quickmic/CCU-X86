@@ -1,7 +1,9 @@
 #!/bin/bash
 start()
 {
-        if grep lxc /proc/1/environ -qa
+        virt=`systemd-detect-virt`
+
+        if [ $virt = "lxc" ]
         then
 
         for file in `find /sys/dev/char/*`

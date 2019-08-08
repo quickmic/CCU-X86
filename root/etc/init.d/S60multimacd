@@ -1,7 +1,9 @@
 #!/bin/bash
 start()
 {
-        if ! grep lxc /proc/1/environ -qa
+        virt=`systemd-detect-virt`
+
+        if [ $virt = "lxc" ]
         then
                 echo 1 >/sys/class/raw-uart/raw-uart/reset_radio_module
                 modprobe hb_rf_usb
@@ -21,7 +23,7 @@ start()
                 fi
         done
 
-        if grep lxc /proc/1/environ -qa
+        if [ $virt = "lxc" ]
         then
                 for i in $(seq 1 20)
                 do
