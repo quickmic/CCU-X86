@@ -31,17 +31,8 @@ start()
 
                         if [ -d "/sys/devices/virtual/eq3loop/mmd_bidcos" ]
                         then
-                                data=`udevadm info -q property /sys/devices/virtual/eq3loop/mmd_bidcos`
-                                data=`echo -n $data`
-                                temp=${data#*MAJOR=}
-                                major=${temp%% *}
-                                temp=${data#*MINOR=}
-                                minor=${temp%% *}
-                                temp=${data#*DEVNAME=}
-                                device=${temp%% *}
-                                path=${device%/*}
-                                mkdir -p $path
-                                mknod $device c $major $minor
+                                id=`cat /sys/devices/virtual/eq3loop/mmd_bidcos/dev`
+                                mknod /dev/mmd_bidcos c $id
                                 break
                         fi
                 done
@@ -52,17 +43,8 @@ start()
 
                         if [ -d "/sys/devices/virtual/eq3loop/mmd_hmip" ]
                         then
-                                data=`udevadm info -q property /sys/devices/virtual/eq3loop/mmd_hmip`
-                                data=`echo -n $data`
-                                temp=${data#*MAJOR=}
-                                major=${temp%% *}
-                                temp=${data#*MINOR=}
-                                minor=${temp%% *}
-                                temp=${data#*DEVNAME=}
-                                device=${temp%% *}
-                                path=${device%/*}
-                                mkdir -p $path
-                                mknod $device c $major $minor
+                                id=`cat /sys/devices/virtual/eq3loop/mmd_hmip/dev`
+                                mknod /dev/mmd_hmip c $id
                                 break
                         fi
                 done
