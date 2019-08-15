@@ -62,29 +62,13 @@ start()
                         fi
                 done
 
-                data=`udevadm info -q property /sys/devices/virtual/eq3loop/eq3loop`
-                data=`echo -n $data`
-                temp=${data#*MAJOR=}
-                major=${temp%% *}
-                temp=${data#*MINOR=}
-                minor=${temp%% *}
-                temp=${data#*DEVNAME=}
-                device=${temp%% *}
-                path=${device%/*}
-                mkdir -p $path
-                mknod $device c $major $minor
+                id=`cat /sys/devices/virtual/eq3loop/eq3loop/dev`
+                id=${id//:/ }
+                mknod /dev/eq3loop c $id
 
-                data=`udevadm info -q property /sys/devices/virtual/raw-uart/raw-uart`
-                data=`echo -n $data`
-                temp=${data#*MAJOR=}
-                major=${temp%% *}
-                temp=${data#*MINOR=}
-                minor=${temp%% *}
-                temp=${data#*DEVNAME=}
-                device=${temp%% *}
-                path=${device%/*}
-                mkdir -p $path
-                mknod $device c $major $minor
+                id=`cat /sys/devices/virtual/raw-uart/raw-uart/dev`
+                id=${id//:/ }
+                mknod /dev/raw-uart c $id
         fi
 
         if [[ -e /etc/config/crRFD.conf ]]
