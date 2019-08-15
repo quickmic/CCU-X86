@@ -3,7 +3,7 @@ start()
 {
         virt=`systemd-detect-virt`
 
-        if [ $virt = "lxc" ]
+        if ! [ $virt = "lxc" ]
         then
                 echo 1 >/sys/class/raw-uart/raw-uart/reset_radio_module
                 modprobe hb_rf_usb
@@ -32,6 +32,7 @@ start()
                         if [ -d "/sys/devices/virtual/eq3loop/mmd_bidcos" ]
                         then
                                 id=`cat /sys/devices/virtual/eq3loop/mmd_bidcos/dev`
+                                id=${id//:/ }
                                 mknod /dev/mmd_bidcos c $id
                                 break
                         fi
@@ -44,6 +45,7 @@ start()
                         if [ -d "/sys/devices/virtual/eq3loop/mmd_hmip" ]
                         then
                                 id=`cat /sys/devices/virtual/eq3loop/mmd_hmip/dev`
+                                id=${id//:/ }
                                 mknod /dev/mmd_hmip c $id
                                 break
                         fi
