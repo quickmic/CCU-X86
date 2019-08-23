@@ -1,10 +1,15 @@
 #!/bin/bash
 start()
 {
-	echo 1 >/sys/class/raw-uart/raw-uart/reset_radio_module
-        modprobe hb_rf_usb
-        modprobe eq3_char_loop
-        modprobe generic_raw_uart
+        virt=`systemd-detect-virt`
+
+        if ! [ $virt = "lxc" ]
+        then
+                echo 1 >/sys/class/raw-uart/raw-uart/reset_radio_module
+                modprobe hb_rf_usb
+                modprobe eq3_char_loop
+                modprobe generic_raw_uart
+	fi
 
         /bin/multimacd -f /etc/config/multimacd.conf -l 2 &
 
@@ -17,6 +22,35 @@ start()
                         break
                 fi
         done
+
+        if [ $virt = "lxc" ]
+        then
+                for i in $(seq 1 20)
+                do
+                        sleep 1
+
+                        if [ -d "/sys/devices/virtual/eq3loop/mmd_bidcos" ]
+                        then
+                                id=`cat /sys/devices/virtual/eq3loop/mmd_bidcos/dev`
+                                id=${id//:/ }
+                                mknod /dev/mmd_bidcos c $id
+                                break
+                        fi
+                done
+
+                for i in $(seq 1 20)
+                do
+                        sleep 1
+
+                        if [ -d "/sys/devices/virtual/eq3loop/mmd_hmip" ]
+                        then
+                                id=`cat /sys/devices/virtual/eq3loop/mmd_hmip/dev`
+                                id=${id//:/ }
+                                mknod /dev/mmd_hmip c $id
+                                break
+                        fi
+                done
+        fi
 }
 
 stop()

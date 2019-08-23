@@ -1,0 +1,2 @@
+*/1 * * * * root /bin/updateDCVars.tcl >/dev/null 2>/dev/null
+0 22 * * * root /opt/ccu-update-check.sh >/dev/null 2>/dev/null

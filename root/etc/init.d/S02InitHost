@@ -1,7 +1,74 @@
 #!/bin/bash
-
 start()
 {
+        virt=`systemd-detect-virt`
+
+        if [ $virt = "lxc" ]
+        then
+                for file in `find /sys/dev/char/*`
+                do
+                        if [[ -e $file/idVendor ]]
+                        then
+                                vendor=`cat $file/idVendor`
+
+                                if [ $vendor = "1b1f" ]
+                                then
+                                        product=`cat $file/idProduct`
+
+                                        if [ $product = "c00f" ]
+                                        then
+                                                id=`cat $file/dev`
+                                                id=${id//:/ }
+                                                busnum=$(printf "%03d" `cat $file/busnum`)
+                                                devnum=$(printf "%03d" `cat $file/devnum`)
+                                                path="/dev/bus/usb/"$busnum
+                                                device=$path"/"$devnum
+                                                mkdir -p $path
+                                                mknod $device c $id
+                                        fi
+
+                                        if [ $product = "c020" ]
+                                        then
+                                                id=`cat $file/dev`
+                                                id=${id//:/ }
+                                                busnum=$(printf "%03d" `cat $file/busnum`)
+                                                devnum=$(printf "%03d" `cat $file/devnum`)
+                                                path="/dev/bus/usb/"$busnum
+                                                device=$path"/"$devnum
+                                                mkdir -p $path
+                                                mknod $device c $id
+
+						for file2 in `find -H /sys/bus/usb/drivers/cp210x/* -type d`
+                                                do
+                                                        if [[ -e $file2/interface ]]
+                                                        then
+                                                                interface=`cat $file2/interface`
+
+                                                                if [[ $interface = "eQ-3 HmIP-RFUSB" ]]
+                                                                then
+                                                                        ttypath=`find -H $file2/tty* -maxdepth 0 -type d`
+                                                                        ttydevice="${ttypath##*/}"
+                                                                        id=`cat $ttypath/tty/$ttydevice/dev`
+                                                                        id=${id//:/ }
+                                                                        mknod /dev/$ttydevice c $id
+                                                                        break
+                                                                fi
+                                                        fi
+                                                done
+                                        fi
+                                fi
+                        fi
+                done
+
+                id=`cat /sys/devices/virtual/eq3loop/eq3loop/dev`
+                id=${id//:/ }
+                mknod /dev/eq3loop c $id
+
+                id=`cat /sys/devices/virtual/raw-uart/raw-uart/dev`
+                id=${id//:/ }
+                mknod /dev/raw-uart c $id
+        fi
+
         if [[ -e /etc/config/crRFD.conf ]]
         then
                 hmipdevice=`cat /etc/config/crRFD.conf`
@@ -11,11 +78,13 @@ start()
                         if [[ $hmipdevice == *"S1000"* ]]
                         then
                                 sleep 20
-#                                /usr/bin/socat -d pty,link=/dev/ttyS1000,raw tcp-connect:192.168.0.4:2200 &
                                /usr/bin/socat -d pty,link=/dev/ttyS1000,raw openssl-connect:192.168.0.107:2000,cert=/etc/ssl/homematic-socat/client.crt,key=/etc/ssl/homematic-socat/client.key,cafile=/etc/ssl/homematic-socat/server.crt,forever,commonname= &
                         else
-                                modprobe cp210x
-                                sh -c 'echo 1b1f c020 > /sys/bus/usb-serial/drivers/cp210x/new_id'
+                                if ! [ $virt = "lxc" ]
+                                then
+                                        modprobe cp210x
+                                        sh -c 'echo 1b1f c020 > /sys/bus/usb-serial/drivers/cp210x/new_id'
+                                fi
                         fi
                 fi
         fi
